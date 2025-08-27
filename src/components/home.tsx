@@ -8,7 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Zap,
   Palette,
@@ -37,7 +37,9 @@ import {
   SiVite,
 } from "react-icons/si";
 
-import { Button, Badge } from "./ui";
+import { Button, Badge, ThemeToggle } from "./ui";
+import FloatingSearch from "./ui/floating-search";
+
 import { Card, CardContent } from "./ui/layout";
 import { NavigationHeader } from "./layout/NavigationHeader";
 import { ComponentsSidebar } from "./layout/ComponentsSidebar";
@@ -95,9 +97,9 @@ import { ResizablePage } from "./pages/resizable-page";
 import { CollapsiblePage } from "./pages/collapsible-page";
 import { ThemeProvider } from "./providers/theme-provider";
 import MultiComboBoxPage from "./pages/multicombobox-page";
-import DocumentationPage from "./layout/documentation-page";
+import DocumentationPage from "./layout/Documentation";
 import { NavigationMenuPage } from "./pages/navigation-menu-page";
-import ShinyText from "./ui/shiny";
+import GradientBlinds from "./ui/gradient-blinds";
 
 // Mapeamento de componentes
 const componentPages: Record<string, unknown> = {
@@ -147,9 +149,58 @@ const componentPages: Record<string, unknown> = {
   multicombo: MultiComboBoxPage,
 };
 
-function HomePage() {
-  const { colorScheme } = useTheme();
+function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
+  const { colorScheme, actualTheme } = useTheme();
   const navigate = useNavigate();
+  const [bgColors, setBgColors] = useState<string[]>([]);
+  // search handled by FloatingSearch component
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const rootStyle = getComputedStyle(document.documentElement);
+
+    const parseVarOrHex = (raw: string) => {
+      const s = raw.trim();
+      if (!s) return "";
+      if (s.startsWith("#")) return s;
+      // Expect format: "H S% L%" (as set by ThemeProvider)
+      const parts = s.split(/\s+/);
+      if (parts.length < 3) return s;
+      const h = parseFloat(parts[0]);
+      const sat = parseFloat(parts[1].replace("%", ""));
+      const light = parseFloat(parts[2].replace("%", ""));
+
+      const hslToHex = (h: number, s: number, l: number) => {
+        s /= 100;
+        l /= 100;
+        const a = s * Math.min(l, 1 - l);
+        const f = (n: number) => {
+          const k = (n + h / 30) % 12;
+          const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+          return Math.round(255 * color)
+            .toString(16)
+            .padStart(2, "0");
+        };
+        return `#${f(0)}${f(8)}${f(4)}`;
+      };
+
+      return hslToHex(h, sat, light);
+    };
+
+    const primary = rootStyle.getPropertyValue("--primary") || "";
+    const accent = rootStyle.getPropertyValue("--accent") || "";
+    const secondary = rootStyle.getPropertyValue("--secondary") || "";
+
+    const c1 = parseVarOrHex(primary) || "#5227FF";
+    const c2 = parseVarOrHex(accent) || c1;
+    const c3 = parseVarOrHex(secondary) || c2;
+
+    // Prefer a two-color gradient; include a third if available
+    const colors = [c1, c2];
+    if (c3 && c3 !== c2) colors.push(c3);
+
+    setBgColors(colors);
+  }, [colorScheme, actualTheme]);
 
   const features = [
     {
@@ -255,6 +306,38 @@ function HomePage() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* Floating search (component) - only show when header is hidden */}
+      <AnimatePresence>
+        {!headerVisible && (
+          <motion.div
+            key="floating-search"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
+            className="fixed z-50 top-4 left-4"
+          >
+            <FloatingSearch
+              items={Object.keys(componentPages).map((id) => ({
+                id,
+                label: id
+                  .replace(/-/g, " ")
+                  .replace(/\b\w/g, (c) => c.toUpperCase()),
+              }))}
+              noFixed
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {!headerVisible && (
+        <div className="fixed z-50 top-4 right-6 w-12 flex items-center justify-center">
+          <div className="w-full flex items-center justify-center">
+            <ThemeToggle />
+          </div>
+        </div>
+      )}
+
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-secondary/20" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
@@ -268,7 +351,30 @@ function HomePage() {
       </div>
 
       <section className="relative overflow-hidden min-h-screen flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/60" />
+        <div className="absolute inset-0">
+          <GradientBlinds
+            className="w-full h-full"
+            gradientColors={bgColors}
+            angle={45}
+            noise={0}
+            blindCount={15}
+            blindMinWidth={1}
+            spotlightRadius={0.65}
+            spotlightSoftness={1}
+            spotlightOpacity={0.85}
+            mouseDampening={0.05}
+            distortAmount={5}
+            shineDirection="right"
+            mixBlendMode="overlay"
+          />
+        </div>
+        <div
+          className={`absolute inset-0 bg-gradient-to-b from-transparent ${
+            actualTheme === "light"
+              ? "via-background/10 to-background/30"
+              : "via-background/30 to-background/60"
+          }`}
+        />
         <div className="relative w-full">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-32">
             <motion.div
@@ -291,12 +397,7 @@ function HomePage() {
                   />
                   <span className="relative inline-block">
                     <span className="relative bg-primary bg-clip-text text-transparent drop-shadow-2xl">
-                      <ShinyText
-                        text="Glacien"
-                        disabled={false}
-                        speed={3}
-                        className="custom-class"
-                      />
+                      Glacien
                     </span>
                   </span>
                 </h1>
@@ -374,90 +475,6 @@ function HomePage() {
                   </span>
                 </Button>
               </motion.div>
-              <div className="absolute top-16 left-16 hidden lg:block">
-                <motion.div
-                  animate={{ y: [0, -24, 0], rotate: [0, 8, 0] }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full backdrop-blur-lg shadow-2xl relative overflow-hidden"
-                >
-                  <span
-                    className="absolute inset-0 pointer-events-none shine-circle"
-                    style={{ animationDelay: "0s" }}
-                  />
-                </motion.div>
-              </div>
-              <div className="absolute top-32 left-1/4 hidden lg:block">
-                <motion.div
-                  animate={{ y: [0, -18, 0], rotate: [0, 6, 0] }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.5,
-                  }}
-                  className="w-14 h-14 bg-gradient-to-br from-secondary to-primary rounded-3xl backdrop-blur-md shadow-xl relative overflow-hidden"
-                >
-                  <span
-                    className="absolute inset-0 pointer-events-none shine-cube"
-                    style={{ animationDelay: "1.2s" }}
-                  />
-                </motion.div>
-              </div>
-              <div className="absolute top-24 right-24 hidden lg:block">
-                <motion.div
-                  animate={{ y: [0, 20, 0], rotate: [0, -10, 0] }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1,
-                  }}
-                  className="w-16 h-16 bg-gradient-to-br from-secondary to-primary rounded-2xl backdrop-blur-md shadow-xl relative overflow-hidden"
-                >
-                  <span
-                    className="absolute inset-0 pointer-events-none shine-cube"
-                    style={{ animationDelay: "2.4s" }}
-                  />
-                </motion.div>
-              </div>
-              <div className="absolute bottom-24 left-32 hidden lg:block">
-                <motion.div
-                  animate={{ y: [0, -14, 0], rotate: [0, 12, 0] }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1.5,
-                  }}
-                  className="w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-3xl backdrop-blur-lg shadow-2xl relative overflow-hidden"
-                >
-                  <span
-                    className="absolute inset-0 pointer-events-none shine-cube"
-                    style={{ animationDelay: "3.6s" }}
-                  />
-                </motion.div>
-              </div>
-              <div className="absolute bottom-16 right-40 hidden lg:block">
-                <motion.div
-                  animate={{ y: [0, 12, 0], rotate: [0, -8, 0] }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 2,
-                  }}
-                  className="w-20 h-20 bg-gradient-to-br from-secondary to-primary rounded-full backdrop-blur-lg shadow-2xl relative overflow-hidden"
-                >
-                  <span
-                    className="absolute inset-0 pointer-events-none shine-circle"
-                    style={{ animationDelay: "2.8s" }}
-                  />
-                </motion.div>
-              </div>
             </motion.div>
           </div>
         </div>
@@ -573,7 +590,7 @@ function HomePage() {
                 Por que escolher o
               </span>
               <br />
-              <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
                 Glacien?
               </span>
             </h2>
@@ -671,7 +688,7 @@ function HomePage() {
                 Simples de usar,
               </span>
               <br />
-              <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
                 poderoso de customizar
               </span>
             </h2>
@@ -982,11 +999,20 @@ export function App() {
 // Dashboard Principal
 function DashboardContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [headerVisible, setHeaderVisible] = useState(true);
   const [expandCategory, setExpandCategory] = useState<string>("");
   const navigate = useNavigate();
   const location = useLocation();
 
   const currentSection = location.pathname.split("/")[1] || "home";
+  useEffect(() => {
+    // Ensure there's no header on the Home page and header is enabled on other pages.
+    if (currentSection === "home") {
+      setHeaderVisible(false);
+    } else {
+      setHeaderVisible(true);
+    }
+  }, [currentSection]);
   const selectedComponent = location.pathname.split("/")[2] || "";
 
   const handleNavigation = (section: string, componentId?: string) => {
@@ -1029,11 +1055,16 @@ function DashboardContent() {
   return (
     <SidebarContext.Provider value={sidebarContextValue}>
       <div className="min-h-screen bg-background">
-        <NavigationHeader
-          onNavigate={handleNavigation}
-          currentSection={currentSection}
-          onToggleSidebar={toggleSidebar}
-        />
+        {/* headerVisible lifted to control FloatingSearch visibility */}
+        {/* headerVisible controlled by NavigationHeader via onVisibilityChange */}
+        {currentSection !== "home" && (
+          <NavigationHeader
+            onNavigate={handleNavigation}
+            currentSection={currentSection}
+            onToggleSidebar={toggleSidebar}
+            onVisibilityChange={(v) => setHeaderVisible(v)}
+          />
+        )}
 
         {/* Sidebar só aparece na seção de componentes */}
         {currentSection === "components" && (
@@ -1055,8 +1086,14 @@ function DashboardContent() {
         >
           <main className="min-h-[calc(100vh-4rem)] overflow-auto">
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/home" element={<HomePage />} />
+              <Route
+                path="/"
+                element={<HomePage headerVisible={headerVisible} />}
+              />
+              <Route
+                path="/home"
+                element={<HomePage headerVisible={headerVisible} />}
+              />
               <Route path="/docs" element={<DocumentationPage />} />
               <Route path="/themes" element={<ThemesPage />} />
               <Route path="/playground" element={<PlaygroundPage />} />

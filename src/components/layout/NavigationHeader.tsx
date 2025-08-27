@@ -25,6 +25,7 @@ interface NavigationHeaderProps {
   currentSection: string;
   onToggleSidebar: () => void;
   onSelectComponent?: (componentId: string) => void;
+  onVisibilityChange?: (visible: boolean) => void;
 }
 
 export function NavigationHeader({
@@ -32,11 +33,13 @@ export function NavigationHeader({
   currentSection,
   onToggleSidebar,
   onSelectComponent,
+  onVisibilityChange,
 }: NavigationHeaderProps) {
   const { colorScheme } = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Keyboard shortcuts
   React.useEffect(() => {
@@ -67,6 +70,47 @@ export function NavigationHeader({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [searchOpen]);
+
+  // Show header only after the user starts scrolling
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Track last Y to detect upward scroll and show header immediately
+    const lastY = { value: window.scrollY };
+    let rafId: number | null = null;
+
+    const onScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const delta = y - lastY.value;
+        // If user scrolls up by more than 5px, show header immediately
+        if (delta < -5) {
+          setScrolled(true);
+        } else {
+          setScrolled(y > 10);
+        }
+        lastY.value = y;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // run once to set initial state
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  // Decide whether to hide header until scroll: only on Home page
+  const hideUntilScroll = currentSection === "home";
+  const visible = hideUntilScroll ? scrolled : true;
+
+  // Notify parent about visibility changes
+  React.useEffect(() => {
+    if (onVisibilityChange) onVisibilityChange(visible);
+  }, [visible, onVisibilityChange]);
 
   const allComponents = [
     // Forms
@@ -479,229 +523,367 @@ export function NavigationHeader({
   return (
     <>
       {/* Main Header */}
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl"
-      >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-14">
-            <div className="flex items-center gap-2 lg:gap-4">
-              <motion.div
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.98 }}
-                className="flex items-center cursor-pointer pl-24 lg:pl-32"
-                onClick={() => onNavigate("home")}
-              >
-                <div className="flex items-center justify-center">
-                  <img
-                    src={
-                      colorScheme === "violet"
-                        ? "/logo-p-nobg.png"
-                        : "/logo-nobg.png"
-                    }
-                    alt="glacienUI Logo"
-                    className="w-6 h-6 lg:w-8 lg:h-8 transition-all duration-300 hover:scale-105 "
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.src =
-                        colorScheme === "violet" ? "/logo-p.png" : "/logo.png")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.src =
-                        colorScheme === "violet"
-                          ? "/logo-p-nobg.png"
-                          : "/logo-nobg.png")
-                    }
-                  />
-                </div>
-              </motion.div>
-
-              <div className="hidden lg:block relative" data-search-container>
-                <div className="relative">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setSearchOpen(!searchOpen)}
-                    className="w-80 justify-start text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+      <AnimatePresence>
+        {visible && (
+          <motion.header
+            key="nav"
+            initial={{ y: -80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -80, opacity: 0 }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl"
+          >
+            <div className="container mx-auto px-4">
+              <div className="flex items-center justify-between h-14">
+                <div className="flex items-center gap-2 lg:gap-4">
+                  <motion.div
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center cursor-pointer pl-24 lg:pl-32"
+                    onClick={() => onNavigate("home")}
                   >
-                    <Search className="h-4 w-4 mr-2" />
-                    Search components...
-                    <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
-                      <span className="text-xs">⌘</span>K
-                    </kbd>
+                    <div className="flex items-center justify-center">
+                      <img
+                        src={
+                          colorScheme === "violet"
+                            ? "/logo-p-nobg.png"
+                            : "/logo-nobg.png"
+                        }
+                        alt="glacienUI Logo"
+                        className="w-6 h-6 lg:w-8 lg:h-8 transition-all duration-300 hover:scale-105 "
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.src =
+                            colorScheme === "violet"
+                              ? "/logo-p.png"
+                              : "/logo.png")
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.src =
+                            colorScheme === "violet"
+                              ? "/logo-p-nobg.png"
+                              : "/logo-nobg.png")
+                        }
+                      />
+                    </div>
+                  </motion.div>
+
+                  <div
+                    className="hidden lg:block relative"
+                    data-search-container
+                  >
+                    <div className="relative">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setSearchOpen(!searchOpen)}
+                        className="w-80 justify-start text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                      >
+                        <Search className="h-4 w-4 mr-2" />
+                        Search components...
+                        <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+                          <span className="text-xs">⌘</span>K
+                        </kbd>
+                      </Button>
+                    </div>
+
+                    <AnimatePresence>
+                      {searchOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          className="absolute top-full left-0 w-96 mt-2 bg-background border rounded-lg shadow-xl z-50 overflow-hidden"
+                        >
+                          <div className="p-3 border-b bg-muted/30">
+                            <div className="relative">
+                              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Input
+                                placeholder="Search all components..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="pl-10 border-0 bg-background/50 focus:bg-background"
+                                autoFocus
+                              />
+                            </div>
+                          </div>
+
+                          <div className="max-h-80 overflow-y-auto">
+                            {filteredSearchItems.length > 0 ? (
+                              <>
+                                <div className="px-3 py-2 text-xs font-medium text-muted-foreground bg-muted/20">
+                                  {filteredSearchItems.length} component
+                                  {filteredSearchItems.length !== 1
+                                    ? "s"
+                                    : ""}{" "}
+                                  found
+                                </div>
+                                {filteredSearchItems.map((item, index) => (
+                                  <motion.button
+                                    key={item.id}
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.02 }}
+                                    onClick={() => {
+                                      // Navegar diretamente para a página do componente
+                                      onNavigate("components", item.id);
+                                      onSelectComponent?.(item.id);
+                                      setSearchOpen(false);
+                                      setSearchQuery("");
+                                    }}
+                                    className="w-full flex items-start gap-3 p-3 text-left hover:bg-accent/50 transition-colors border-b border-border/30 last:border-0"
+                                  >
+                                    <div className="flex-1">
+                                      <div className="flex items-center gap-2">
+                                        <span className="font-medium">
+                                          {item.label}
+                                        </span>
+                                        <Badge
+                                          variant="outline"
+                                          className={cn(
+                                            "text-xs",
+                                            getStatusColor(item.status)
+                                          )}
+                                        >
+                                          {item.status}
+                                        </Badge>
+                                      </div>
+                                      <div className="text-sm text-muted-foreground mt-1">
+                                        {item.description}
+                                      </div>
+                                      <div className="text-xs text-muted-foreground/70 mt-1">
+                                        {item.category}
+                                      </div>
+                                    </div>
+                                    <ChevronDown className="h-4 w-4 text-muted-foreground rotate-[-90deg]" />
+                                  </motion.button>
+                                ))}
+                              </>
+                            ) : searchQuery ? (
+                              <div className="text-center text-muted-foreground py-8">
+                                <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                                <div className="font-medium">
+                                  No components found
+                                </div>
+                                <div className="text-sm">
+                                  Try adjusting your search terms
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="text-center text-muted-foreground py-8">
+                                <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                                <div className="font-medium">
+                                  Search our component library
+                                </div>
+                                <div className="text-sm">
+                                  Type to find components by name, category, or
+                                  description
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {/* Floating search button when header is hidden */}
+                    {!visible && (
+                      <div
+                        className="fixed top-3 left-3 z-60"
+                        aria-hidden={visible}
+                      >
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="p-2"
+                          onClick={() => setSearchOpen(true)}
+                          title="Search components"
+                        >
+                          <Search className="h-5 w-5" />
+                        </Button>
+
+                        <AnimatePresence>
+                          {searchOpen && (
+                            <motion.div
+                              data-search-container
+                              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                              transition={{ duration: 0.15 }}
+                              className="mt-2 w-80 bg-background border rounded-lg shadow-xl overflow-hidden"
+                            >
+                              <div className="p-3 border-b bg-muted/30">
+                                <div className="relative">
+                                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                  <Input
+                                    placeholder="Search all components..."
+                                    value={searchQuery}
+                                    onChange={(e) =>
+                                      setSearchQuery(e.target.value)
+                                    }
+                                    className="pl-10 border-0 bg-background/50 focus:bg-background"
+                                    autoFocus
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="max-h-80 overflow-y-auto">
+                                {filteredSearchItems.length > 0 ? (
+                                  <>
+                                    <div className="px-3 py-2 text-xs font-medium text-muted-foreground bg-muted/20">
+                                      {filteredSearchItems.length} component
+                                      {filteredSearchItems.length !== 1
+                                        ? "s"
+                                        : ""}{" "}
+                                      found
+                                    </div>
+                                    {filteredSearchItems.map((item, index) => (
+                                      <motion.button
+                                        key={item.id}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: index * 0.02 }}
+                                        onClick={() => {
+                                          onNavigate("components", item.id);
+                                          onSelectComponent?.(item.id);
+                                          setSearchOpen(false);
+                                          setSearchQuery("");
+                                        }}
+                                        className="w-full flex items-start gap-3 p-3 text-left hover:bg-accent/50 transition-colors border-b border-border/30 last:border-0"
+                                      >
+                                        <div className="flex-1">
+                                          <div className="flex items-center gap-2">
+                                            <span className="font-medium">
+                                              {item.label}
+                                            </span>
+                                            <Badge
+                                              variant="outline"
+                                              className={cn(
+                                                "text-xs",
+                                                getStatusColor(item.status)
+                                              )}
+                                            >
+                                              {item.status}
+                                            </Badge>
+                                          </div>
+                                          <div className="text-sm text-muted-foreground mt-1">
+                                            {item.description}
+                                          </div>
+                                          <div className="text-xs text-muted-foreground/70 mt-1">
+                                            {item.category}
+                                          </div>
+                                        </div>
+                                        <ChevronDown className="h-4 w-4 text-muted-foreground rotate-[-90deg]" />
+                                      </motion.button>
+                                    ))}
+                                  </>
+                                ) : searchQuery ? (
+                                  <div className="text-center text-muted-foreground py-8">
+                                    <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                                    <div className="font-medium">
+                                      No components found
+                                    </div>
+                                    <div className="text-sm">
+                                      Try adjusting your search terms
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="text-center text-muted-foreground py-8">
+                                    <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                                    <div className="font-medium">
+                                      Search our component library
+                                    </div>
+                                    <div className="text-sm">
+                                      Type to find components by name, category,
+                                      or description
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Simplified Navigation */}
+                <nav className="hidden md:flex items-center gap-2">
+                  {navigationItems.map((item, index) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05, duration: 0.3 }}
+                    >
+                      <Button
+                        variant={
+                          currentSection === item.id ? "default" : "ghost"
+                        }
+                        size="sm"
+                        onClick={() => handleItemClick(item)}
+                        className={cn(
+                          "relative transition-all duration-200 h-8 px-3",
+                          currentSection === item.id
+                            ? "bg-primary text-primary-foreground shadow-sm"
+                            : "hover:bg-accent hover:text-accent-foreground text-muted-foreground"
+                        )}
+                      >
+                        {item.icon}
+                        <span className="ml-1.5 text-sm font-medium">
+                          {item.label}
+                        </span>
+                        {item.badge && (
+                          <Badge
+                            variant="secondary"
+                            className="text-xs ml-1.5 h-4 px-1"
+                          >
+                            {item.badge}
+                          </Badge>
+                        )}
+                      </Button>
+                    </motion.div>
+                  ))}
+                </nav>
+
+                {/* Right Actions */}
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="hidden md:flex h-8 w-8 p-0"
+                    onClick={() =>
+                      window.open(
+                        "https://github.com/glatztp/Glacien",
+                        "_blank"
+                      )
+                    }
+                    title="View on GitHub"
+                  >
+                    <Github className="h-4 w-4" />
+                  </Button>
+
+                  <ThemeToggle />
+
+                  {/* Mobile Menu Button */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="md:hidden"
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  >
+                    {mobileMenuOpen ? (
+                      <X className="h-5 w-5" />
+                    ) : (
+                      <Menu className="h-5 w-5" />
+                    )}
                   </Button>
                 </div>
-
-                <AnimatePresence>
-                  {searchOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      className="absolute top-full left-0 w-96 mt-2 bg-background border rounded-lg shadow-xl z-50 overflow-hidden"
-                    >
-                      <div className="p-3 border-b bg-muted/30">
-                        <div className="relative">
-                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            placeholder="Search all components..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 border-0 bg-background/50 focus:bg-background"
-                            autoFocus
-                          />
-                        </div>
-                      </div>
-
-                      <div className="max-h-80 overflow-y-auto">
-                        {filteredSearchItems.length > 0 ? (
-                          <>
-                            <div className="px-3 py-2 text-xs font-medium text-muted-foreground bg-muted/20">
-                              {filteredSearchItems.length} component
-                              {filteredSearchItems.length !== 1 ? "s" : ""}{" "}
-                              found
-                            </div>
-                            {filteredSearchItems.map((item, index) => (
-                              <motion.button
-                                key={item.id}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.02 }}
-                                onClick={() => {
-                                  // Navegar diretamente para a página do componente
-                                  onNavigate("components", item.id);
-                                  onSelectComponent?.(item.id);
-                                  setSearchOpen(false);
-                                  setSearchQuery("");
-                                }}
-                                className="w-full flex items-start gap-3 p-3 text-left hover:bg-accent/50 transition-colors border-b border-border/30 last:border-0"
-                              >
-                                <div className="flex-1">
-                                  <div className="flex items-center gap-2">
-                                    <span className="font-medium">
-                                      {item.label}
-                                    </span>
-                                    <Badge
-                                      variant="outline"
-                                      className={cn(
-                                        "text-xs",
-                                        getStatusColor(item.status)
-                                      )}
-                                    >
-                                      {item.status}
-                                    </Badge>
-                                  </div>
-                                  <div className="text-sm text-muted-foreground mt-1">
-                                    {item.description}
-                                  </div>
-                                  <div className="text-xs text-muted-foreground/70 mt-1">
-                                    {item.category}
-                                  </div>
-                                </div>
-                                <ChevronDown className="h-4 w-4 text-muted-foreground rotate-[-90deg]" />
-                              </motion.button>
-                            ))}
-                          </>
-                        ) : searchQuery ? (
-                          <div className="text-center text-muted-foreground py-8">
-                            <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                            <div className="font-medium">
-                              No components found
-                            </div>
-                            <div className="text-sm">
-                              Try adjusting your search terms
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="text-center text-muted-foreground py-8">
-                            <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                            <div className="font-medium">
-                              Search our component library
-                            </div>
-                            <div className="text-sm">
-                              Type to find components by name, category, or
-                              description
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             </div>
-
-            {/* Simplified Navigation */}
-            <nav className="hidden md:flex items-center gap-2">
-              {navigationItems.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05, duration: 0.3 }}
-                >
-                  <Button
-                    variant={currentSection === item.id ? "default" : "ghost"}
-                    size="sm"
-                    onClick={() => handleItemClick(item)}
-                    className={cn(
-                      "relative transition-all duration-200 h-8 px-3",
-                      currentSection === item.id
-                        ? "bg-primary text-primary-foreground shadow-sm"
-                        : "hover:bg-accent hover:text-accent-foreground text-muted-foreground"
-                    )}
-                  >
-                    {item.icon}
-                    <span className="ml-1.5 text-sm font-medium">
-                      {item.label}
-                    </span>
-                    {item.badge && (
-                      <Badge
-                        variant="secondary"
-                        className="text-xs ml-1.5 h-4 px-1"
-                      >
-                        {item.badge}
-                      </Badge>
-                    )}
-                  </Button>
-                </motion.div>
-              ))}
-            </nav>
-
-            {/* Right Actions */}
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="hidden md:flex h-8 w-8 p-0"
-                onClick={() =>
-                  window.open("https://github.com/glatztp/Glacien", "_blank")
-                }
-                title="View on GitHub"
-              >
-                <Github className="h-4 w-4" />
-              </Button>
-
-              <ThemeToggle />
-
-              {/* Mobile Menu Button */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="md:hidden"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                {mobileMenuOpen ? (
-                  <X className="h-5 w-5" />
-                ) : (
-                  <Menu className="h-5 w-5" />
-                )}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </motion.header>
+          </motion.header>
+        )}
+      </AnimatePresence>
 
       {/* Mobile Menu */}
       <AnimatePresence>

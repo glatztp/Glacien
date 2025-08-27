@@ -234,9 +234,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   > = {
     blue: {
-      primary: "191 100% 42%",
-      primaryHover: "191 100% 38%",
-      primaryActive: "191 100% 34%",
+      // slightly darker primary to improve contrast (was 42% lightness)
+      primary: "191 100% 36%",
+      primaryHover: "191 100% 32%",
+      primaryActive: "191 100% 28%",
       primaryForeground: "0 0% 100%",
       ring: "191 100% 42%",
       accent: "191 100% 95%",

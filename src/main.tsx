@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/globals.css";
 import { SonnerProvider } from "./components/ui/feedback/sonner";
-import ProfessionalDashboard from "./components/Home";
 
 import { Analytics } from "@vercel/analytics/react";
+import ProfessionalDashboard from "./components/Home";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

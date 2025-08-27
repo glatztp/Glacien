@@ -371,7 +371,6 @@ export default function DocumentationPage() {
               </div>
             </div>
 
-            {/* Section: Introduction */}
             {activeSection === "introduction" && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

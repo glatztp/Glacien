@@ -4,7 +4,7 @@ import "./styles/globals.css";
 import { SonnerProvider } from "./components/ui/feedback/sonner";
 
 import { Analytics } from "@vercel/analytics/react";
-import ProfessionalDashboard from "./components/Home";
+import ProfessionalDashboard from "./components/home";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

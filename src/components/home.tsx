@@ -660,7 +660,7 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
             <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-4 font-medium">
               Cada componente foi
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold mx-3">
-                meticulosamente pensados
+                meticulosamente pensado
               </span>
               pensando na experiência do desenvolvedor e na
               <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent font-bold ml-3">

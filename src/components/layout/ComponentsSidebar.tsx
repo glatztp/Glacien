@@ -330,7 +330,7 @@ export function ComponentsSidebar({
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -320, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-72 bg-background border-r z-40 flex flex-col"
+              className="fixed left-0 top-15 h-[calc(100vh-3rem)] w-72 bg-background border-r z-40 flex flex-col"
             >
               <div className="p-4 border-b bg-gradient-to-r from-primary/5 to-secondary/5">
                 <div className="flex items-center justify-between mb-4">

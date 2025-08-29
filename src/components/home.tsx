@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useRef } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -43,6 +43,7 @@ import FloatingSearch from "./ui/floating-search";
 import { Card, CardContent } from "./ui/layout";
 import { NavigationHeader } from "./layout/NavigationHeader";
 import { ComponentsSidebar } from "./layout/ComponentsSidebar";
+import ScrollUp from "./ui/scroll-up";
 interface SidebarContextType {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
@@ -304,9 +305,64 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
     fetchStats();
   }, []);
 
+  // Newsletter state
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [subscribed, setSubscribed] = useState<boolean>(() => {
+    try {
+      return Boolean(localStorage.getItem("glacien_newsletter_subscribed"));
+    } catch (e) {
+      return false;
+    }
+  });
+  const [subscribing, setSubscribing] = useState(false);
+  const [newsletterMessage, setNewsletterMessage] = useState<string | null>(
+    null
+  );
+  const messageTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (messageTimeoutRef.current) {
+        clearTimeout(messageTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleSubscribe = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const email = newsletterEmail.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setNewsletterMessage("Por favor insira um e-mail válido.");
+      return;
+    }
+
+    try {
+      setSubscribing(true);
+      setNewsletterMessage(null);
+      await new Promise((r) => setTimeout(r, 600));
+
+      try {
+        localStorage.setItem("glacien_newsletter_subscribed", "1");
+        localStorage.setItem("glacien_newsletter_email", email);
+      } catch (err) {
+        // ignore
+      }
+
+      setSubscribed(true);
+      setNewsletterMessage("Inscrição confirmada! Obrigado por se inscrever.");
+      // limpar mensagem depois de 4s
+      if (messageTimeoutRef.current) clearTimeout(messageTimeoutRef.current);
+      messageTimeoutRef.current = setTimeout(() => {
+        setNewsletterMessage(null);
+      }, 4000);
+      setNewsletterEmail("");
+    } finally {
+      setSubscribing(false);
+    }
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Floating search (component) - only show when header is hidden */}
       <AnimatePresence>
         {!headerVisible && (
           <motion.div
@@ -389,11 +445,11 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
                 transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
                 className="mb-6 sm:mb-8 lg:mb-12"
               >
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-none flex items-center justify-center gap-6 mb-4">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-none flex items-center justify-center gap-6 mb-4">
                   <img
                     src={colorScheme === "violet" ? "/logo-p.png" : "/logo.png"}
                     alt="GlacienLogo"
-                    className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 xl:h-28 xl:w-28 mt-3"
+                    className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:h-28 lg:w-28 xl:h-28 mt-3 object-contain"
                   />
                   <span className="relative inline-block">
                     <span className="relative bg-primary bg-clip-text text-transparent drop-shadow-2xl">
@@ -869,33 +925,186 @@ export function App() {
         </div>
       </section>
 
-      {/* Revolutionary Footer */}
-      <footer className="relative border-t-2 border-primary/20 overflow-hidden">
+      {/*Footer*/}
+      <footer className="relative border-t border-primary/10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-secondary/5" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:20px_20px]" />
 
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="sm:col-span-2 lg:col-span-1"
+              className="flex flex-col"
             >
-              <div className="mb-8">
-                <h3 className="font-black text-3xl sm:text-4xl mb-6 bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+              <div className="mb-4">
+                <h3 className="font-extrabold text-2xl sm:text-3xl mb-2 bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
                   Glacien
                 </h3>
-                <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary rounded-full mb-6" />
+                <div className="h-1 w-16 bg-gradient-to-r from-primary to-secondary rounded-full mb-4" />
               </div>
-              <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-sm font-medium">
-                Componentes React modernos para interfaces
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold ml-2">
-                  extraordinárias
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-sm font-medium mb-4">
+                Componentes React modernos e acessíveis para construir
+                interfaces
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold ml-1">
+                  incríveis
                 </span>
-                . Construindo o futuro do desenvolvimento web.
+                .
               </p>
+
+              <div className="flex items-center gap-3 mt-3">
+                <button
+                  aria-label="GitHub"
+                  onClick={() =>
+                    window.open("https://github.com/glatztp/Glacien", "_blank")
+                  }
+                  className="inline-flex items-center justify-center p-2 rounded-md bg-background/60 hover:bg-primary/5 border border-border/20 transition focus:outline-none focus:ring-2 focus:ring-primary/30"
+                >
+                  <Github className="h-5 w-5 text-primary" />
+                </button>
+
+                <button
+                  aria-label="Comunidade"
+                  onClick={() => window.open("#", "_self")}
+                  className="relative inline-flex items-center gap-2 px-3 py-2 rounded-md bg-background/60 hover:bg-primary/5 border border-border/20 transition text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="hidden sm:inline">Comunidade</span>
+                  {subscribed && (
+                    <motion.span
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0, opacity: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      }}
+                      className="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500 text-white text-[10px] font-bold shadow-md border-2 border-white"
+                      aria-hidden={!subscribed}
+                    >
+                      ✓
+                    </motion.span>
+                  )}
+                </button>
+              </div>
+
+              <form
+                onSubmit={handleSubscribe}
+                className="mt-6 w-full max-w-sm"
+                aria-label="Inscreva-se na newsletter"
+              >
+                <label htmlFor="newsletter-email" className="sr-only">
+                  Seu e-mail
+                </label>
+                <div className="flex items-center bg-background/60 rounded-lg border border-border/20 overflow-hidden">
+                  <input
+                    id="newsletter-email"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    className="flex-1 px-3 py-2 text-sm bg-transparent placeholder:text-muted-foreground focus:outline-none focus:ring-0"
+                    placeholder="Seu e-mail"
+                    type="email"
+                    aria-label="email"
+                  />
+                  <Button
+                    size="sm"
+                    type="submit"
+                    className="px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-none shadow-sm hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                  >
+                    {subscribing
+                      ? "Enviando..."
+                      : subscribed
+                        ? "Inscrito"
+                        : "Inscrever"}
+                  </Button>
+                </div>
+                <div className="mt-2">
+                  <AnimatePresence>
+                    {newsletterMessage && (
+                      <motion.div
+                        key="newsletter-msg"
+                        initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                        transition={{ duration: 0.32, ease: "easeOut" }}
+                        className={`inline-flex items-center gap-3 px-3 py-2 rounded-md shadow-sm border ${
+                          subscribed
+                            ? "bg-emerald-50 border-emerald-200"
+                            : "bg-rose-50 border-rose-200"
+                        } text-sm`}
+                        aria-live="polite"
+                      >
+                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white shadow text-emerald-600">
+                          {subscribed ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              className="w-4 h-4"
+                            >
+                              <path
+                                d="M20 6L9 17l-5-5"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              className="w-4 h-4 text-rose-600"
+                            >
+                              <path
+                                d="M6 18L18 6M6 6l12 12"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          )}
+                        </span>
+                        <span
+                          className={
+                            subscribed ? "text-emerald-700" : "text-rose-600"
+                          }
+                        >
+                          {newsletterMessage}
+                        </span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Receba novidades e lançamentos — sem spam.
+                </p>
+              </form>
             </motion.div>
 
             {[
@@ -936,38 +1145,52 @@ export function App() {
             ].map((section, sectionIndex) => (
               <motion.div
                 key={section.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: sectionIndex * 0.1, duration: 0.6 }}
+                transition={{ delay: sectionIndex * 0.08, duration: 0.6 }}
                 viewport={{ once: true }}
+                className="pt-2"
               >
-                <h4 className="font-black text-xl sm:text-2xl mb-6 sm:mb-8 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+                <h4 className="font-black text-lg sm:text-xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-primary">
                   {section.title}
                 </h4>
-                <ul className="space-y-4 text-base sm:text-lg text-muted-foreground">
+                <ul className="space-y-3 text-sm sm:text-base text-muted-foreground">
                   {section.items.map((item, itemIndex) => (
                     <motion.li
                       key={item.name}
-                      initial={{ opacity: 0, x: -10 }}
+                      initial={{ opacity: 0, x: -8 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{
-                        delay: sectionIndex * 0.1 + itemIndex * 0.05,
-                        duration: 0.4,
+                        delay: sectionIndex * 0.08 + itemIndex * 0.04,
+                        duration: 0.36,
                       }}
                       viewport={{ once: true }}
                     >
                       <a
                         href="#"
-                        className="group flex items-center hover:text-primary transition-all duration-300 cursor-pointer font-medium"
+                        className="flex items-center gap-3 hover:text-primary transition-colors duration-200 cursor-pointer"
                         onClick={(e) => {
                           e.preventDefault();
                           item.action();
                         }}
                       >
-                        <span className="group-hover:translate-x-2 transition-transform duration-300">
-                          {item.name}
+                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-background/60 border border-border/20 text-primary">
+                          <svg
+                            className="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="3"
+                              stroke="currentColor"
+                              strokeWidth="1.2"
+                            />
+                          </svg>
                         </span>
-                        <div className="ml-2 w-0 group-hover:w-2 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all duration-300" />
+                        <span className="truncate">{item.name}</span>
                       </a>
                     </motion.li>
                   ))}
@@ -977,18 +1200,36 @@ export function App() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
             viewport={{ once: true }}
-            className="border-t-2 border-primary/20 mt-16 sm:mt-20 pt-8 sm:pt-12 text-center"
+            className="mt-10 pt-6 border-t border-primary/10 flex flex-col sm:flex-row items-center justify-between gap-4"
           >
-            <div className="mb-6">
-              <div className="h-1 w-32 bg-gradient-to-r from-primary via-secondary to-primary rounded-full mx-auto mb-6" />
+            <div className="flex items-center gap-4">
+              <div className="h-1 w-24 bg-gradient-to-r from-primary via-secondary to-primary rounded-full" />
+              <p className="text-sm text-muted-foreground">
+                &copy; {new Date().getFullYear()} Glacien. Todos os direitos
+                reservados.
+              </p>
             </div>
-            <p className="text-base sm:text-lg font-bold bg-gradient-to-r from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent">
-              &copy; 2025 Glacien. Todos os direitos reservados.
-            </p>
+
+            <div className="flex items-center gap-4">
+              <a
+                href="#"
+                className="text-sm text-muted-foreground hover:text-primary transition"
+                onClick={(e) => e.preventDefault()}
+              >
+                Política de Privacidade
+              </a>
+              <a
+                href="#"
+                className="text-sm text-muted-foreground hover:text-primary transition"
+                onClick={(e) => e.preventDefault()}
+              >
+                Termos
+              </a>
+            </div>
           </motion.div>
         </div>
       </footer>
@@ -996,7 +1237,6 @@ export function App() {
   );
 }
 
-// Dashboard Principal
 function DashboardContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -1013,6 +1253,13 @@ function DashboardContent() {
       setHeaderVisible(true);
     }
   }, [currentSection]);
+  useEffect(() => {
+    if (currentSection === "components") {
+      setSidebarOpen(true);
+    } else {
+      setSidebarOpen(false);
+    }
+  }, [currentSection]);
   const selectedComponent = location.pathname.split("/")[2] || "";
 
   const handleNavigation = (section: string, componentId?: string) => {
@@ -1023,7 +1270,6 @@ function DashboardContent() {
       navigate(`/${section}`);
     }
 
-    // Se navegar para componentes, abre a sidebar automaticamente
     if (section === "components") {
       setSidebarOpen(true);
     } else {
@@ -1040,7 +1286,6 @@ function DashboardContent() {
   };
 
   const toggleSidebar = () => {
-    // Só permite abrir a sidebar se estiver na seção de componentes
     if (currentSection === "components") {
       setSidebarOpen(!sidebarOpen);
     }
@@ -1078,7 +1323,6 @@ function DashboardContent() {
           />
         )}
 
-        {/* Main content com margem quando sidebar está aberta */}
         <div
           className={`transition-all duration-300 ${
             sidebarOpen && currentSection === "components" ? "lg:ml-72" : ""
@@ -1110,12 +1354,12 @@ function DashboardContent() {
             </Routes>
           </main>
         </div>
+        <ScrollUp />
       </div>
     </SidebarContext.Provider>
   );
 }
 
-// Página de overview dos componentes
 function ComponentsOverview({
   onCategoryExpand,
 }: {
@@ -1123,7 +1367,6 @@ function ComponentsOverview({
 }) {
   const navigate = useNavigate();
 
-  // Mapeamento de categorias para componentes e IDs de categoria
   const categoryData: Record<
     string,
     { componentId: string; categoryId: string }
@@ -1139,68 +1382,122 @@ function ComponentsOverview({
   const handleExplore = (categoryTitle: string) => {
     const data = categoryData[categoryTitle];
     if (data) {
-      // Expandir a categoria na sidebar
       if (onCategoryExpand) {
         onCategoryExpand(data.categoryId);
       }
-      // Navegar para o componente
       navigate(`/components/${data.componentId}`);
     }
   };
-
   return (
     <div className="p-6 mt-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-4xl mx-auto"
+        className="max-w-6xl mx-auto"
       >
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Biblioteca de Componentes</h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Componentes React modernos e acessíveis para suas aplicações
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-8">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold mb-1">
+              Biblioteca de Componentes
+            </h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
+              Componentes React modernos e acessíveis para suas aplicações
+            </p>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
               title: "Formulários",
+              icon: <Zap className="h-6 w-6 text-primary" />,
               count: 11,
               desc: "Inputs, validação e controles",
             },
-            { title: "Navegação", count: 4, desc: "Menus e navegação" },
-            { title: "Layout", count: 7, desc: "Estrutura e organização" },
-            { title: "Feedback", count: 5, desc: "Notificações e alertas" },
-            { title: "Overlays", count: 9, desc: "Modais e popovers" },
-            { title: "Dados", count: 3, desc: "Exibição de dados" },
+            {
+              title: "Navegação",
+              icon: <Globe className="h-6 w-6 text-primary" />,
+              count: 4,
+              desc: "Menus e navegação",
+            },
+            {
+              title: "Layout",
+              icon: <Code2 className="h-6 w-6 text-primary" />,
+              count: 7,
+              desc: "Estrutura e organização",
+            },
+            {
+              title: "Feedback",
+              icon: <Shield className="h-6 w-6 text-primary" />,
+              count: 5,
+              desc: "Notificações e alertas",
+            },
+            {
+              title: "Overlays",
+              icon: <Sparkles className="h-6 w-6 text-primary" />,
+              count: 9,
+              desc: "Modais e popovers",
+            },
+            {
+              title: "Dados",
+              icon: <Users className="h-6 w-6 text-primary" />,
+              count: 3,
+              desc: "Exibição de dados",
+            },
           ].map((category, index) => (
             <motion.div
               key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: index * 0.06 }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-2 mt-3">
-                    {category.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {category.desc}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <Badge variant="outline">
-                      {category.count} componentes
-                    </Badge>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleExplore(category.title)}
-                      className="hover:bg-primary hover:text-primary-foreground transition-colors"
-                    >
-                      Explorar →
-                    </Button>
+              <Card
+                className="h-full rounded-2xl overflow-hidden transform transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl border border-border/30 bg-background/70 backdrop-blur-sm cursor-pointer"
+                onClick={() => handleExplore(category.title)}
+              >
+                <CardContent className="p-6 flex flex-col sm:flex-row gap-4 items-start">
+                  <div className="flex-shrink-0">
+                    <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 shadow-md ring-1 ring-primary/10">
+                      <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/5">
+                        {category.icon}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-semibold mb-1">
+                          {category.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mb-3 max-w-xs">
+                          {category.desc}
+                        </p>
+                        <Badge
+                          variant="secondary"
+                          className="text-xs px-2 py-1 rounded-full"
+                        >
+                          {category.count} componentes
+                        </Badge>
+                      </div>
+
+                      <div className="ml-auto flex items-center text-muted-foreground">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          className="w-5 h-5 opacity-70"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -1208,9 +1505,10 @@ function ComponentsOverview({
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">
-            👈 Use a sidebar para explorar todos os componentes
+        <div className="text-center mt-10">
+          <p className="text-sm text-muted-foreground">
+            👈 Use a sidebar para explorar todos os componentes ou clique em um
+            cartão para ir direto ao exemplo.
           </p>
         </div>
       </motion.div>

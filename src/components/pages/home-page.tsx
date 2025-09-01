@@ -183,7 +183,7 @@ const HomePage = () => {
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               Por que escolher
-              <span className="text-gradient-primary"> glacienUI</span>?
+              <span className="text-gradient-primary"> glacien</span>?
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Recursos pensados para desenvolvedores modernos que buscam

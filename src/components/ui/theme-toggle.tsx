@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as React from "react";
 import { motion } from "framer-motion";
 import {
@@ -9,6 +10,7 @@ import {
   Snowflake,
   Coffee,
   Planet,
+  Check,
 } from "phosphor-react";
 import { Button } from "./button";
 import {
@@ -22,12 +24,56 @@ import {
 import { useTheme } from "../providers/theme-provider";
 
 export function ThemeToggle() {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, theme, colorScheme, setColorScheme } = useTheme();
+  const [showColors, setShowColors] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const closeTimer = React.useRef<NodeJS.Timeout | null>(null);
+
+  const scheduleClose = (ms = 180) => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => {
+      setOpen(false);
+      setShowColors(false);
+      closeTimer.current = null;
+    }, ms);
+  };
+
+  const cancelClose = () => {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current);  
+      closeTimer.current = null;
+    }
+  };
+
+  type ColorKey =
+    | "blue"
+    | "emerald"
+    | "violet"
+    | "rose"
+    | "orange"
+    | "cyan"
+    | "premium";
+
+  const colorOptions: { key: ColorKey; label: string; hsl: string }[] = [
+    { key: "blue", label: "Blue", hsl: "191 100% 36%" },
+    { key: "emerald", label: "Emerald", hsl: "151 91% 40%" },
+    { key: "violet", label: "Violet", hsl: "262 91% 60%" },
+    { key: "rose", label: "Rose", hsl: "340 91% 60%" },
+    { key: "orange", label: "Orange", hsl: "24 91% 60%" },
+    { key: "cyan", label: "Cyan", hsl: "190 91% 60%" },
+    { key: "premium", label: "Premium", hsl: "45 100% 51%" },
+  ];
 
   return (
-    <DropdownMenu>
+    <DropdownMenu
+      open={open}
+      onOpenChange={(v) => {
+        setOpen(v);
+        if (!v) setShowColors(false);
+      }}
+    >
       <DropdownMenuTrigger asChild>
-        <div className="inline-block w-12">
+        <div className="inline-block w-12 relative">
           <Button
             variant="ghost"
             size="sm"
@@ -100,7 +146,9 @@ export function ThemeToggle() {
             Claro
           </span>
           {theme === "light" && (
-            <span className="ml-auto text-xs text-foreground">✓</span>
+            <span className="ml-auto text-foreground">
+              <Check className="h-4 w-4" />
+            </span>
           )}
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -114,7 +162,9 @@ export function ThemeToggle() {
             Escuro
           </span>
           {theme === "dark" && (
-            <span className="ml-auto text-xs text-foreground">✓</span>
+            <span className="ml-auto text-foreground">
+              <Check className="h-4 w-4" />
+            </span>
           )}
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -130,9 +180,71 @@ export function ThemeToggle() {
             Sistema
           </span>
           {theme === "system" && (
-            <span className="ml-auto text-xs text-foreground">✓</span>
+            <span className="ml-auto text-foreground">
+              <Check className="h-4 w-4" />
+            </span>
           )}
         </DropdownMenuItem>
+
+        <div className="relative">
+          <DropdownMenuItem
+            onMouseEnter={() => {
+              cancelClose();
+              setOpen(true);
+              setShowColors(true);
+            }}
+            onMouseLeave={() => scheduleClose()}
+            className={`flex items-center gap-3 rounded-md px-2  hover:bg-accent/5`}
+          >
+            <span className="flex items-center justify-center rounded-md w-8 h-8 bg-muted/10 text-muted-foreground">
+              <span className="h-4 w-4" />
+            </span>
+            <span className="flex-1">Cores do tema</span>
+            <span className="ml-auto text-xs text-foreground"></span>
+          </DropdownMenuItem>
+
+          {showColors && (
+            <motion.div
+              initial={{ opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 8 }}
+              transition={{ duration: 0.12 }}
+              className="absolute right-full top-0 -translate-y-1/2 mr-3 w-44 p-2 rounded-xl bg-background border border-border/30 shadow-lg z-50"
+              onMouseEnter={() => {
+                cancelClose();
+                setOpen(true);
+                setShowColors(true);
+              }}
+              onMouseLeave={() => scheduleClose()}
+            >
+              <div className="text-xs font-medium mb-1 text-muted-foreground">
+                Cores do tema
+              </div>
+              <div className="flex flex-col gap-2">
+                {colorOptions.map((opt) => (
+                  <button
+                    key={opt.key}
+                    onClick={() => setColorScheme(opt.key)}
+                    className={`flex items-center gap-3 rounded-md px-2 py-2 w-full text-sm text-left hover:bg-accent/5 ${colorScheme === opt.key ? "bg-accent/10 font-semibold" : ""}`}
+                    aria-pressed={colorScheme === opt.key}
+                  >
+                    <span
+                      className="w-8 h-8 rounded-md flex-shrink-0"
+                      style={{
+                        background: `linear-gradient(135deg, hsl(${opt.hsl}), hsl(${opt.hsl} / 0.8))`,
+                        boxShadow: `inset 0 0 0 1px rgba(0,0,0,0.06)`,
+                      }}
+                    />
+                    <span className="flex-1">{opt.label}</span>
+                    {colorScheme === opt.key && (
+                      <span className="text-xs"><Check /></span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </div>
 
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Temas Especiais</DropdownMenuLabel>
@@ -148,7 +260,9 @@ export function ThemeToggle() {
             Neon Cyber
           </span>
           {theme === "neon" && (
-            <span className="ml-auto text-xs text-foreground">✓</span>
+            <span className="ml-auto text-foreground">
+              <Check className="h-4 w-4" />
+            </span>
           )}
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -164,7 +278,9 @@ export function ThemeToggle() {
             Sunset Paradise
           </span>
           {theme === "sunset" && (
-            <span className="ml-auto text-xs text-foreground">✓</span>
+            <span className="ml-auto text-foreground">
+              <Check className="h-4 w-4" />
+            </span>
           )}
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -180,7 +296,9 @@ export function ThemeToggle() {
             Ocean Deep
           </span>
           {theme === "ocean" && (
-            <span className="ml-auto text-xs text-foreground">✓</span>
+            <span className="ml-auto text-foreground">
+              <Check className="h-4 w-4" />
+            </span>
           )}
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -196,7 +314,9 @@ export function ThemeToggle() {
             Coffee House
           </span>
           {theme === "coffee" && (
-            <span className="ml-auto text-xs text-foreground">✓</span>
+            <span className="ml-auto text-foreground">
+              <Check className="h-4 w-4" />
+            </span>
           )}
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -212,7 +332,9 @@ export function ThemeToggle() {
             Galaxy Explorer
           </span>
           {theme === "galaxy" && (
-            <span className="ml-auto text-xs text-foreground">✓</span>
+            <span className="ml-auto text-foreground">
+              <Check className="h-4 w-4" />
+            </span>
           )}
         </DropdownMenuItem>
       </DropdownMenuContent>

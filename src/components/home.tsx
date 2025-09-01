@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Link,
   useNavigate,
   useLocation,
 } from "react-router-dom";
@@ -53,7 +54,7 @@ interface SidebarContextType {
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 import { PlaygroundPage } from "./pages/playground-page";
-import { ThemesPage } from "./pages/themes-page";
+import { ThemesPage } from "./layout/themes-page";
 import { AlertPage } from "./pages/alert-page";
 import { AlertDialogPage } from "./pages/alert-dialog-page";
 import { AspectRatioPage } from "./pages/aspect-ratio-page";
@@ -99,10 +100,11 @@ import { CollapsiblePage } from "./pages/collapsible-page";
 import { ThemeProvider } from "./providers/theme-provider";
 import MultiComboBoxPage from "./pages/multicombobox-page";
 import DocumentationPage from "./layout/Documentation";
+import PrivacyPolicyPage from "./layout/privacy-policy-page";
+import TermsPage from "./layout/terms-page";
 import { NavigationMenuPage } from "./pages/navigation-menu-page";
 import GradientBlinds from "./ui/gradient-blinds";
 
-// Mapeamento de componentes
 const componentPages: Record<string, unknown> = {
   alert: AlertPage,
   "alert-dialog": AlertDialogPage,
@@ -154,7 +156,6 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
   const { colorScheme, actualTheme } = useTheme();
   const navigate = useNavigate();
   const [bgColors, setBgColors] = useState<string[]>([]);
-  // search handled by FloatingSearch component
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -164,7 +165,6 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
       const s = raw.trim();
       if (!s) return "";
       if (s.startsWith("#")) return s;
-      // Expect format: "H S% L%" (as set by ThemeProvider)
       const parts = s.split(/\s+/);
       if (parts.length < 3) return s;
       const h = parseFloat(parts[0]);
@@ -196,7 +196,6 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
     const c2 = parseVarOrHex(accent) || c1;
     const c3 = parseVarOrHex(secondary) || c2;
 
-    // Prefer a two-color gradient; include a third if available
     const colors = [c1, c2];
     if (c3 && c3 !== c2) colors.push(c3);
 
@@ -256,17 +255,14 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
   useEffect(() => {
     async function fetchStats() {
       try {
-        // GitHub repo info
         const repoRes = await fetch(
           "https://api.github.com/repos/glatztp/Glacien"
         );
         const repoData = await repoRes.json();
-        // GitHub contributors
         const contribRes = await fetch(
           "https://api.github.com/repos/glatztp/Glacien/contributors"
         );
         const contribData = await contribRes.json();
-        // NPM downloads
         const npmRes = await fetch(
           "https://api.npmjs.org/downloads/point/last-month/@glacien/ui"
         );
@@ -305,7 +301,6 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
     fetchStats();
   }, []);
 
-  // Newsletter state
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [subscribed, setSubscribed] = useState<boolean>(() => {
     try {
@@ -350,7 +345,6 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
 
       setSubscribed(true);
       setNewsletterMessage("Inscrição confirmada! Obrigado por se inscrever.");
-      // limpar mensagem depois de 4s
       if (messageTimeoutRef.current) clearTimeout(messageTimeoutRef.current);
       messageTimeoutRef.current = setTimeout(() => {
         setNewsletterMessage(null);
@@ -1215,20 +1209,18 @@ export function App() {
             </div>
 
             <div className="flex items-center gap-4">
-              <a
-                href="#"
+              <Link
+                to="/privacy"
                 className="text-sm text-muted-foreground hover:text-primary transition"
-                onClick={(e) => e.preventDefault()}
               >
                 Política de Privacidade
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/terms"
                 className="text-sm text-muted-foreground hover:text-primary transition"
-                onClick={(e) => e.preventDefault()}
               >
                 Termos
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -1246,7 +1238,6 @@ function DashboardContent() {
 
   const currentSection = location.pathname.split("/")[1] || "home";
   useEffect(() => {
-    // Ensure there's no header on the Home page and header is enabled on other pages.
     if (currentSection === "home") {
       setHeaderVisible(false);
     } else {
@@ -1339,6 +1330,8 @@ function DashboardContent() {
                 element={<HomePage headerVisible={headerVisible} />}
               />
               <Route path="/docs" element={<DocumentationPage />} />
+              <Route path="/privacy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
               <Route path="/themes" element={<ThemesPage />} />
               <Route path="/playground" element={<PlaygroundPage />} />
               <Route

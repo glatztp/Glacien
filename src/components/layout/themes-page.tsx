@@ -36,16 +36,16 @@ import {
   Share,
   Swatches,
   Drop,
-  Stack,
+  Warning,
+  X,
 } from "phosphor-react";
 import { useTheme } from "../providers/theme-provider";
 
-// Define ColorScheme type based on colorSchemes ids
 type ColorScheme = "blue" | "emerald" | "violet" | "rose" | "orange" | "premium";
 
 const themes = {
   light: {
-    name: "Claro Classic",
+    name: "Claro",
     icon: <Sun className="h-4 w-4" />,
     category: "Básico",
     gradient: "from-white to-gray-50",
@@ -60,7 +60,7 @@ const themes = {
     },
   },
   dark: {
-    name: "Escuro Professional",
+    name: "Escuro",
     icon: <Moon className="h-4 w-4" />,
     category: "Básico",
     gradient: "from-gray-900 to-black",
@@ -75,7 +75,7 @@ const themes = {
     },
   },
   system: {
-    name: "Auto Sistema",
+    name: "Sistema",
     icon: <Monitor className="h-4 w-4" />,
     category: "Inteligente",
     gradient: "from-blue-100 to-purple-100",
@@ -90,7 +90,7 @@ const themes = {
     },
   },
   neon: {
-    name: "Neon Cyber",
+    name: "Neon",
     icon: <Lightning className="h-4 w-4" />,
     category: "Futurista",
     gradient: "from-purple-900 via-blue-900 to-indigo-900",
@@ -105,7 +105,7 @@ const themes = {
     },
   },
   sunset: {
-    name: "Sunset Paradise",
+    name: "Sunset",
     icon: <Fire className="h-4 w-4" />,
     category: "Natureza",
     gradient: "from-orange-400 via-red-500 to-pink-500",
@@ -120,7 +120,7 @@ const themes = {
     },
   },
   ocean: {
-    name: "Ocean Deep",
+    name: "Ocean",
     icon: <Snowflake className="h-4 w-4" />,
     category: "Natureza",
     gradient: "from-blue-600 via-cyan-500 to-teal-400",
@@ -135,7 +135,7 @@ const themes = {
     },
   },
   coffee: {
-    name: "Coffee House",
+    name: "Coffee",
     icon: <Coffee className="h-4 w-4" />,
     category: "Aconchegante",
     gradient: "from-amber-700 via-orange-600 to-yellow-500",
@@ -150,7 +150,7 @@ const themes = {
     },
   },
   galaxy: {
-    name: "Galaxy Explorer",
+    name: "Galaxy",
     icon: <Planet className="h-4 w-4" />,
     category: "Futurista",
     gradient: "from-indigo-900 via-purple-900 to-pink-800",
@@ -168,7 +168,7 @@ const themes = {
 
 const colorSchemes = [
   {
-    name: "Azul Clássico",
+    name: "Azul",
     id: "blue",
     primary: "hsl(217 91% 60%)",
     secondary: "hsl(220 14% 96%)",
@@ -178,7 +178,7 @@ const colorSchemes = [
     gradient: "from-blue-400 to-blue-600",
   },
   {
-    name: "Verde Esmeralda",
+    name: "Verde",
     id: "emerald",
     primary: "hsl(160 84% 39%)",
     secondary: "hsl(220 14% 96%)",
@@ -188,7 +188,7 @@ const colorSchemes = [
     gradient: "from-emerald-400 to-emerald-600",
   },
   {
-    name: "Roxo Místico",
+    name: "Roxo",
     id: "violet",
     primary: "hsl(262 83% 58%)",
     secondary: "hsl(220 14% 96%)",
@@ -198,7 +198,7 @@ const colorSchemes = [
     gradient: "from-violet-400 to-violet-600",
   },
   {
-    name: "Rosa Elegante",
+    name: "Rosa",
     id: "rose",
     primary: "hsl(346 77% 49%)",
     secondary: "hsl(220 14% 96%)",
@@ -208,7 +208,7 @@ const colorSchemes = [
     gradient: "from-rose-400 to-rose-600",
   },
   {
-    name: "Laranja Vibrante",
+    name: "Laranja",
     id: "orange",
     primary: "hsl(20 91% 48%)",
     secondary: "hsl(220 14% 96%)",
@@ -218,7 +218,7 @@ const colorSchemes = [
     gradient: "from-orange-400 to-orange-600",
   },
   {
-    name: "Dourado Premium",
+    name: "Dourado",
     id: "premium",
     primary: "hsl(45 100% 51%)",
     secondary: "hsl(220 14% 96%)",
@@ -403,7 +403,6 @@ export function ThemesPage() {
                 </TabsList>
               </div>
 
-              {/* Themes Tab */}
               <TabsContent value="themes" className="mt-8">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -781,14 +780,14 @@ export function ThemesPage() {
                           Estados e Feedback
                         </h4>
                         <div className="space-y-4">
-                          <div className="p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg text-green-800 dark:text-green-200">
-                            ✅ Operação concluída com sucesso
+                          <div className="p-4 flex items-center gap-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg text-green-800 dark:text-green-200">
+                            <Check /> Operação concluída com sucesso
                           </div>
-                          <div className="p-4 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg text-yellow-800 dark:text-yellow-200">
-                            ⚠️ Atenção: verifique as configurações
+                          <div className="p-4 flex items-center gap-4 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg text-yellow-800 dark:text-yellow-200">
+                            <Warning /> Atenção: verifique as configurações
                           </div>
-                          <div className="p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200">
-                            ❌ Erro: não foi possível completar a ação
+                          <div className="p-4 flex items-center gap-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200">
+                            <X /> Erro: não foi possível completar a ação
                           </div>
                         </div>
                       </div>
@@ -1067,168 +1066,7 @@ export function ThemesPage() {
 
                 <Separator />
 
-                {/* Quick Actions */}
-                <div className="space-y-4">
-                  <h3 className="text-xl font-black flex items-center gap-2">
-                    <Lightning className="h-5 w-5 text-primary" />
-                    Ações Rápidas
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {[
-                      {
-                        label: "Modo Claro",
-                        action: () => setTheme("light"),
-                        icon: <Sun className="h-4 w-4" />,
-                      },
-                      {
-                        label: "Modo Escuro",
-                        action: () => setTheme("dark"),
-                        icon: <Moon className="h-4 w-4" />,
-                      },
-                      {
-                        label: "Sistema",
-                        action: () => setTheme("system"),
-                        icon: <Monitor className="h-4 w-4" />,
-                      },
-                      {
-                        label: "Neon Cyber",
-                        action: () => setTheme("neon"),
-                        icon: <Lightning className="h-4 w-4" />,
-                      },
-                      {
-                        label: "Sunset Paradise",
-                        action: () => setTheme("sunset"),
-                        icon: <Fire className="h-4 w-4" />,
-                      },
-                      {
-                        label: "Ocean Deep",
-                        action: () => setTheme("ocean"),
-                        icon: <Snowflake className="h-4 w-4" />,
-                      },
-                      {
-                        label: "Coffee House",
-                        action: () => setTheme("coffee"),
-                        icon: <Coffee className="h-4 w-4" />,
-                      },
-                      {
-                        label: "Galaxy Explorer",
-                        action: () => setTheme("galaxy"),
-                        icon: <Planet className="h-4 w-4" />,
-                      },
-                    ].map((quickAction, index) => (
-                      <motion.button
-                        key={quickAction.label}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 1.4 + index * 0.1, duration: 0.4 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={quickAction.action}
-                        className={`p-4 border-2 rounded-xl transition-all duration-300 group relative ${
-                          (quickAction.label.includes("Claro") &&
-                            theme === "light") ||
-                          (quickAction.label.includes("Escuro") &&
-                            theme === "dark") ||
-                          (quickAction.label.includes("Sistema") &&
-                            theme === "system") ||
-                          (quickAction.label.includes("Neon") &&
-                            theme === "neon") ||
-                          (quickAction.label.includes("Sunset") &&
-                            theme === "sunset") ||
-                          (quickAction.label.includes("Ocean") &&
-                            theme === "ocean") ||
-                          (quickAction.label.includes("Coffee") &&
-                            theme === "coffee") ||
-                          (quickAction.label.includes("Galaxy") &&
-                            theme === "galaxy")
-                            ? "border-primary bg-primary/10 shadow-lg"
-                            : "border-primary/20 hover:border-primary/40 hover:bg-primary/5"
-                        }`}
-                      >
-                        {((quickAction.label.includes("Claro") &&
-                          theme === "light") ||
-                          (quickAction.label.includes("Escuro") &&
-                            theme === "dark") ||
-                          (quickAction.label.includes("Sistema") &&
-                            theme === "system") ||
-                          (quickAction.label.includes("Neon") &&
-                            theme === "neon") ||
-                          (quickAction.label.includes("Sunset") &&
-                            theme === "sunset") ||
-                          (quickAction.label.includes("Ocean") &&
-                            theme === "ocean") ||
-                          (quickAction.label.includes("Coffee") &&
-                            theme === "coffee") ||
-                          (quickAction.label.includes("Galaxy") &&
-                            theme === "galaxy")) && (
-                          <div className="absolute -top-2 -right-2 w-4 h-4 bg-primary rounded-full border-2 border-background flex items-center justify-center">
-                            <Check className="h-2 w-2 text-primary-foreground" />
-                          </div>
-                        )}
-                        <div className="flex flex-col items-center gap-2">
-                          <div className="p-2 bg-primary/10 group-hover:bg-primary/20 rounded-lg transition-colors duration-300">
-                            {quickAction.icon}
-                          </div>
-                          <span className="text-sm font-semibold">
-                            {quickAction.label}
-                          </span>
-                        </div>
-                      </motion.button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Statistics */}
-                <div className="space-y-4">
-                  <h3 className="text-xl font-black flex items-center gap-2">
-                    <Stack className="h-5 w-5 text-primary" />
-                    Estatísticas da Biblioteca
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {[
-                      {
-                        label: "Temas",
-                        value: Object.keys(themes).length,
-                        color: "from-blue-500 to-cyan-500",
-                      },
-                      {
-                        label: "Esquemas",
-                        value: colorSchemes.length,
-                        color: "from-purple-500 to-pink-500",
-                      },
-                      {
-                        label: "Componentes",
-                        value: "50+",
-                        color: "from-green-500 to-emerald-500",
-                      },
-                      {
-                        label: "Ícones",
-                        value: "1000+",
-                        color: "from-orange-500 to-red-500",
-                      },
-                    ].map((stat, index) => (
-                      <motion.div
-                        key={stat.label}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.6 + index * 0.1, duration: 0.6 }}
-                        className="relative"
-                      >
-                        <div
-                          className={`absolute inset-0 bg-gradient-to-r ${stat.color} rounded-xl blur-lg opacity-20`}
-                        />
-                        <div className="relative p-4 bg-background/80 backdrop-blur-sm border border-primary/20 rounded-xl text-center">
-                          <div className="text-2xl font-black">
-                            {stat.value}
-                          </div>
-                          <div className="text-sm text-muted-foreground font-medium">
-                            {stat.label}
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
+                
               </CardContent>
             </Card>
           </motion.div>

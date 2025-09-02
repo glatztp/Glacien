@@ -10,7 +10,6 @@ import {
   Button,
   Badge,
   Switch,
-  Separator,
   Tabs,
   TabsContent,
   TabsList,
@@ -22,7 +21,6 @@ import {
   Sun,
   Moon,
   Monitor,
-  Eye,
   Download,
   Gear,
   Check,
@@ -35,20 +33,24 @@ import {
   Copy,
   Share,
   Swatches,
-  Drop,
-  Warning,
-  X,
 } from "phosphor-react";
 import { useTheme } from "../providers/theme-provider";
 
-type ColorScheme = "blue" | "emerald" | "violet" | "rose" | "orange" | "premium";
+type ColorScheme =
+  | "blue"
+  | "emerald"
+  | "violet"
+  | "rose"
+  | "orange"
+  | "premium";
 
 const themes = {
   light: {
     name: "Claro",
-    icon: <Sun className="h-4 w-4" />,
-    category: "Básico",
-    gradient: "from-white to-gray-50",
+    description: "Clean e minimalista para produtividade",
+    icon: <Sun className="h-5 w-5" />,
+    category: "Essencial",
+    gradient: "from-slate-50 to-gray-100",
     preview: {
       background: "hsl(0 0% 99%)",
       foreground: "hsl(240 15% 9%)",
@@ -61,9 +63,10 @@ const themes = {
   },
   dark: {
     name: "Escuro",
-    icon: <Moon className="h-4 w-4" />,
-    category: "Básico",
-    gradient: "from-gray-900 to-black",
+    description: "Elegante e confortável para longas sessões",
+    icon: <Moon className="h-5 w-5" />,
+    category: "Essencial",
+    gradient: "from-slate-900 to-gray-950",
     preview: {
       background: "hsl(240 15% 6%)",
       foreground: "hsl(0 0% 95%)",
@@ -76,7 +79,8 @@ const themes = {
   },
   system: {
     name: "Sistema",
-    icon: <Monitor className="h-4 w-4" />,
+    description: "Adapta automaticamente ao seu dispositivo",
+    icon: <Monitor className="h-5 w-5" />,
     category: "Inteligente",
     gradient: "from-blue-100 to-purple-100",
     preview: {
@@ -91,9 +95,10 @@ const themes = {
   },
   neon: {
     name: "Neon",
-    icon: <Lightning className="h-4 w-4" />,
-    category: "Futurista",
-    gradient: "from-purple-900 via-blue-900 to-indigo-900",
+    description: "Vibrante e futurista para criar impacto",
+    icon: <Lightning className="h-5 w-5" />,
+    category: "Criativo",
+    gradient: "from-purple-600 to-pink-600",
     preview: {
       background: "hsl(240 15% 3%)",
       foreground: "hsl(0 100% 100%)",
@@ -106,9 +111,10 @@ const themes = {
   },
   sunset: {
     name: "Sunset",
-    icon: <Fire className="h-4 w-4" />,
+    description: "Caloroso e inspirador como o pôr do sol",
+    icon: <Fire className="h-5 w-5" />,
     category: "Natureza",
-    gradient: "from-orange-400 via-red-500 to-pink-500",
+    gradient: "from-orange-400 to-red-500",
     preview: {
       background: "hsl(20 100% 98%)",
       foreground: "hsl(20 20% 10%)",
@@ -121,9 +127,10 @@ const themes = {
   },
   ocean: {
     name: "Ocean",
-    icon: <Snowflake className="h-4 w-4" />,
+    description: "Sereno e refrescante como águas cristalinas",
+    icon: <Snowflake className="h-5 w-5" />,
     category: "Natureza",
-    gradient: "from-blue-600 via-cyan-500 to-teal-400",
+    gradient: "from-cyan-400 to-blue-500",
     preview: {
       background: "hsl(200 100% 97%)",
       foreground: "hsl(200 20% 10%)",
@@ -136,9 +143,10 @@ const themes = {
   },
   coffee: {
     name: "Coffee",
-    icon: <Coffee className="h-4 w-4" />,
+    description: "Aconchegante e rico como um café especial",
+    icon: <Coffee className="h-5 w-5" />,
     category: "Aconchegante",
-    gradient: "from-amber-700 via-orange-600 to-yellow-500",
+    gradient: "from-amber-600 to-orange-700",
     preview: {
       background: "hsl(30 40% 98%)",
       foreground: "hsl(30 20% 15%)",
@@ -151,9 +159,10 @@ const themes = {
   },
   galaxy: {
     name: "Galaxy",
-    icon: <Planet className="h-4 w-4" />,
-    category: "Futurista",
-    gradient: "from-indigo-900 via-purple-900 to-pink-800",
+    description: "Misterioso e profundo como o cosmos",
+    icon: <Planet className="h-5 w-5" />,
+    category: "Criativo",
+    gradient: "from-indigo-600 to-purple-700",
     preview: {
       background: "hsl(240 15% 4%)",
       foreground: "hsl(0 0% 98%)",
@@ -170,62 +179,68 @@ const colorSchemes = [
   {
     name: "Azul",
     id: "blue",
+    description: "Confiável e profissional",
     primary: "hsl(217 91% 60%)",
     secondary: "hsl(220 14% 96%)",
     accent: "hsl(217 91% 95%)",
     hex: "#3b82f6",
     category: "Clássico",
-    gradient: "from-blue-400 to-blue-600",
+    gradient: "from-blue-500 to-blue-600",
   },
   {
     name: "Verde",
     id: "emerald",
+    description: "Natureza e crescimento",
     primary: "hsl(160 84% 39%)",
     secondary: "hsl(220 14% 96%)",
     accent: "hsl(160 84% 95%)",
     hex: "#10b981",
     category: "Natureza",
-    gradient: "from-emerald-400 to-emerald-600",
+    gradient: "from-emerald-500 to-emerald-600",
   },
   {
     name: "Roxo",
     id: "violet",
+    description: "Criatividade e inovação",
     primary: "hsl(262 83% 58%)",
     secondary: "hsl(220 14% 96%)",
     accent: "hsl(262 83% 95%)",
     hex: "#8b5cf6",
     category: "Criativo",
-    gradient: "from-violet-400 to-violet-600",
+    gradient: "from-violet-500 to-violet-600",
   },
   {
     name: "Rosa",
     id: "rose",
+    description: "Paixão e energia",
     primary: "hsl(346 77% 49%)",
     secondary: "hsl(220 14% 96%)",
     accent: "hsl(346 77% 95%)",
     hex: "#f43f5e",
     category: "Romântico",
-    gradient: "from-rose-400 to-rose-600",
+    gradient: "from-rose-500 to-rose-600",
   },
   {
     name: "Laranja",
     id: "orange",
+    description: "Entusiasmo e dinamismo",
     primary: "hsl(20 91% 48%)",
     secondary: "hsl(220 14% 96%)",
     accent: "hsl(20 91% 95%)",
     hex: "#f97316",
     category: "Energético",
-    gradient: "from-orange-400 to-orange-600",
+    gradient: "from-orange-500 to-orange-600",
   },
   {
     name: "Dourado",
     id: "premium",
+    description: "Luxo e sofisticação",
     primary: "hsl(45 100% 51%)",
     secondary: "hsl(220 14% 96%)",
     accent: "hsl(45 100% 90%)",
     hex: "#FFD700",
     category: "Luxo",
-    gradient: "from-yellow-400 to-orange-500",
+    gradient: "from-yellow-500 to-amber-600",
   },
 ];
 
@@ -233,7 +248,6 @@ export function ThemesPage() {
   const { theme, colorScheme, setTheme, setColorScheme, actualTheme } =
     useTheme();
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const [highContrast, setHighContrast] = useState(false);
   const [reducedMode, setReducedMode] = useState(false);
@@ -282,594 +296,420 @@ export function ThemesPage() {
     setReducedMode(false);
   };
 
-  const filteredSchemes =
-    selectedCategory === "all"
-      ? colorSchemes
-      : colorSchemes.filter((scheme) => scheme.category === selectedCategory);
-
-  const categories = [
-    "all",
-    ...Array.from(new Set(colorSchemes.map((scheme) => scheme.category))),
-  ];
-
   return (
-    <div className="min-h-screen relative overflow-hidden pt-12">
-      {/* Enhanced Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-secondary/10 via-transparent to-transparent" />
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/10 relative overflow-hidden">
+      {/* Sophisticated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-violet-500/5 to-cyan-500/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-primary/2 via-transparent to-secondary/2 rounded-full blur-3xl" />
       </div>
 
-      <motion.div
-        animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute top-20 right-20 w-32 h-32 border-2 border-primary/20 rounded-full"
-      />
-      <motion.div
-        animate={{ rotate: [360, 0], scale: [1, 0.9, 1] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg backdrop-blur-sm"
-      />
-
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Hero Section */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-7xl mx-auto"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
         >
-          {/* Revolutionary Header */}
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="relative mb-8"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur-3xl scale-110" />
-              <div className="relative p-6 sm:p-8 bg-gradient-to-br from-background/80 to-background/60 backdrop-blur-xl border-2 border-primary/20 rounded-3xl shadow-2xl">
-                <div className="flex items-center justify-center mb-6">
-                  <motion.div
-                    animate={{ rotate: [0, 360] }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="relative"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full blur-lg scale-110 opacity-50" />
-                    <div className="relative p-4 sm:p-6 bg-gradient-to-br from-primary via-primary/90 to-secondary rounded-full shadow-xl">
-                      <Palette className="h-8 w-8 sm:h-12 sm:w-12 text-white" />
-                    </div>
-                  </motion.div>
-                </div>
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
-                  className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent leading-tight"
-                >
-                  Temas
-                  <br />
-              
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
-                  className="text-xl sm:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium"
-                >
-                  Transforme completamente a aparência da sua aplicação com{" "}
-                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">
-                    temas dinâmicos
-                  </span>
-                  , esquemas de cores avançados e customizações em tempo real.
-                </motion.p>
-              </div>
-            </motion.div>
-          </div>
-          {/* Revolutionary Tabs */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight"
           >
-            <Tabs defaultValue="themes" className="w-full ">
-              <div className="relative mb-12">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl blur-xl" />
-                <TabsList className="relative grid w-full grid-cols-3 bg-background/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl p-2 shadow-2xl h-16">
-                  <TabsTrigger
-                    value="themes"
-                    className="relative data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg text-lg font-semibold transition-all duration-300"
-                  >
-                    <Palette className="h-5 w-5 mr-2" />
-                    Temas
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="colors"
-                    className="relative data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg text-lg font-semibold transition-all duration-300"
-                  >
-                    <Swatches className="h-5 w-5 mr-2" />
-                    Cores
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="preview"
-                    className="relative data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg text-lg font-semibold transition-all duration-300"
-                  >
-                    <Eye className="h-5 w-5 mr-2" />
-                    Preview
-                  </TabsTrigger>
-                </TabsList>
-              </div>
+            <span className="block bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
+              Personalize
+            </span>
+            <span className="block bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+              Sua Interface
+            </span>
+          </motion.h1>
 
-              <TabsContent value="themes" className="mt-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="space-y-8"
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-12"
+          >
+            Transforme sua experiência com{" "}
+            <span className="text-primary font-semibold">temas únicos</span>,{" "}
+            <span className="text-primary font-semibold">
+              cores profissionais
+            </span>{" "}
+            e{" "}
+            <span className="text-primary font-semibold">
+              controles intuitivos
+            </span>
+          </motion.p>
+        </motion.section>
+
+        {/* Main Content Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.8 }}
+        >
+          <Tabs defaultValue="themes" className="w-full">
+            {/* Tab Navigation */}
+            <div className="relative mb-16">
+              <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 h-16 p-2 bg-background/80 backdrop-blur-xl border-2 border-border/50 rounded-2xl shadow-xl">
+                <TabsTrigger
+                  value="themes"
+                  className="h-12 text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl"
                 >
-                  <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5" />
-                    <CardHeader className="relative border-b border-primary/20">
-                      <CardTitle className="text-2xl font-black flex items-center gap-3">
-                        <div className="p-2 bg-gradient-to-br from-primary to-secondary rounded-xl text-white shadow-lg">
-                          <Planet className="h-6 w-6" />
-                        </div>
-                        Temas
-                      </CardTitle>
-                      <CardDescription className="text-lg font-medium">
-                        Explore nossa coleção de temas únicos, cada um com
-                        personalidade própria
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="relative p-8">
-                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {Object.entries(themes).map(
-                          ([key, themeObj], index) => (
-                            <motion.div
-                              key={key}
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: index * 0.1, duration: 0.6 }}
-                              whileHover={{ scale: 1.02 }}
-                              whileTap={{ scale: 0.98 }}
-                              className="group relative"
-                            >
-                              <Card
-                                className={`relative cursor-pointer transition-all duration-500 border-2 overflow-hidden ${
-                                  theme === key
-                                    ? "ring-4 ring-primary/50 border-primary shadow-2xl shadow-primary/20"
-                                    : "border-primary/20 hover:border-primary/40 hover:shadow-xl"
-                                }`}
-                                onClick={() =>
-                                  setTheme(key as keyof typeof themes)
-                                }
+                  <Palette className="h-5 w-5 mr-2" />
+                  <span className="hidden sm:inline">Temas</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="colors"
+                  className="h-12 text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl"
+                >
+                  <Swatches className="h-5 w-5 mr-2" />
+                  <span className="hidden sm:inline">Cores</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="settings"
+                  className="h-12 text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl"
+                >
+                  <Gear className="h-5 w-5 mr-2" />
+                  <span className="hidden sm:inline">Config</span>
+                </TabsTrigger>
+              </TabsList>
+            </div>
+
+            {/* Themes Tab */}
+            <TabsContent value="themes" className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                {/* Header */}
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-black mb-3">
+                    <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+                      Coleção de Temas
+                    </span>
+                  </h2>
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    {Object.keys(themes).length} temas únicos criados para
+                    diferentes personalidades e momentos
+                  </p>
+                </div>
+
+                {/* Themes Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {Object.entries(themes).map(([key, themeObj], index) => (
+                    <motion.div
+                      key={key}
+                      initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{
+                        delay: index * 0.1,
+                        duration: 0.6,
+                        type: "spring",
+                        stiffness: 100,
+                      }}
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="group"
+                    >
+                      <Card
+                        className={`relative cursor-pointer transition-all duration-500 border-2 overflow-hidden ${
+                          theme === key
+                            ? "ring-2 ring-primary/60 border-primary shadow-2xl shadow-primary/20 bg-primary/5"
+                            : "border-border/50 hover:border-primary/30 hover:shadow-xl bg-background/80 backdrop-blur-sm"
+                        } group-hover:shadow-2xl h-full`}
+                        onClick={() => setTheme(key as keyof typeof themes)}
+                      >
+                        {/* Background Gradient */}
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-br ${themeObj.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-500`}
+                        />
+
+                        <CardContent className="relative p-3 space-y-3 h-full flex flex-col">
+                          {/* Header */}
+                          <div className="flex items-start justify-between">
+                            <div className="flex items-center gap-2">
+                              <div
+                                className={`p-2 rounded-lg bg-gradient-to-br ${themeObj.gradient} text-white shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110`}
                               >
-                                <div
-                                  className={`absolute inset-0 bg-gradient-to-br ${themeObj.gradient} opacity-20`}
-                                />
+                                {themeObj.icon}
+                              </div>
+                            </div>
 
-                                <CardContent className="relative p-6 space-y-4">
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                      <div
-                                        className={`p-3 rounded-xl bg-gradient-to-br ${themeObj.gradient} text-white shadow-lg`}
-                                      >
-                                        {themeObj.icon}
-                                      </div>
-                                      <div>
-                                        <Badge
-                                          variant="outline"
-                                          className="text-xs font-medium mb-1"
-                                        >
-                                          {themeObj.category}
-                                        </Badge>
-                                      </div>
-                                    </div>
-                                    {theme === key && (
-                                      <motion.div
-                                        initial={{ scale: 0 }}
-                                        animate={{ scale: 1 }}
-                                        className="text-primary"
-                                      >
-                                        <Check className="h-6 w-6" />
-                                      </motion.div>
-                                    )}
-                                  </div>
+                            {theme === key && (
+                              <motion.div
+                                initial={{ scale: 0, rotate: -180 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                className="text-primary"
+                              >
+                                <div className="p-1 bg-primary/10 rounded-full border border-primary/20">
+                                  <Check className="h-3 w-3" />
+                                </div>
+                              </motion.div>
+                            )}
+                          </div>
 
-                                  <div>
-                                    <h3 className="font-black text-lg mb-1">
-                                      {themeObj.name}
-                                    </h3>
-                                  </div>
+                          {/* Content */}
+                          <div className="space-y-2 flex-1">
+                            <div>
+                              <Badge
+                                variant="outline"
+                                className="text-xs font-medium mb-1 bg-background/60 border-primary/20"
+                              >
+                                {themeObj.category}
+                              </Badge>
+                              <h3 className="font-black text-base mb-1 group-hover:text-primary transition-colors duration-300">
+                                {themeObj.name}
+                              </h3>
+                              <p className="text-xs text-muted-foreground leading-relaxed line-clamp-1">
+                                {themeObj.description}
+                              </p>
+                            </div>
 
-                                  <div className="space-y-3">
-                                    <div
-                                      className="h-12 rounded-xl border-2 flex items-center px-4 text-sm"
-                                      style={{
-                                        backgroundColor:
-                                          themeObj.preview.background,
-                                        color: themeObj.preview.foreground,
-                                        borderColor: themeObj.preview.border,
-                                      }}
-                                    >
-                                      Exemplo de interface
-                                    </div>
-                                    <div className="flex gap-2">
-                                      <div
-                                        className="h-8 flex-1 rounded-lg"
-                                        style={{
-                                          backgroundColor:
-                                            themeObj.preview.primary,
-                                        }}
-                                      />
-                                      <div
-                                        className="h-8 flex-1 rounded-lg"
-                                        style={{
-                                          backgroundColor:
-                                            themeObj.preview.secondary,
-                                        }}
-                                      />
-                                      <div
-                                        className="h-8 flex-1 rounded-lg"
-                                        style={{
-                                          backgroundColor:
-                                            themeObj.preview.accent,
-                                        }}
-                                      />
-                                    </div>
-                                  </div>
-                                </CardContent>
-                              </Card>
-                            </motion.div>
-                          )
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </TabsContent>
-
-              {/* Colors Tab */}
-              <TabsContent value="colors" className="mt-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="space-y-8"
-                >
-                  {/* Category Filter */}
-                  <Card className="relative overflow-hidden border-2 border-primary/20 shadow-xl">
-                    <CardHeader>
-                      <CardTitle className="text-2xl font-black flex items-center gap-3">
-                        <div className="p-2 bg-gradient-to-br from-primary to-secondary rounded-xl text-white shadow-lg">
-                          <Drop className="h-6 w-6" />
-                        </div>
-                        Filtros de Categoria
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex flex-wrap gap-3">
-                        {categories.map((category) => (
-                          <Button
-                            key={category}
-                            variant={
-                              selectedCategory === category
-                                ? "default"
-                                : "outline"
-                            }
-                            onClick={() => setSelectedCategory(category)}
-                            className="transition-all duration-300"
-                          >
-                            {category === "all" ? "Todas" : category}
-                          </Button>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Color Schemes Grid */}
-                  <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl">
-                    <CardHeader>
-                      <CardTitle className="text-2xl font-black flex items-center gap-3">
-                        <div className="p-2 bg-gradient-to-br from-primary to-secondary rounded-xl text-white shadow-lg">
-                          <Swatches className="h-6 w-6" />
-                        </div>
-                        Esquemas de Cores Avançados
-                      </CardTitle>
-                      <CardDescription className="text-lg font-medium">
-                        {filteredSchemes.length} esquemas disponíveis
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="p-8">
-                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {filteredSchemes.map((scheme, index) => (
-                          <motion.div
-                            key={scheme.id}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: index * 0.1, duration: 0.6 }}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <Card
-                              className={`cursor-pointer transition-all duration-500 border-2 ${
-                                colorScheme === scheme.id
-                                  ? "ring-4 ring-primary/50 border-primary shadow-2xl"
-                                  : "border-primary/20 hover:border-primary/40"
-                              }`}
-                              onClick={() => {
-                                const coloredThemes = [
-                                  "neon",
-                                  "sunset",
-                                  "ocean",
-                                  "coffee",
-                                  "galaxy",
-                                ];
-                                if (coloredThemes.includes(theme)) {
-                                  setCopiedColor("color-warning");
-                                  setTimeout(() => setCopiedColor(null), 3000);
-                                  return;
-                                }
-                                setColorScheme(scheme.id as ColorScheme);
+                            {/* Preview */}
+                            <div
+                              className="h-10 rounded-lg border flex items-center justify-center text-xs font-medium transition-all duration-300 group-hover:scale-[1.02]"
+                              style={{
+                                backgroundColor: themeObj.preview.background,
+                                color: themeObj.preview.foreground,
+                                borderColor: themeObj.preview.border,
                               }}
                             >
-                              <CardContent className="p-6 space-y-4">
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    <Badge
-                                      variant="outline"
-                                      className="text-xs mb-2"
-                                    >
-                                      {scheme.category}
-                                    </Badge>
-                                    <h3 className="font-black text-lg">
-                                      {scheme.name}
-                                    </h3>
-                                  </div>
-                                  {colorScheme === scheme.id && (
-                                    <Check className="h-6 w-6 text-primary" />
-                                  )}
-                                </div>
+                              Preview
+                            </div>
 
-                                <div
-                                  className="h-16 rounded-xl cursor-pointer transition-all duration-300"
-                                  style={{ backgroundColor: scheme.hex }}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    copyColor(scheme.hex, "primary");
-                                  }}
-                                />
-
-                                <div className="flex gap-2">
-                                  <div
-                                    className="h-8 flex-1 rounded-lg cursor-pointer"
-                                    style={{ backgroundColor: scheme.primary }}
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      copyColor(scheme.primary, "primary");
-                                    }}
-                                  />
-                                  <div
-                                    className="h-8 flex-1 rounded-lg cursor-pointer"
-                                    style={{
-                                      backgroundColor: scheme.secondary,
-                                    }}
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      copyColor(scheme.secondary, "secondary");
-                                    }}
-                                  />
-                                  <div
-                                    className="h-8 flex-1 rounded-lg cursor-pointer"
-                                    style={{ backgroundColor: scheme.accent }}
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      copyColor(scheme.accent, "accent");
-                                    }}
-                                  />
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </TabsContent>
-
-              {/* Preview Tab */}
-              <TabsContent value="preview" className="mt-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="space-y-8"
-                >
-                  <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl">
-                    <CardHeader>
-                      <CardTitle className="text-2xl font-black flex items-center gap-3">
-                        <div className="p-2 bg-gradient-to-br from-primary to-secondary rounded-xl text-white shadow-lg">
-                          <Eye className="h-6 w-6" />
-                        </div>
-                        Preview Interativo dos Componentes
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-8 space-y-12">
-                      {/* Buttons Preview */}
-                      <div>
-                        <h4 className="text-xl font-black mb-6">
-                          Botões e Ações
-                        </h4>
-                        <div className="flex flex-wrap gap-4">
-                          <Button>Primário</Button>
-                          <Button variant="secondary">Secundário</Button>
-                          <Button variant="outline">Outline</Button>
-                          <Button variant="ghost">Ghost</Button>
-                          <Button variant="destructive">Destrutivo</Button>
-                        </div>
-                      </div>
-
-                      <Separator />
-
-                      {/* Cards Preview */}
-                      <div>
-                        <h4 className="text-xl font-black mb-6">
-                          Cards e Badges
-                        </h4>
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <Card className="border-2 border-primary/20">
-                            <CardHeader>
-                              <div className="flex items-center justify-between">
-                                <CardTitle>Card de Exemplo</CardTitle>
-                                <Badge>Novo</Badge>
-                              </div>
-                              <CardDescription>
-                                Este card demonstra o tema atual
-                              </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                              <p className="text-muted-foreground">
-                                Conteúdo com cores aplicadas automaticamente.
-                              </p>
-                            </CardContent>
-                          </Card>
-
-                          <Card className="border-2 border-primary/20">
-                            <CardHeader>
-                              <CardTitle>Configurações</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                              <div className="flex items-center justify-between">
-                                <span>Notificações</span>
-                                <Switch defaultChecked />
-                              </div>
-                              <div className="flex items-center justify-between">
-                                <span>Modo Escuro</span>
-                                <Switch
-                                  checked={
-                                    actualTheme === "dark" ||
-                                    actualTheme === "neon" ||
-                                    actualTheme === "galaxy"
-                                  }
-                                  onCheckedChange={(checked) =>
-                                    setTheme(checked ? "dark" : "light")
-                                  }
-                                />
-                              </div>
-                              <div className="flex items-center justify-between">
-                                <span>Animações</span>
-                                <Switch
-                                  checked={animationsEnabled}
-                                  onCheckedChange={setAnimationsEnabled}
-                                />
-                              </div>
-                            </CardContent>
-                          </Card>
-                        </div>
-                      </div>
-
-                      <Separator />
-
-                      {/* States Preview */}
-                      <div>
-                        <h4 className="text-xl font-black mb-6">
-                          Estados e Feedback
-                        </h4>
-                        <div className="space-y-4">
-                          <div className="p-4 flex items-center gap-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg text-green-800 dark:text-green-200">
-                            <Check /> Operação concluída com sucesso
+                            {/* Color Palette */}
+                            <div className="flex gap-1">
+                              <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                className="h-5 flex-1 rounded-md shadow-sm border border-white/20"
+                                style={{
+                                  backgroundColor: themeObj.preview.primary,
+                                }}
+                              />
+                              <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                className="h-6 flex-1 rounded-md shadow-sm border border-white/20"
+                                style={{
+                                  backgroundColor: themeObj.preview.secondary,
+                                }}
+                              />
+                              <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                className="h-6 flex-1 rounded-md shadow-sm border border-white/20"
+                                style={{
+                                  backgroundColor: themeObj.preview.accent,
+                                }}
+                              />
+                            </div>
                           </div>
-                          <div className="p-4 flex items-center gap-4 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg text-yellow-800 dark:text-yellow-200">
-                            <Warning /> Atenção: verifique as configurações
-                          </div>
-                          <div className="p-4 flex items-center gap-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200">
-                            <X /> Erro: não foi possível completar a ação
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </TabsContent>
-            </Tabs>
-          </motion.div>
-          {/* Copy Notification */}
-          <AnimatePresence>
-            {copiedColor && (
-              <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                className={`fixed bottom-8 right-8 z-50 p-4 rounded-xl shadow-2xl text-white ${
-                  copiedColor === "color-warning"
-                    ? "bg-gradient-to-r from-yellow-500 to-orange-500"
-                    : copiedColor.includes("config-copied")
-                    ? "bg-gradient-to-r from-blue-500 to-cyan-500"
-                    : copiedColor.includes("css-downloaded")
-                    ? "bg-gradient-to-r from-purple-500 to-pink-500"
-                    : "bg-gradient-to-r from-green-500 to-emerald-500"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  {copiedColor === "color-warning" ? (
-                    <Lightning className="h-5 w-5" />
-                  ) : (
-                    <Check className="h-5 w-5" />
-                  )}
-                  <span className="font-semibold">
-                    {copiedColor === "color-warning"
-                      ? "O esquema de cor só é aplicado nos temas padrão (Claro, Escuro, Sistema)."
-                      : copiedColor.includes("config-copied")
-                      ? "Configuração copiada!"
-                      : copiedColor.includes("css-downloaded")
-                      ? "CSS baixado!"
-                      : "Cor copiada!"}
-                  </span>
+                        </CardContent>
+
+                        {/* Hover Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+                      </Card>
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
-            )}
-          </AnimatePresence>{" "}
-          {/* Enhanced Controls Panel */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="mt-12"
-          >
-            <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5" />
-              <CardHeader className="relative border-b border-primary/20">
-                <CardTitle className="text-2xl font-black flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-primary to-secondary rounded-xl text-white shadow-lg">
-                    <Gear className="h-6 w-6" />
-                  </div>
-                  Controles Avançados
-                </CardTitle>
-                <CardDescription className="text-lg font-medium">
-                  Configurações globais e ferramentas de personalização
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="relative p-8 space-y-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  {/* Global Settings */}
-                  <div className="space-y-6">
-                    <h3 className="text-xl font-black flex items-center gap-2">
-                      <Gear className="h-5 w-5 text-primary" />
-                      Configurações Globais
-                    </h3>
+            </TabsContent>
 
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 border border-primary/20 rounded-xl">
+            {/* Colors Tab */}
+            <TabsContent value="colors" className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                {/* Header */}
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-black mb-3">
+                    <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+                      Esquemas de Cores
+                    </span>
+                  </h2>
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Paletas profissionais cuidadosamente selecionadas para
+                    diferentes contextos
+                  </p>
+                </div>
+
+                {/* Colors Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {colorSchemes.map((scheme, index) => (
+                    <motion.div
+                      key={scheme.id}
+                      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      transition={{
+                        delay: index * 0.1,
+                        duration: 0.6,
+                        type: "spring",
+                        stiffness: 100,
+                      }}
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="group"
+                    >
+                      <Card
+                        className={`cursor-pointer transition-all duration-500 border-2 overflow-hidden ${
+                          colorScheme === scheme.id
+                            ? "ring-2 ring-primary/60 border-primary shadow-2xl bg-primary/5"
+                            : "border-border/50 hover:border-primary/30 hover:shadow-xl bg-background/80 backdrop-blur-sm"
+                        } group-hover:shadow-2xl h-full`}
+                        onClick={() => {
+                          const coloredThemes = [
+                            "neon",
+                            "sunset",
+                            "ocean",
+                            "coffee",
+                            "galaxy",
+                          ];
+                          if (coloredThemes.includes(theme)) {
+                            setCopiedColor("color-warning");
+                            setTimeout(() => setCopiedColor(null), 3000);
+                            return;
+                          }
+                          setColorScheme(scheme.id as ColorScheme);
+                        }}
+                      >
+                        <CardContent className="p-3 space-y-3 h-full flex flex-col">
+                          {/* Header */}
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <Badge
+                                variant="outline"
+                                className="text-xs mb-2 bg-background/60 border-primary/20"
+                              >
+                                {scheme.category}
+                              </Badge>
+                              <h3 className="font-black text-base mb-1 group-hover:text-primary transition-colors duration-300">
+                                {scheme.name}
+                              </h3>
+                              <p className="text-xs text-muted-foreground line-clamp-1">
+                                {scheme.description}
+                              </p>
+                            </div>
+
+                            {colorScheme === scheme.id && (
+                              <motion.div
+                                initial={{ scale: 0, rotate: -180 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                className="text-primary"
+                              >
+                                <div className="p-1.5 bg-primary/10 rounded-full border border-primary/20">
+                                  <Check className="h-3 w-3" />
+                                </div>
+                              </motion.div>
+                            )}
+                          </div>
+
+                          {/* Main Color */}
+                          <div
+                            className="h-12 rounded-lg cursor-pointer transition-all duration-300 group-hover:scale-[1.02] shadow-md relative overflow-hidden border border-white/20"
+                            style={{ backgroundColor: scheme.hex }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              copyColor(scheme.hex, "primary");
+                            }}
+                          >
+                            <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                              <div className="bg-white/90 rounded-full p-1">
+                                <Copy className="h-3 w-3 text-gray-800" />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Color Palette */}
+                          <div className="flex gap-1.5">
+                            {[
+                              {
+                                color: scheme.primary,
+                                key: "primary",
+                                label: "Primary",
+                              },
+                              {
+                                color: scheme.secondary,
+                                key: "secondary",
+                                label: "Secondary",
+                              },
+                              {
+                                color: scheme.accent,
+                                key: "accent",
+                                label: "Accent",
+                              },
+                            ].map((colorItem, colorIndex) => (
+                              <motion.div
+                                key={colorIndex}
+                                whileHover={{ scale: 1.1, y: -2 }}
+                                className="h-8 flex-1 rounded-md cursor-pointer shadow-sm relative overflow-hidden group/color border border-white/20"
+                                style={{ backgroundColor: colorItem.color }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  copyColor(colorItem.color, colorItem.key);
+                                }}
+                                title={colorItem.label}
+                              >
+                                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover/color:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                  <Copy className="h-3 w-3 text-white drop-shadow-sm" />
+                                </div>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </TabsContent>
+
+            {/* Settings Tab */}
+            <TabsContent value="settings" className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                {/* Header */}
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-black mb-3">
+                    <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+                      Configurações Avançadas
+                    </span>
+                  </h2>
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Ajuste fino para uma experiência totalmente personalizada
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Global Settings */}
+                  <Card className="bg-background/80 backdrop-blur-sm border-2 border-border/50">
+                    <CardHeader>
+                      <CardTitle className="text-2xl font-black flex items-center gap-3">
+                        <div className="p-2 bg-gradient-to-br from-primary to-secondary rounded-xl text-white">
+                          <Gear className="h-5 w-5" />
+                        </div>
+                        Configurações Globais
+                      </CardTitle>
+                      <CardDescription className="text-base">
+                        Controles que afetam toda a interface
+                      </CardDescription>
+                    </CardHeader>
+
+                    <CardContent className="space-y-6">
+                      <div className="flex items-center justify-between p-4 border border-border/50 rounded-xl bg-muted/30">
                         <div>
-                          <Label className="font-semibold">
+                          <Label className="font-semibold text-base">
                             Animações de Tema
                           </Label>
-                          <p className="text-sm text-muted-foreground">
-                            Transições suaves entre temas
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Transições suaves entre mudanças de tema
                           </p>
                         </div>
                         <Switch
@@ -878,13 +718,13 @@ export function ThemesPage() {
                         />
                       </div>
 
-                      <div className="flex items-center justify-between p-4 border border-primary/20 rounded-xl">
+                      <div className="flex items-center justify-between p-4 border border-border/50 rounded-xl bg-muted/30">
                         <div>
-                          <Label className="font-semibold">
+                          <Label className="font-semibold text-base">
                             Alto Contraste
                           </Label>
-                          <p className="text-sm text-muted-foreground">
-                            Melhorar acessibilidade
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Melhora a legibilidade para acessibilidade
                           </p>
                         </div>
                         <Switch
@@ -893,11 +733,13 @@ export function ThemesPage() {
                         />
                       </div>
 
-                      <div className="flex items-center justify-between p-4 border border-primary/20 rounded-xl">
+                      <div className="flex items-center justify-between p-4 border border-border/50 rounded-xl bg-muted/30">
                         <div>
-                          <Label className="font-semibold">Modo Reduzido</Label>
-                          <p className="text-sm text-muted-foreground">
-                            Interface simplificada
+                          <Label className="font-semibold text-base">
+                            Modo Reduzido
+                          </Label>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Interface simplificada com menos elementos
                           </p>
                         </div>
                         <Switch
@@ -905,17 +747,24 @@ export function ThemesPage() {
                           onCheckedChange={setReducedMode}
                         />
                       </div>
-                    </div>
-                  </div>
+                    </CardContent>
+                  </Card>
 
-                  {/* Export & Share */}
-                  <div className="space-y-6">
-                    <h3 className="text-xl font-black flex items-center gap-2">
-                      <Share className="h-5 w-5 text-primary" />
-                      Exportar & Compartilhar
-                    </h3>
+                  {/* Export & Actions */}
+                  <Card className="bg-background/80 backdrop-blur-sm border-2 border-border/50">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="text-xl font-black flex items-center gap-3">
+                        <div className="p-2 bg-gradient-to-br from-primary to-secondary rounded-lg text-white">
+                          <Share className="h-4 w-4" />
+                        </div>
+                        Exportar & Compartilhar
+                      </CardTitle>
+                      <CardDescription className="text-sm">
+                        Salve e compartilhe suas personalizações
+                      </CardDescription>
+                    </CardHeader>
 
-                    <div className="space-y-4">
+                    <CardContent className="space-y-3">
                       <Button
                         onClick={() => {
                           const config = {
@@ -933,103 +782,30 @@ export function ThemesPage() {
                           setCopiedColor("config-copied");
                           setTimeout(() => setCopiedColor(null), 3000);
                         }}
-                        className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
+                        className="w-full h-12 text-sm font-semibold bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 group"
                       >
-                        <Copy className="h-5 w-5 mr-2" />
+                        <Copy className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
                         Copiar Configuração JSON
                       </Button>
 
                       <Button
                         onClick={resetToDefaults}
                         variant="outline"
-                        className="w-full h-12 text-lg font-semibold border-2 border-primary/20 hover:border-primary/40"
+                        className="w-full h-12 text-sm font-semibold border-2 hover:bg-muted/50"
                       >
-                        <ArrowCounterClockwise className="h-5 w-5 mr-2" />
-                        Restaurar Padrões
+                        <ArrowCounterClockwise className="h-4 w-4 mr-2" />
+                        Restaurar Configurações Padrão
                       </Button>
 
                       <Button
                         onClick={() => {
-                          const themeColors =
-                            actualTheme === "light" || actualTheme === "dark"
-                              ? `/* Tema ${actualTheme} com esquema ${colorScheme} */\n:root {\n  --primary: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--primary"
-                                )};\n  --primary-foreground: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--primary-foreground"
-                                )};\n  --background: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--background"
-                                )};\n  --foreground: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--foreground"
-                                )};\n  --secondary: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--secondary"
-                                )};\n  --secondary-foreground: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--secondary-foreground"
-                                )};\n  --accent: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--accent"
-                                )};\n  --accent-foreground: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--accent-foreground"
-                                )};\n  --border: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--border"
-                                )};\n  --ring: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue("--ring")};\n}`
-                              : `/* Tema personalizado: ${actualTheme} */\n:root {\n  --primary: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--primary"
-                                )};\n  --primary-foreground: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--primary-foreground"
-                                )};\n  --background: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--background"
-                                )};\n  --foreground: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--foreground"
-                                )};\n  --secondary: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--secondary"
-                                )};\n  --secondary-foreground: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--secondary-foreground"
-                                )};\n  --accent: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--accent"
-                                )};\n  --accent-foreground: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--accent-foreground"
-                                )};\n  --border: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue(
-                                  "--border"
-                                )};\n  --ring: ${getComputedStyle(
-                                  document.documentElement
-                                ).getPropertyValue("--ring")};\n}`;
+                          const themeColors = `/* Tema ${actualTheme} com esquema ${colorScheme} */\n:root {\n  --primary: ${getComputedStyle(
+                            document.documentElement
+                          ).getPropertyValue(
+                            "--primary"
+                          )};\n  --background: ${getComputedStyle(
+                            document.documentElement
+                          ).getPropertyValue("--background")};\n}`;
 
                           const blob = new Blob([themeColors], {
                             type: "text/css",
@@ -1047,30 +823,63 @@ export function ThemesPage() {
                           setTimeout(() => setCopiedColor(null), 3000);
                         }}
                         variant="outline"
-                        className="w-full h-12 text-lg font-semibold border-2 border-primary/20 hover:border-primary/40"
+                        className="w-full h-12 text-sm font-semibold border-2 hover:bg-muted/50"
                       >
-                        <Download className="h-5 w-5 mr-2" />
+                        <Download className="h-4 w-4 mr-2" />
                         Baixar CSS Personalizado
                       </Button>
-
-                      <Button
-                        variant="outline"
-                        className="w-full h-12 text-lg font-semibold border-2 border-primary/20 hover:border-primary/40"
-                      >
-                        <Share className="h-5 w-5 mr-2" />
-                        Compartilhar Tema
-                      </Button>
-                    </div>
-                  </div>
+                    </CardContent>
+                  </Card>
                 </div>
-
-                <Separator />
-
-                
-              </CardContent>
-            </Card>
-          </motion.div>
+              </motion.div>
+            </TabsContent>
+          </Tabs>
         </motion.div>
+
+        {/* Toast Notifications */}
+        <AnimatePresence>
+          {copiedColor && (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.8 }}
+              className={`fixed bottom-8 right-8 z-50 p-6 rounded-2xl shadow-2xl text-white max-w-sm ${
+                copiedColor === "color-warning"
+                  ? "bg-gradient-to-r from-yellow-500 to-orange-500"
+                  : copiedColor.includes("config-copied")
+                    ? "bg-gradient-to-r from-blue-500 to-cyan-500"
+                    : copiedColor.includes("css-downloaded")
+                      ? "bg-gradient-to-r from-purple-500 to-pink-500"
+                      : "bg-gradient-to-r from-green-500 to-emerald-500"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                {copiedColor === "color-warning" ? (
+                  <Lightning className="h-5 w-5 flex-shrink-0" />
+                ) : (
+                  <Check className="h-5 w-5 flex-shrink-0" />
+                )}
+                <div>
+                  <p className="font-semibold">
+                    {copiedColor === "color-warning"
+                      ? "Aviso!"
+                      : copiedColor.includes("config-copied")
+                        ? "Configuração Copiada!"
+                        : copiedColor.includes("css-downloaded")
+                          ? "CSS Baixado!"
+                          : "Cor Copiada!"}
+                  </p>
+                  {copiedColor === "color-warning" && (
+                    <p className="text-sm opacity-90 mt-1">
+                      Esquemas de cor só funcionam com temas padrão (Claro,
+                      Escuro, Sistema)
+                    </p>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -23,6 +23,7 @@ import {
   Star,
   Users,
   Globe,
+  BookOpen,
 } from "lucide-react";
 
 import { LogoLoop } from "./ui/loop";
@@ -497,6 +498,16 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                     <Rocket className="h-5 w-5 mr-3 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
                     <span className="relative z-10">Explorar Componentes</span>
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="group px-8 py-4 text-lg font-semibold border-2 border-secondary/30 hover:border-secondary/60 bg-background/80 backdrop-blur-sm hover:bg-secondary/10 transition-all duration-500 rounded-xl"
+                    onClick={() => navigate("/docs")}
+                  >
+                    <BookOpen className="h-5 w-5 mr-3 transition-all duration-300 group-hover:scale-110" />
+                    <span>Documentação</span>
                   </Button>
 
                   <Button

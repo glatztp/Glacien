@@ -134,18 +134,19 @@ export function NavigationHeader({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -80, opacity: 0 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
-            className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl"
+            className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur-lg shadow-sm"
           >
-            <div className="container mx-auto px-4">
-              <div className="flex items-center justify-between h-14">
+            <div className="container mx-auto px-4 sm:px-6">
+              <div className="flex items-center justify-between h-16">
                 <div className="flex items-center gap-2 lg:gap-4">
                   <motion.div
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center cursor-pointer pl-24 lg:pl-32"
+                    whileHover={{ scale: 1.05, rotate: 1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center cursor-pointer pl-16 lg:pl-24 group"
                     onClick={() => onNavigate("home")}
                   >
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center relative">
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-violet-500/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <img
                         src={
                           colorScheme === "violet"
@@ -153,7 +154,7 @@ export function NavigationHeader({
                             : "/logo-nobg.png"
                         }
                         alt="glacienUI Logo"
-                        className="w-6 h-6 lg:w-8 lg:h-8 transition-all duration-300 hover:scale-105 "
+                        className="w-7 h-7 lg:w-9 lg:h-9 transition-all duration-300 hover:scale-110 relative z-10 drop-shadow-sm"
                         onMouseEnter={(e) =>
                           (e.currentTarget.src =
                             colorScheme === "violet"
@@ -167,12 +168,17 @@ export function NavigationHeader({
                               : "/logo-nobg.png")
                         }
                       />
+                      <div className="ml-3 lg:ml-4 hidden sm:block">
+                        <h1 className="text-lg lg:text-xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                          Glacien
+                        </h1>
+                      </div>
                     </div>
                   </motion.div>
                 </div>
 
                 {/* Simplified Navigation */}
-                <nav className="hidden md:flex items-center gap-2">
+                <nav className="hidden md:flex items-center gap-1 bg-muted/30 backdrop-blur-sm rounded-full p-1 border border-border/50">
                   {navigationItems.map((item, index) => (
                     <motion.div
                       key={item.id}
@@ -187,24 +193,27 @@ export function NavigationHeader({
                         size="sm"
                         onClick={() => handleItemClick(item)}
                         className={cn(
-                          "relative transition-all duration-200 h-8 px-3",
+                          "relative transition-all duration-300 h-9 px-4 rounded-full font-medium",
                           currentSection === item.id
-                            ? "bg-primary text-primary-foreground shadow-sm"
-                            : "hover:bg-accent hover:text-accent-foreground text-muted-foreground"
+                            ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-105"
+                            : "hover:bg-accent/60 hover:text-accent-foreground text-muted-foreground hover:shadow-sm hover:scale-105"
                         )}
                       >
-                        {item.icon}
-                        <span className="ml-1.5 text-sm font-medium">
-                          {item.label}
-                        </span>
-                        {item.badge && (
-                          <Badge
-                            variant="secondary"
-                            className="text-xs ml-1.5 h-4 px-1"
-                          >
-                            {item.badge}
-                          </Badge>
-                        )}
+                        <motion.div
+                          className="flex items-center gap-2"
+                          whileHover={{ x: 1 }}
+                        >
+                          {item.icon}
+                          <span className="text-sm">{item.label}</span>
+                          {item.badge && (
+                            <Badge
+                              variant="secondary"
+                              className="text-xs ml-1 h-5 px-2 bg-background/80 text-foreground border border-border/40"
+                            >
+                              {item.badge}
+                            </Badge>
+                          )}
+                        </motion.div>
                       </Button>
                     </motion.div>
                   ))}
@@ -212,36 +221,53 @@ export function NavigationHeader({
 
                 {/* Right Actions */}
                 <div className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="hidden md:flex h-8 w-8 p-0"
-                    onClick={() =>
-                      window.open(
-                        "https://github.com/glatztp/Glacien",
-                        "_blank"
-                      )
-                    }
-                    title="View on GitHub"
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Github className="h-4 w-4" />
-                  </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="hidden md:flex h-9 w-9 p-0 rounded-full hover:bg-accent/60 hover:shadow-sm transition-all duration-300 group"
+                      onClick={() =>
+                        window.open(
+                          "https://github.com/glatztp/Glacien",
+                          "_blank"
+                        )
+                      }
+                      title="View on GitHub"
+                    >
+                      <Github className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                    </Button>
+                  </motion.div>
+
+                  <div className="h-6 w-px bg-border/60 hidden md:block" />
 
                   <ThemeToggle />
 
                   {/* Mobile Menu Button */}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="md:hidden"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    {mobileMenuOpen ? (
-                      <X className="h-5 w-5" />
-                    ) : (
-                      <Menu className="h-5 w-5" />
-                    )}
-                  </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="md:hidden h-9 w-9 p-0 rounded-full hover:bg-accent/60"
+                      onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    >
+                      <motion.div
+                        animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {mobileMenuOpen ? (
+                          <X className="h-5 w-5" />
+                        ) : (
+                          <Menu className="h-5 w-5" />
+                        )}
+                      </motion.div>
+                    </Button>
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -257,9 +283,9 @@ export function NavigationHeader({
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden border-b bg-background/95 backdrop-blur-xl sticky top-16 z-40"
+            className="md:hidden border-b border-border/40 bg-background/95 backdrop-blur-lg sticky top-16 z-40 shadow-lg"
           >
-            <div className="container mx-auto px-4 py-4">
+            <div className="container mx-auto px-4 sm:px-6 py-4">
               <nav className="space-y-2">
                 {navigationItems.map((item, index) => (
                   <motion.div
@@ -272,41 +298,52 @@ export function NavigationHeader({
                       variant={currentSection === item.id ? "default" : "ghost"}
                       size="sm"
                       onClick={() => handleItemClick(item)}
-                      className="w-full justify-start gap-3 hover:bg-accent hover:text-accent-foreground"
+                      className="w-full justify-start gap-3 hover:bg-accent/60 hover:text-accent-foreground rounded-lg h-12 px-4 font-medium transition-all duration-300 hover:shadow-sm hover:scale-[1.02]"
                     >
-                      {item.icon}
-                      <span className="font-medium">{item.label}</span>
-                      {item.badge && (
-                        <Badge variant="secondary" className="text-xs ml-auto">
-                          {item.badge}
-                        </Badge>
-                      )}
+                      <div className="flex items-center gap-3 w-full">
+                        {item.icon}
+                        <span className="font-medium">{item.label}</span>
+                        {item.badge && (
+                          <Badge
+                            variant="secondary"
+                            className="text-xs ml-auto bg-background/80 text-foreground border border-border/40"
+                          >
+                            {item.badge}
+                          </Badge>
+                        )}
+                      </div>
                     </Button>
                   </motion.div>
                 ))}
 
-                <div className="pt-2 border-t space-y-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full justify-start gap-3 hover:bg-accent hover:text-accent-foreground"
-                    onClick={() =>
-                      window.open(
-                        "https://github.com/glatztp/Glacien",
-                        "_blank"
-                      )
-                    }
+                <div className="pt-4 border-t border-border/40 space-y-2">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
                   >
-                    <Github className="h-4 w-4" />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start gap-3 hover:bg-accent/60 hover:text-accent-foreground rounded-lg h-12 px-4 group transition-all duration-300 hover:shadow-sm hover:scale-[1.02]"
+                      onClick={() =>
+                        window.open(
+                          "https://github.com/glatztp/Glacien",
+                          "_blank"
+                        )
+                      }
+                    >
+                      <Github className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
 
-                    <div className="text-left">
-                      <div className="font-medium">GitHub</div>
-                      <div className="text-xs text-muted-foreground">
-                        Código fonte e issues
+                      <div className="text-left flex-1">
+                        <div className="font-medium">GitHub</div>
+                        <div className="text-xs text-muted-foreground">
+                          Código fonte e issues
+                        </div>
                       </div>
-                    </div>
-                    <ExternalLink className="h-3 w-3 ml-auto" />
-                  </Button>
+                      <ExternalLink className="h-3 w-3 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                    </Button>
+                  </motion.div>
                 </div>
               </nav>
             </div>

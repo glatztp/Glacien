@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Moon,
   Sun,
@@ -13,331 +13,373 @@ import {
   Check,
 } from "phosphor-react";
 import { Button } from "./button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-  DropdownMenuLabel,
-} from "./overlays/dropdown-menu";
 import { useTheme } from "../providers/theme-provider";
+import { cn } from "../../lib/utils";
+
+const THEME_CONFIG = {
+  light: {
+    icon: Sun,
+    label: "Claro",
+    bgClass: "bg-yellow-50",
+    iconClass: "text-yellow-600",
+  },
+  dark: {
+    icon: Moon,
+    label: "Escuro",
+    bgClass: "bg-slate-100",
+    iconClass: "text-slate-700",
+  },
+  system: {
+    icon: Monitor,
+    label: "Sistema",
+    bgClass: "bg-muted/50",
+    iconClass: "text-muted-foreground",
+  },
+  neon: {
+    icon: Lightning,
+    label: "Neon",
+    bgClass: "bg-violet-50",
+    iconClass: "text-violet-600",
+  },
+  sunset: {
+    icon: Fire,
+    label: "Sunset",
+    bgClass: "bg-amber-50",
+    iconClass: "text-amber-600",
+  },
+  ocean: {
+    icon: Snowflake,
+    label: "Ocean",
+    bgClass: "bg-sky-50",
+    iconClass: "text-sky-600",
+  },
+  coffee: {
+    icon: Coffee,
+    label: "Coffee",
+    bgClass: "bg-amber-100",
+    iconClass: "text-amber-700",
+  },
+  galaxy: {
+    icon: Planet,
+    label: "Galaxy",
+    bgClass: "bg-indigo-50",
+    iconClass: "text-indigo-600",
+  },
+} as const;
 
 export function ThemeToggle() {
   const { setTheme, theme, colorScheme, setColorScheme } = useTheme();
-  const [showColors, setShowColors] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  const closeTimer = React.useRef<NodeJS.Timeout | null>(null);
+  const [isOpen, setIsOpen] = React.useState(false);
 
-  const scheduleClose = (ms = 180) => {
-    if (closeTimer.current) window.clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => {
-      setOpen(false);
-      setShowColors(false);
-      closeTimer.current = null;
-    }, ms);
-  };
-
-  const cancelClose = () => {
-    if (closeTimer.current) {
-      window.clearTimeout(closeTimer.current);  
-      closeTimer.current = null;
-    }
-  };
-
-  type ColorKey =
-    | "blue"
-    | "emerald"
-    | "violet"
-    | "rose"
-    | "orange"
-    | "cyan"
-    | "premium";
-
-  const colorOptions: { key: ColorKey; label: string; hsl: string }[] = [
-    { key: "blue", label: "Blue", hsl: "191 100% 36%" },
-    { key: "emerald", label: "Emerald", hsl: "151 91% 40%" },
-    { key: "violet", label: "Violet", hsl: "262 91% 60%" },
-    { key: "rose", label: "Rose", hsl: "340 91% 60%" },
-    { key: "orange", label: "Orange", hsl: "24 91% 60%" },
-    { key: "cyan", label: "Cyan", hsl: "190 91% 60%" },
-    { key: "premium", label: "Premium", hsl: "45 100% 51%" },
+  const colorOptions = [
+    { key: "blue" as const, label: "Azul", hsl: "191 100% 36%" },
+    { key: "emerald" as const, label: "Esmeralda", hsl: "151 91% 40%" },
+    { key: "violet" as const, label: "Violeta", hsl: "262 91% 60%" },
+    { key: "rose" as const, label: "Rosa", hsl: "340 91% 60%" },
+    { key: "orange" as const, label: "Laranja", hsl: "24 91% 60%" },
+    { key: "cyan" as const, label: "Ciano", hsl: "190 91% 60%" },
+    { key: "premium" as const, label: "Premium", hsl: "45 100% 51%" },
   ];
 
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (isOpen && !target.closest("[data-theme-toggle]")) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
+  // Animated toggle icon
+  const AnimatedIcon = () => {
+    const isDarkMode =
+      theme === "dark" || theme === "neon" || theme === "galaxy";
+
+    return (
+      <div className="relative w-4 h-4">
+        <motion.div
+          initial={false}
+          animate={{
+            opacity: isDarkMode ? 0 : 1,
+            scale: isDarkMode ? 0.5 : 1,
+            rotate: isDarkMode ? 180 : 0,
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="absolute inset-0"
+        >
+          <Sun className="w-full h-full" />
+        </motion.div>
+        <motion.div
+          initial={false}
+          animate={{
+            opacity: isDarkMode ? 1 : 0,
+            scale: isDarkMode ? 1 : 0.5,
+            rotate: isDarkMode ? 0 : -180,
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="absolute inset-0"
+        >
+          <Moon className="w-full h-full" />
+        </motion.div>
+      </div>
+    );
+  };
+
+  const handleThemeChange = (newTheme: Parameters<typeof setTheme>[0]) => {
+    setTheme(newTheme);
+    setIsOpen(false);
+  };
+
   return (
-    <DropdownMenu
-      open={open}
-      onOpenChange={(v) => {
-        setOpen(v);
-        if (!v) setShowColors(false);
-      }}
-    >
-      <DropdownMenuTrigger asChild>
-        <div className="inline-block w-12 relative">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="relative flex items-center justify-center p-2 rounded-md transition-transform hover:scale-105 focus:outline-none"
-            aria-label="Alternar tema"
-            title="Alternar tema"
-          >
-            <span className="relative inline-block w-5 h-5">
-              <motion.span
-                initial={false}
-                animate={
-                  theme === "dark"
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 1, scale: 1 }
-                }
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.16 }}
-                className="absolute inset-0 m-auto h-full w-full pointer-events-none"
-                style={{ transformOrigin: "center center" }}
-              >
-                {/* Sun is visible when theme !== dark; we fade/scale icons instead of rotating to avoid overlap */}
-                <motion.span
-                  initial={false}
-                  animate={
-                    theme === "dark"
-                      ? { opacity: 0, scale: 0.85 }
-                      : { opacity: 1, scale: 1 }
-                  }
-                  transition={{ duration: 0.16 }}
-                  className="block h-full w-full"
-                  aria-hidden
-                >
-                  <Sun className="h-full w-full" />
-                </motion.span>
-              </motion.span>
-              <motion.span
-                initial={false}
-                animate={
-                  theme === "dark"
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.85 }
-                }
-                transition={{ duration: 0.16 }}
-                className="absolute inset-0 m-auto h-full w-full pointer-events-none"
-                style={{ transformOrigin: "center center" }}
-                aria-hidden
-              >
-                <Moon className="h-full w-full" />
-              </motion.span>
-            </span>
-            <span className="sr-only">Alternar tema</span>
-          </Button>
-        </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="end"
-        className="w-56 p-1 bg-background border border-border/30 rounded-xl shadow-lg"
+    <div className="relative" data-theme-toggle>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => setIsOpen(!isOpen)}
+        className={cn(
+          "relative p-2.5 rounded-xl transition-all duration-200",
+          "hover:scale-105 hover:bg-accent/10 focus-visible:ring-2 focus-visible:ring-primary/50",
+          "active:scale-95",
+          isOpen && "bg-accent/15"
+        )}
+        aria-label="Alternar tema"
+        aria-expanded={isOpen}
       >
-        <DropdownMenuLabel>Temas Básicos</DropdownMenuLabel>
-        <DropdownMenuItem
-          onClick={() => setTheme("light")}
-          className={`flex items-center gap-3 rounded-md px-2 py-2 ${theme === "light" ? "bg-accent/10" : "hover:bg-accent/5"}`}
+        <motion.div
+          whileHover={{ rotate: [0, -10, 10, -5, 5, 0] }}
+          transition={{ duration: 0.5 }}
         >
-          <span className="flex items-center justify-center rounded-md w-8 h-8 bg-yellow-50 text-yellow-600">
-            <Sun className="h-4 w-4" />
-          </span>
-          <span
-            className={`flex-1 ${theme === "light" ? "font-semibold" : ""}`}
-          >
-            Claro
-          </span>
-          {theme === "light" && (
-            <span className="ml-auto text-foreground">
-              <Check className="h-4 w-4" />
-            </span>
-          )}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("dark")}
-          className={`flex items-center gap-3 rounded-md px-2 py-2 ${theme === "dark" ? "bg-accent/10" : "hover:bg-accent/5"}`}
-        >
-          <span className="flex items-center justify-center rounded-md w-8 h-8 bg-slate-800 text-slate-50">
-            <Moon className="h-4 w-4" />
-          </span>
-          <span className={`flex-1 ${theme === "dark" ? "font-semibold" : ""}`}>
-            Escuro
-          </span>
-          {theme === "dark" && (
-            <span className="ml-auto text-foreground">
-              <Check className="h-4 w-4" />
-            </span>
-          )}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("system")}
-          className={`flex items-center gap-3 rounded-md px-2 py-2 ${theme === "system" ? "bg-accent/10" : "hover:bg-accent/5"}`}
-        >
-          <span className="flex items-center justify-center rounded-md w-8 h-8 bg-muted/10 text-muted-foreground">
-            <Monitor className="h-4 w-4" />
-          </span>
-          <span
-            className={`flex-1 ${theme === "system" ? "font-semibold" : ""}`}
-          >
-            Sistema
-          </span>
-          {theme === "system" && (
-            <span className="ml-auto text-foreground">
-              <Check className="h-4 w-4" />
-            </span>
-          )}
-        </DropdownMenuItem>
+          <AnimatedIcon />
+        </motion.div>
+      </Button>
 
-        <div className="relative">
-          <DropdownMenuItem
-            onMouseEnter={() => {
-              cancelClose();
-              setOpen(true);
-              setShowColors(true);
-            }}
-            onMouseLeave={() => scheduleClose()}
-            className={`flex items-center gap-3 rounded-md px-2  hover:bg-accent/5`}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -10 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className={cn(
+              "absolute right-0 top-full mt-2",
+              "w-52 max-w-[90vw]", // Largura menor
+              "max-h-[75vh] overflow-y-auto", // Altura menor
+              "bg-background/95 backdrop-blur-lg border border-border/50",
+              "rounded-xl shadow-xl shadow-black/10",
+              "p-2", // Padding menor
+              "z-50"
+            )}
+            style={{ zIndex: 9999 }}
           >
-            <span className="flex items-center justify-center rounded-md w-8 h-8 bg-muted/10 text-muted-foreground">
-              <span className="h-4 w-4" />
-            </span>
-            <span className="flex-1">Cores do tema</span>
-            <span className="ml-auto text-xs text-foreground"></span>
-          </DropdownMenuItem>
+            {/* Basic Themes Section */}
+            <div className="mb-2 sm:mb-3">
+              <h3 className="text-xs font-medium text-foreground/80 px-1 mb-1.5">
+                Temas Básicos
+              </h3>
+              <div className="space-y-0.5">
+                {(["light", "dark", "system"] as const).map((themeKey) => {
+                  const config = THEME_CONFIG[themeKey];
+                  const isSelected = theme === themeKey;
+                  const IconComponent = config.icon;
 
-          {showColors && (
-            <motion.div
-              initial={{ opacity: 0, x: 8 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 8 }}
-              transition={{ duration: 0.12 }}
-              className="absolute right-full top-0 -translate-y-1/2 mr-3 w-44 p-2 rounded-xl bg-background border border-border/30 shadow-lg z-50"
-              onMouseEnter={() => {
-                cancelClose();
-                setOpen(true);
-                setShowColors(true);
-              }}
-              onMouseLeave={() => scheduleClose()}
-            >
-              <div className="text-xs font-medium mb-1 text-muted-foreground">
-                Cores do tema
+                  return (
+                    <motion.button
+                      key={themeKey}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      onClick={() => handleThemeChange(themeKey)}
+                      className={cn(
+                        "w-full flex items-center gap-2 px-2 py-1.5 rounded-lg",
+                        "transition-all duration-200 text-left",
+                        "hover:bg-accent/10 active:bg-accent/15",
+                        isSelected && "bg-accent/15 ring-1 ring-primary/20"
+                      )}
+                    >
+                      <div
+                        className={cn(
+                          "flex items-center justify-center w-6 h-6 rounded-md transition-all",
+                          "group-hover:shadow-sm",
+                          config.bgClass,
+                          config.iconClass
+                        )}
+                      >
+                        <IconComponent className="w-3 h-3" />
+                      </div>
+                      <span
+                        className={cn(
+                          "flex-1 font-medium transition-colors text-xs",
+                          isSelected && "text-primary"
+                        )}
+                      >
+                        {config.label}
+                      </span>
+                      <AnimatePresence>
+                        {isSelected && (
+                          <motion.div
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0, opacity: 0 }}
+                            className="text-primary"
+                          >
+                            <Check className="w-3 h-3" />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.button>
+                  );
+                })}
               </div>
-              <div className="flex flex-col gap-2">
-                {colorOptions.map((opt) => (
-                  <button
-                    key={opt.key}
-                    onClick={() => setColorScheme(opt.key)}
-                    className={`flex items-center gap-3 rounded-md px-2 py-2 w-full text-sm text-left hover:bg-accent/5 ${colorScheme === opt.key ? "bg-accent/10 font-semibold" : ""}`}
-                    aria-pressed={colorScheme === opt.key}
-                  >
-                    <span
-                      className="w-8 h-8 rounded-md flex-shrink-0"
-                      style={{
-                        background: `linear-gradient(135deg, hsl(${opt.hsl}), hsl(${opt.hsl} / 0.8))`,
-                        boxShadow: `inset 0 0 0 1px rgba(0,0,0,0.06)`,
-                      }}
-                    />
-                    <span className="flex-1">{opt.label}</span>
-                    {colorScheme === opt.key && (
-                      <span className="text-xs"><Check /></span>
-                    )}
-                  </button>
-                ))}
+            </div>
+
+            {/* Color Schemes Section - Only for light/dark themes */}
+            {(theme === "light" || theme === "dark") && (
+              <div className="mb-2 sm:mb-3">
+                <div className="h-px bg-border/50 mb-1.5" />
+                <h3 className="text-xs font-medium text-foreground/80 px-1 mb-1.5">
+                  Cores
+                </h3>
+                <div className="grid grid-cols-2 gap-1">
+                  {colorOptions.map((color) => {
+                    const isSelected = colorScheme === color.key;
+
+                    return (
+                      <motion.button
+                        key={color.key}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setColorScheme(color.key)}
+                        className={cn(
+                          "flex items-center gap-1.5 px-2 py-1.5 rounded-md",
+                          "transition-all duration-200 text-left text-xs",
+                          "hover:bg-accent/10 active:bg-accent/15",
+                          isSelected && "bg-accent/15 ring-1 ring-primary/20"
+                        )}
+                      >
+                        <motion.div
+                          whileHover={{ rotate: 180 }}
+                          transition={{ duration: 0.2 }}
+                          className="relative w-3 h-3 rounded-md flex-shrink-0 shadow-sm ring-1 ring-black/10"
+                          style={{ backgroundColor: `hsl(${color.hsl})` }}
+                        />
+                        <span
+                          className={cn(
+                            "font-medium truncate transition-colors",
+                            isSelected && "text-primary"
+                          )}
+                        >
+                          {color.label}
+                        </span>
+                        {isSelected && (
+                          <Check className="w-2.5 h-2.5 ml-auto text-primary flex-shrink-0" />
+                        )}
+                      </motion.button>
+                    );
+                  })}
+                </div>
               </div>
-            </motion.div>
-          )}
-        </div>
+            )}
 
-        <DropdownMenuSeparator />
-        <DropdownMenuLabel>Temas Especiais</DropdownMenuLabel>
+            {/* Special Themes Section */}
+            <div>
+              <div className="h-px bg-border/50 mb-1.5" />
+              <h3 className="text-xs font-medium text-foreground/80 px-1 mb-1.5">
+                Especiais
+              </h3>
+              <div className="space-y-0.5">
+                {(["neon", "sunset", "ocean", "coffee", "galaxy"] as const).map(
+                  (themeKey) => {
+                    const config = THEME_CONFIG[themeKey];
+                    const isSelected = theme === themeKey;
+                    const IconComponent = config.icon;
 
-        <DropdownMenuItem
-          onClick={() => setTheme("neon")}
-          className={`flex items-center gap-3 rounded-md px-2 py-2 ${theme === "neon" ? "bg-accent/10" : "hover:bg-accent/5"}`}
-        >
-          <span className="flex items-center justify-center rounded-md w-8 h-8 bg-violet-50 text-violet-600">
-            <Lightning className="h-4 w-4" />
-          </span>
-          <span className={`flex-1 ${theme === "neon" ? "font-semibold" : ""}`}>
-            Neon Cyber
-          </span>
-          {theme === "neon" && (
-            <span className="ml-auto text-foreground">
-              <Check className="h-4 w-4" />
-            </span>
-          )}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("sunset")}
-          className={`flex items-center gap-3 rounded-md px-2 py-2 ${theme === "sunset" ? "bg-accent/10" : "hover:bg-accent/5"}`}
-        >
-          <span className="flex items-center justify-center rounded-md w-8 h-8 bg-amber-50 text-amber-600">
-            <Fire className="h-4 w-4" />
-          </span>
-          <span
-            className={`flex-1 ${theme === "sunset" ? "font-semibold" : ""}`}
-          >
-            Sunset Paradise
-          </span>
-          {theme === "sunset" && (
-            <span className="ml-auto text-foreground">
-              <Check className="h-4 w-4" />
-            </span>
-          )}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("ocean")}
-          className={`flex items-center gap-3 rounded-md px-2 py-2 ${theme === "ocean" ? "bg-accent/10" : "hover:bg-accent/5"}`}
-        >
-          <span className="flex items-center justify-center rounded-md w-8 h-8 bg-sky-50 text-sky-600">
-            <Snowflake className="h-4 w-4" />
-          </span>
-          <span
-            className={`flex-1 ${theme === "ocean" ? "font-semibold" : ""}`}
-          >
-            Ocean Deep
-          </span>
-          {theme === "ocean" && (
-            <span className="ml-auto text-foreground">
-              <Check className="h-4 w-4" />
-            </span>
-          )}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("coffee")}
-          className={`flex items-center gap-3 rounded-md px-2 py-2 ${theme === "coffee" ? "bg-accent/10" : "hover:bg-accent/5"}`}
-        >
-          <span className="flex items-center justify-center rounded-md w-8 h-8 bg-amber-100 text-rose-700">
-            <Coffee className="h-4 w-4" />
-          </span>
-          <span
-            className={`flex-1 ${theme === "coffee" ? "font-semibold" : ""}`}
-          >
-            Coffee House
-          </span>
-          {theme === "coffee" && (
-            <span className="ml-auto text-foreground">
-              <Check className="h-4 w-4" />
-            </span>
-          )}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("galaxy")}
-          className={`flex items-center gap-3 rounded-md px-2 py-2 ${theme === "galaxy" ? "bg-accent/10" : "hover:bg-accent/5"}`}
-        >
-          <span className="flex items-center justify-center rounded-md w-8 h-8 bg-indigo-50 text-indigo-600">
-            <Planet className="h-4 w-4" />
-          </span>
-          <span
-            className={`flex-1 ${theme === "galaxy" ? "font-semibold" : ""}`}
-          >
-            Galaxy Explorer
-          </span>
-          {theme === "galaxy" && (
-            <span className="ml-auto text-foreground">
-              <Check className="h-4 w-4" />
-            </span>
-          )}
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+                    return (
+                      <motion.button
+                        key={themeKey}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        onClick={() => handleThemeChange(themeKey)}
+                        className={cn(
+                          "w-full flex items-center gap-2 px-2 py-1.5 rounded-lg",
+                          "transition-all duration-200 text-left",
+                          "hover:bg-accent/10 active:bg-accent/15",
+                          isSelected && "bg-accent/15 ring-1 ring-primary/20"
+                        )}
+                      >
+                        <div
+                          className={cn(
+                            "flex items-center justify-center w-6 h-6 rounded-md transition-all",
+                            "group-hover:shadow-sm",
+                            config.bgClass,
+                            config.iconClass
+                          )}
+                        >
+                          <IconComponent className="w-3 h-3" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <span
+                            className={cn(
+                              "block font-medium transition-colors text-xs truncate",
+                              isSelected && "text-primary"
+                            )}
+                          >
+                            {config.label}
+                          </span>
+                        </div>
+                        <AnimatePresence>
+                          {isSelected && (
+                            <motion.div
+                              initial={{ scale: 0, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              exit={{ scale: 0, opacity: 0 }}
+                              className="text-primary flex-shrink-0"
+                            >
+                              <Check className="w-3 h-3" />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.button>
+                    );
+                  }
+                )}
+              </div>
+            </div>
+
+            {/* Footer with current selection - Hidden on small screens to save space */}
+            <div className="hidden sm:block mt-2 pt-2 border-t border-border/50">
+              <div className="text-center text-xs text-muted-foreground">
+                Atual:{" "}
+                <span className="font-medium text-foreground">
+                  {THEME_CONFIG[theme as keyof typeof THEME_CONFIG]?.label ||
+                    theme}
+                </span>
+                {(theme === "light" || theme === "dark") && (
+                  <span>
+                    {" "}
+                    • {colorOptions.find((c) => c.key === colorScheme)?.label}
+                  </span>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Backdrop overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40"
+            onClick={() => setIsOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

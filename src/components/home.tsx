@@ -564,22 +564,13 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
               >
                 {/* Container com múltiplos cards flutuantes */}
                 <div className="relative group">
-                  {/* Efeitos de fundo aprimorados */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/15 to-secondary/15 rounded-3xl blur-3xl scale-125 animate-pulse" />
-                  <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-primary/30 to-secondary/20 rounded-full blur-2xl animate-pulse opacity-60" />
-                  <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-gradient-to-tr from-secondary/25 to-primary/20 rounded-full blur-3xl animate-pulse delay-1000 opacity-80" />
-                  <div className="absolute top-1/2 -right-4 w-16 h-16 bg-primary/25 rounded-full blur-xl animate-ping delay-2000" />
-
                   {/* Card principal aprimorado */}
                   <motion.div
                     whileHover={{ scale: 1.02, rotateY: 5 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="relative bg-gradient-to-br from-background/95 via-background/90 to-background/85 backdrop-blur-2xl border-2 border-primary/30 rounded-3xl p-8 shadow-2xl shadow-primary/20 max-w-md group-hover:shadow-3xl group-hover:shadow-primary/30 transition-all duration-700"
+                    className="relative bg-gradient-to-br from-background/95 via-background/90 to-background/85 backdrop-blur-2xl border-2 border-primary/30 rounded-3xl p-8 shadow-lg max-w-md transition-all duration-700"
                     style={{ transformStyle: "preserve-3d" }}
                   >
-                    {/* Brilho interior */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
                     {/* Logo section aprimorada */}
                     <div className="text-center mb-8 relative">
                       <motion.div

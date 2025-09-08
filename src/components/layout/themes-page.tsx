@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
   Button,
-  Badge,
   Switch,
   Tabs,
   TabsContent,
@@ -456,12 +455,6 @@ export function ThemesPage() {
                           {/* Content */}
                           <div className="space-y-2 flex-1">
                             <div>
-                              <Badge
-                                variant="outline"
-                                className="text-xs font-medium mb-1 bg-background/60 border-primary/20"
-                              >
-                                {themeObj.category}
-                              </Badge>
                               <h3 className="font-black text-base mb-1 group-hover:text-primary transition-colors duration-300">
                                 {themeObj.name}
                               </h3>
@@ -581,12 +574,6 @@ export function ThemesPage() {
                           {/* Header */}
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <Badge
-                                variant="outline"
-                                className="text-xs mb-2 bg-background/60 border-primary/20"
-                              >
-                                {scheme.category}
-                              </Badge>
                               <h3 className="font-black text-base mb-1 group-hover:text-primary transition-colors duration-300">
                                 {scheme.name}
                               </h3>

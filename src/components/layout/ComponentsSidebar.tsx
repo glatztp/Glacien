@@ -340,7 +340,7 @@ export function ComponentsSidebar({
                         <Palette className="h-3 w-3 text-white" />
                       </div>
                       Componentes
-                    </h2 >
+                    </h2>
                   </div>
                 </div>
 
@@ -408,9 +408,6 @@ export function ComponentsSidebar({
                           <div className="text-left flex-1">
                             <div className="font-medium flex items-center gap-2">
                               {category.name}
-                              {category.id === "popular" && (
-                                <span className="text-xs"></span>
-                              )}
                             </div>
                             <div className="text-xs text-muted-foreground">
                               {category.description}
@@ -420,11 +417,7 @@ export function ComponentsSidebar({
                           <div className="flex items-center gap-2">
                             <Badge
                               variant="secondary"
-                              className={cn(
-                                "text-xs h-6 w-6 flex items-center justify-center p-0",
-                                category.id === "popular" &&
-                                  "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
-                              )}
+                              className="text-xs h-6 w-6 flex items-center justify-center p-0 font-medium bg-primary/10 text-primary border-primary/20"
                             >
                               {category.components.length}
                             </Badge>
@@ -470,23 +463,11 @@ export function ComponentsSidebar({
                                       className={cn(
                                         "w-full justify-start gap-2 relative group transition-all duration-200 h-auto p-3",
                                         selectedComponent === component.id
-                                          ? "bg-primary text-primary-foreground shadow-md"
+                                          ? "bg-muted text-primary-foreground shadow-md"
                                           : "hover:bg-accent hover:text-accent-foreground hover:shadow-sm"
                                       )}
                                     >
                                       <div className="flex items-center gap-2 flex-1">
-                                        <div
-                                          className={cn(
-                                            "w-2 h-2 rounded-full",
-                                            component.status === "stable" &&
-                                              "bg-green-500",
-                                            component.status === "beta" &&
-                                              "bg-yellow-500",
-                                            component.status ===
-                                              "coming-soon" && "bg-purple-500"
-                                          )}
-                                        ></div>
-
                                         <div className="flex-1 text-left">
                                           <div className="flex items-center gap-2">
                                             <span className="font-medium text-sm">
@@ -495,7 +476,12 @@ export function ComponentsSidebar({
                                             {component.new && (
                                               <Badge
                                                 variant="default"
-                                                className="text-xs bg-green-500 hover:bg-green-600 animate-pulse"
+                                                className={cn(
+                                                  "text-xs hover:bg-green-600",
+                                                  category.id === "popular"
+                                                    ? "bg-primary/20 text-primary border-primary/30 hover:bg-primary/30"
+                                                    : "bg-green-500 animate-pulse"
+                                                )}
                                               >
                                                 Novo
                                               </Badge>
@@ -506,15 +492,15 @@ export function ComponentsSidebar({
                                             component.popularity && (
                                               <div className="mt-1">
                                                 <div className="flex items-center gap-2">
-                                                  <div className="flex-1 bg-muted rounded-full h-1.5">
+                                                  <div className="flex-1 bg-muted/50 rounded-full h-1">
                                                     <div
-                                                      className="bg-gradient-to-r from-yellow-400 to-orange-500 h-full rounded-full transition-all duration-500"
+                                                      className="bg-primary h-full rounded-full transition-all duration-300"
                                                       style={{
                                                         width: `${component.popularity}%`,
                                                       }}
                                                     ></div>
                                                   </div>
-                                                  <span className="text-xs text-muted-foreground">
+                                                  <span className="text-xs text-muted-foreground font-medium">
                                                     {component.popularity}%
                                                   </span>
                                                 </div>

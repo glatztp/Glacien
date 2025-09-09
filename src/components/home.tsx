@@ -29,6 +29,8 @@ import {
 
 import { LogoLoop } from "./ui/loop";
 import { useTheme } from "./providers/theme-provider";
+import GradualBlur from "./ui/gradual-blur";
+// import LaserFlow from "./ui/LaserFlow";
 import {
   SiReact,
   SiTypescript,
@@ -105,6 +107,7 @@ import PrivacyPolicyPage from "./layout/privacy-policy-page";
 import TermsPage from "./layout/terms-page";
 import { NavigationMenuPage } from "./pages/navigation-menu-page";
 import GradientBlinds from "./ui/gradient-blinds";
+import CookieConsent from "./ui/cookie-consent";
 
 const componentPages: Record<string, unknown> = {
   alert: AlertPage,
@@ -157,6 +160,8 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
   const { colorScheme, actualTheme } = useTheme();
   const navigate = useNavigate();
   const [bgColors, setBgColors] = useState<string[]>([]);
+
+  const chainSrc = "/chain.png";
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -432,13 +437,17 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="absolute -right-[40%] z-10 hidden lg:block"
+          className="absolute -right-[40%] sm:-right-[38%] md:-right-[36%] lg:-right-[40%] xl:-right-[32%] z-10 block pointer-events-none"
         >
-          <div className="">
+          <div className="pointer-events-none">
             <img
-              src="/chain.png"
+              src={chainSrc}
               alt="Chain"
-              className="h-full max-h-screen object-contain "
+              className="object-contain"
+              style={{
+                height: "clamp(220px, 600vh, 100vh)",
+                maxHeight: "100vh",
+              }}
             />
           </div>
         </motion.div>
@@ -460,20 +469,24 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
                   transition={{ delay: 0.3, duration: 0.8 }}
                   className="space-y-4"
                 >
-                  <h1
-                    className="text-8xl sm:text-9xl lg:text-[12rem] xl:text-[14rem] font-black leading-[0.8] tracking-tighter  text-primary"
+                  <motion.h1
+                    className="text-8xl sm:text-9xl lg:text-[12rem] xl:text-[14rem] font-black leading-[0.8] tracking-tighter text-primary"
+                    initial={{ opacity: 0, y: -40, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ delay: 0.25, duration: 0.9, ease: "easeOut" }}
+                    whileHover={{ scale: 1.02 }}
                     style={{
                       fontFamily: "Bricolage Grotesque, Inter, sans-serif",
                       fontWeight: 950,
                       letterSpacing: "-0.05em",
                       filter:
                         "drop-shadow(0 2px 4px hsl(var(--foreground) / 0.1))",
-                      transform: "scaleY(1.15)",
                       display: "inline-block",
                     }}
+                    // Garantir que toda ocorrência visual do nome use a mesma fonte
                   >
                     Glacien
-                  </h1>
+                  </motion.h1>
 
                   <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 ml-3">
                     <motion.div
@@ -585,50 +598,121 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
               </motion.div>
             ))}
           </motion.div>
-          <div
-            className="mt-32 w-screen left-0 right-0 relative px-0"
-            style={{ marginLeft: "calc(-50vw + 50%)" }}
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mt-16 sm:mt-20 lg:mt-24"
           >
-            <LogoLoop
-              logos={[
-                {
-                  node: (
-                    <img
-                      src={
-                        colorScheme === "violet"
-                          ? "/logo-p-nobg.png"
-                          : "/logo-nobg.png"
-                      }
-                      alt="Logo Glacien"
-                      style={{ height: 80 }}
-                    />
-                  ),
-                },
-                { node: <SiReact className="text-primary" title="React" /> },
-                {
-                  node: (
-                    <SiTypescript className="text-primary" title="TypeScript" />
-                  ),
-                },
-                {
-                  node: (
-                    <SiTailwindcss className="text-primary" title="Tailwind" />
-                  ),
-                },
-                { node: <SiNpm className="text-primary" title="NPM" /> },
-                { node: <SiVercel className="text-primary" title="Vercel" /> },
-                { node: <SiGithub className="text-primary" title="GitHub" /> },
-                { node: <SiVite className="text-primary" title="Vitest" /> },
-              ]}
-              speed={40}
-              direction="left"
-              logoHeight={80}
-              gap={40}
-              scaleOnHover={true}
-              ariaLabel="Tecnologias utilizadas"
-              className="w-full"
-            />
-          </div>
+            <div className="relative">
+              {/* Container with gradient blur on sides */}
+              <div className="relative overflow-hidden rounded-2xl bg-background/80 backdrop-blur-md border border-primary/20 shadow-xl">
+                <GradualBlur
+                  position="left"
+                  strength={1}
+                  divCount={12}
+                  curve="ease-in-out"
+                  exponential={true}
+                  opacity={0.9}
+                />
+
+                <GradualBlur
+                  position="right"
+                  strength={1}
+                  divCount={6}
+                  curve="ease-out"
+                  exponential={true}
+                  opacity={0.9}
+                />
+
+                {/* Logo Loop Content */}
+                <div className="relative py-8 px-4">
+                  <LogoLoop
+                    logos={[
+                      {
+                        node: (
+                          <img
+                            src={
+                              colorScheme === "violet"
+                                ? "/logo-p-nobg.png"
+                                : "/logo-nobg.png"
+                            }
+                            alt="Logo Glacien"
+                            style={{ height: 60 }}
+                          />
+                        ),
+                      },
+                      {
+                        node: (
+                          <SiReact
+                            className="text-primary text-5xl"
+                            title="React"
+                          />
+                        ),
+                      },
+                      {
+                        node: (
+                          <SiTypescript
+                            className="text-primary text-5xl"
+                            title="TypeScript"
+                          />
+                        ),
+                      },
+                      {
+                        node: (
+                          <SiTailwindcss
+                            className="text-primary text-5xl"
+                            title="Tailwind"
+                          />
+                        ),
+                      },
+                      {
+                        node: (
+                          <SiNpm
+                            className="text-primary text-5xl"
+                            title="NPM"
+                          />
+                        ),
+                      },
+                      {
+                        node: (
+                          <SiVercel
+                            className="text-primary text-5xl"
+                            title="Vercel"
+                          />
+                        ),
+                      },
+                      {
+                        node: (
+                          <SiGithub
+                            className="text-primary text-5xl"
+                            title="GitHub"
+                          />
+                        ),
+                      },
+                      {
+                        node: (
+                          <SiVite
+                            className="text-primary text-5xl"
+                            title="Vitest"
+                          />
+                        ),
+                      },
+                    ]}
+                    speed={40}
+                    direction="left"
+                    logoHeight={80}
+                    gap={60}
+                    scaleOnHover={true}
+                    ariaLabel="Tecnologias utilizadas"
+                    className="w-full"
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -922,13 +1006,35 @@ export function App() {
         </div>
       </section>
 
-      {/* Epic CTA Section - Enhanced with Professional Conversion Techniques */}
       <section className="relative py-24 sm:py-32 lg:py-48 overflow-hidden">
+        {/* LaserFlow Background Effect - Full Height */}
+        {/* <div className="absolute inset-0 z-0">
+          <LaserFlow
+            color="#ffffff"
+            horizontalBeamOffset={0.0}
+            verticalBeamOffset={0.0} // Centralizado verticalmente
+            flowSpeed={0.6}
+            verticalSizing={56} // Aumentado para cobrir a altura
+            horizontalSizing={1.0}
+            fogIntensity={1.0}
+            fogScale={0.6}
+            wispSpeed={25.0}
+            wispIntensity={8.0}
+            flowStrength={0.7}
+            wispDensity={1.5}
+            mouseTiltStrength={0.08}
+            decay={1.5}
+            falloffStart={0.8}
+            fogFallSpeed={1.2}
+          />
+        </div> */}
+
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-background/90 via-background/30 to-background/70" />
+
         {/* Sophisticated Background Architecture */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-background to-secondary/15" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_var(--primary)_0%,_transparent_50%)] opacity-20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,_var(--secondary)_0%,_transparent_50%)] opacity-20" />
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,_transparent_49%,_var(--primary)_49%,_var(--primary)_51%,_transparent_51%)] opacity-5" />
+        <div className="absolute inset-0 z-5 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
+        <div className="absolute inset-0 z-5 bg-[radial-gradient(circle_at_30%_20%,_var(--primary)_0%,_transparent_60%)] opacity-15" />
+        <div className="absolute inset-0 z-5 bg-[radial-gradient(circle_at_70%_80%,_var(--secondary)_0%,_transparent_60%)] opacity-15" />
 
         {/* Strategic Ambient Elements */}
         <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-primary rounded-full opacity-60 animate-pulse" />
@@ -936,7 +1042,7 @@ export function App() {
         <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-primary rounded-full opacity-50 animate-pulse delay-1400" />
         <div className="absolute bottom-1/3 right-1/3 w-1.5 h-1.5 bg-secondary rounded-full opacity-60 animate-pulse delay-300" />
 
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Content with Strategic Layout */}
           <div className="max-w-6xl mx-auto text-center">
             {/* Trust Signal Badge */}
@@ -1379,10 +1485,18 @@ export function App() {
             className="mt-10 pt-6 border-t border-primary/10 flex flex-col sm:flex-row items-center justify-between gap-4"
           >
             <div className="flex items-center gap-4">
-              <div className="h-1 w-24 bg-gradient-to-r from-primary via-secondary to-primary rounded-full" />
+              <div className="h-1 w-24 bg-gradient-to-r from-primary to-secondary rounded-full" />
               <p className="text-sm text-muted-foreground">
-                &copy; {new Date().getFullYear()} Glacien. Todos os direitos
-                reservados.
+                &copy; {new Date().getFullYear()}{" "}
+                <span
+                  style={{
+                    fontFamily: "Bricolage Grotesque, Inter, sans-serif",
+                    fontWeight: 700,
+                  }}
+                >
+                  Glacien
+                </span>
+                . Todos os direitos reservados.
               </p>
             </div>
 
@@ -1564,6 +1678,7 @@ function ComponentsOverview({
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
         className="max-w-6xl mx-auto"
       >
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-8">
@@ -1716,6 +1831,7 @@ export default function ProfessionalDashboard() {
     <ThemeProvider>
       <Router>
         <DashboardContent />
+        <CookieConsent />
       </Router>
     </ThemeProvider>
   );

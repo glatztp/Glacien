@@ -169,7 +169,14 @@ export function NavigationHeader({
                         }
                       />
                       <div className="ml-3 lg:ml-4 hidden sm:block">
-                        <h1 className="text-lg lg:text-xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                        <h1
+                          className="text-lg lg:text-xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent"
+                          style={{
+                            fontFamily:
+                              "Bricolage Grotesque, Inter, sans-serif",
+                            fontWeight: 800,
+                          }}
+                        >
                           Glacien
                         </h1>
                       </div>

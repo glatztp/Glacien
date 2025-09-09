@@ -43,6 +43,7 @@ import {
 
 import { Button, Badge, ThemeToggle } from "./ui";
 import FloatingSearch from "./ui/floating-search";
+import { useIsMobile } from "../hooks/useMobile";
 
 import { Card, CardContent } from "./ui/layout";
 import { NavigationHeader } from "./layout/NavigationHeader";
@@ -162,6 +163,7 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
   const [bgColors, setBgColors] = useState<string[]>([]);
 
   const chainSrc = "/chain.png";
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -433,24 +435,26 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
           }`}
         />
 
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="absolute -right-[40%] sm:-right-[38%] md:-right-[36%] lg:-right-[40%] xl:-right-[32%] z-10 block pointer-events-none"
-        >
-          <div className="pointer-events-none">
-            <img
-              src={chainSrc}
-              alt="Chain"
-              className="object-contain"
-              style={{
-                height: "clamp(220px, 600vh, 100vh)",
-                maxHeight: "100vh",
-              }}
-            />
-          </div>
-        </motion.div>
+        {!isMobile && (
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            className="absolute -right-[40%] sm:-right-[38%] md:-right-[36%] lg:-right-[40%] xl:-right-[32%] z-10 block pointer-events-none"
+          >
+            <div className="pointer-events-none">
+              <img
+                src={chainSrc}
+                alt="Chain"
+                className="object-contain"
+                style={{
+                  height: "clamp(220px, 600vh, 100vh)",
+                  maxHeight: "100vh",
+                }}
+              />
+            </div>
+          </motion.div>
+        )}
 
         {/* Layout profissional em grid */}
         <div className="relative w-full">

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, createContext, useRef } from "react";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -427,62 +428,76 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
           }`}
         />
 
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="absolute -right-[40%] z-10 hidden lg:block"
+        >
+          <div className="">
+            <img
+              src="/chain.png"
+              alt="Chain"
+              className="h-full max-h-screen object-contain "
+            />
+          </div>
+        </motion.div>
+
         {/* Layout profissional em grid */}
         <div className="relative w-full">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto relative">
               {/* Coluna esquerda - Conteúdo principal */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="space-y-8 lg:space-y-10 text-left"
+                className="space-y-8 lg:space-y-10 text-left lg:pr-20"
               >
-                {/* Título principal */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
                   className="space-y-4"
                 >
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">
-                    <span className="block text-foreground mb-2">
-                      Construa com
-                    </span>
-                    <span className="block bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                      Glacien
-                    </span>
+                  <h1
+                    className="text-8xl sm:text-9xl lg:text-[12rem] xl:text-[14rem] font-black leading-[0.8] tracking-tighter  text-primary"
+                    style={{
+                      fontFamily: "Bricolage Grotesque, Inter, sans-serif",
+                      fontWeight: 950,
+                      letterSpacing: "-0.05em",
+                      filter:
+                        "drop-shadow(0 2px 4px hsl(var(--foreground) / 0.1))",
+                      transform: "scaleY(1.15)",
+                      display: "inline-block",
+                    }}
+                  >
+                    Glacien
                   </h1>
 
-                  {/* Linha decorativa */}
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
-                    className="h-1 bg-gradient-to-r from-primary to-secondary rounded-full w-32"
-                  />
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 ml-3">
+                    <motion.div
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{
+                        delay: 0.8,
+                        duration: 0.8,
+                        ease: "easeOut",
+                      }}
+                      className="h-1 bg-primary rounded-full w-72"
+                    />
+                    <motion.div
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{
+                        delay: 0.8,
+                        duration: 0.8,
+                        ease: "easeOut",
+                      }}
+                      className="h-1 bg-primary rounded-full w-12"
+                    />
+                  </div>
                 </motion.div>
-
-                {/* Descrição principal */}
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.8 }}
-                  className="text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-xl"
-                >
-                  A biblioteca de componentes React mais
-                  <span className="text-primary font-semibold">
-                    {" "}
-                    avançada
-                  </span>{" "}
-                  e
-                  <span className="text-secondary font-semibold">
-                    {" "}
-                    elegante
-                  </span>{" "}
-                  do mercado. Transforme suas ideias em interfaces
-                  extraordinárias.
-                </motion.p>
 
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -492,10 +507,9 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
                 >
                   <Button
                     size="lg"
-                    className="group relative overflow-hidden px-8 py-4 text-lg font-bold shadow-2xl shadow-primary/25 hover:shadow-primary/40 transition-all duration-500 bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary border-0 rounded-xl"
+                    className="group relative overflow-hidden px-8 py-4 text-lg font-bold shadow-2xl shadow-primary/25 hover:shadow-primary/40 transition-all duration-500 bg-primary hover:bg-primary/90 border-0 rounded-xl"
                     onClick={() => navigate("/components")}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                     <Rocket className="h-5 w-5 mr-3 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
                     <span className="relative z-10">Componentes</span>
                   </Button>
@@ -524,241 +538,6 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
                     <BookOpen className="h-5 w-5 transition-all duration-300 group-hover:scale-110" />
                   </Button>
                 </motion.div>
-
-                {/* Estatísticas rápidas */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9, duration: 0.8 }}
-                  className="flex items-center gap-8 pt-4"
-                >
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary">50+</div>
-                    <div className="text-sm text-muted-foreground">
-                      Componentes
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-secondary">
-                      100%
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      TypeScript
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary">A11y</div>
-                    <div className="text-sm text-muted-foreground">
-                      Acessível
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-
-              {/* Coluna direita - Visual/Logo aprimorado */}
-              <motion.div
-                initial={{ opacity: 0, x: 50, scale: 0.9 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-                className="relative flex items-center justify-center lg:justify-end"
-              >
-                {/* Container com múltiplos cards flutuantes */}
-                <div className="relative group">
-                  {/* Card principal aprimorado */}
-                  <motion.div
-                    whileHover={{ scale: 1.02, rotateY: 5 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="relative bg-gradient-to-br from-background/95 via-background/90 to-background/85 backdrop-blur-2xl border-2 border-primary/30 rounded-3xl p-8 shadow-lg max-w-md transition-all duration-700"
-                    style={{ transformStyle: "preserve-3d" }}
-                  >
-                    {/* Logo section aprimorada */}
-                    <div className="text-center mb-8 relative">
-                      <motion.div
-                        whileHover={{ rotateY: 180, scale: 1.1 }}
-                        transition={{ duration: 0.6, ease: "easeInOut" }}
-                        className="inline-flex items-center justify-center w-24 h-24 mb-6 rounded-3xl bg-gradient-to-br from-primary/30 via-secondary/20 to-primary/25 shadow-2xl relative overflow-hidden"
-                        style={{ transformStyle: "preserve-3d" }}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                        <img
-                          src={
-                            colorScheme === "violet"
-                              ? "/logo-p.png"
-                              : "/logo.png"
-                          }
-                          alt="GlacienLogo"
-                          className="h-14 w-14 object-contain relative z-10 drop-shadow-lg"
-                        />
-                        {/* Partículas ao redor do logo */}
-                        <div className="absolute -top-2 -right-2 w-3 h-3 bg-primary/60 rounded-full animate-ping" />
-                        <div className="absolute -bottom-2 -left-2 w-2 h-2 bg-secondary/60 rounded-full animate-ping delay-500" />
-                      </motion.div>
-
-                      <motion.h3
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6 }}
-                        className="text-2xl font-black mb-3 bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent"
-                      >
-                        Glacien UI
-                      </motion.h3>
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.7 }}
-                        className="text-sm text-muted-foreground font-medium"
-                      >
-                        Componentes React de última geração
-                      </motion.p>
-
-                      {/* Badge de status */}
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.8 }}
-                        className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500/20 to-green-500/20 border border-emerald-500/30"
-                      >
-                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                        <span className="text-xs font-bold text-emerald-700">
-                          Em Produção
-                        </span>
-                      </motion.div>
-                    </div>
-
-                    {/* Preview de componentes melhorado */}
-                    <div className="space-y-5">
-                      {/* Button component preview */}
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.9 }}
-                        className="flex gap-3"
-                      >
-                        <div className="h-12 bg-gradient-to-r from-primary via-secondary to-primary rounded-xl flex-1 shadow-xl relative overflow-hidden group/btn">
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000" />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-xs font-bold text-white/80">
-                              Button
-                            </span>
-                          </div>
-                        </div>
-                        <div className="h-12 w-12 bg-muted/70 rounded-xl shadow-lg border-2 border-border/50 flex items-center justify-center hover:bg-primary/20 transition-colors duration-300">
-                          <div className="w-4 h-4 bg-primary/60 rounded-full" />
-                        </div>
-                      </motion.div>
-
-                      {/* Input component preview */}
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 1.0 }}
-                        className="relative"
-                      >
-                        <div className="h-10 bg-muted/40 rounded-lg w-4/5 border border-border/30 relative overflow-hidden">
-                          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-primary/50 rounded-full animate-pulse" />
-                          <div className="absolute left-6 top-1/2 transform -translate-y-1/2 w-16 h-1 bg-muted rounded-full" />
-                        </div>
-                      </motion.div>
-
-                      {/* Checkbox and radio preview */}
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 1.1 }}
-                        className="flex gap-3 items-center"
-                      >
-                        <div className="w-6 h-6 bg-primary/40 rounded-md border-2 border-primary/60 flex items-center justify-center">
-                          <div className="w-2 h-2 bg-white rounded-sm" />
-                        </div>
-                        <div className="h-2 bg-muted/50 rounded-full flex-1" />
-                        <div className="w-6 h-6 bg-secondary/30 rounded-full border-2 border-secondary/50 flex items-center justify-center">
-                          <div className="w-2 h-2 bg-white rounded-full" />
-                        </div>
-                      </motion.div>
-
-                      {/* Cards preview */}
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 1.2 }}
-                        className="flex gap-3"
-                      >
-                        <div className="h-10 bg-gradient-to-br from-secondary/30 to-secondary/20 rounded-xl px-4 flex-1 border border-secondary/30 relative overflow-hidden group/card">
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover/card:translate-x-[100%] transition-transform duration-700" />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-xs font-medium text-secondary"></span>
-                          </div>
-                        </div>
-                        <div className="h-10 bg-gradient-to-br from-primary/30 to-primary/20 rounded-xl px-4 flex-1 border border-primary/30 relative overflow-hidden group/card2">
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover/card2:translate-x-[100%] transition-transform duration-700" />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-xs font-medium text-primary"></span>
-                          </div>
-                        </div>
-                      </motion.div>
-
-                      {/* Progress bar preview */}
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 1.3 }}
-                        className="relative"
-                      >
-                        <div className="h-2 bg-muted/30 rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: "0%" }}
-                            animate={{ width: "70%" }}
-                            transition={{
-                              delay: 1.5,
-                              duration: 2,
-                              ease: "easeOut",
-                            }}
-                            className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
-                          />
-                        </div>
-                        <span className="absolute right-0 -top-6 text-xs text-muted-foreground font-medium"></span>
-                      </motion.div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20, x: 20 }}
-                    animate={{ opacity: 1, y: 0, x: 0 }}
-                    transition={{ delay: 1.4, duration: 0.6 }}
-                    className="absolute -top-6 -right-6 bg-background/90 backdrop-blur-xl border border-primary/20 rounded-2xl p-3 shadow-xl hover:shadow-2xl transition-all duration-300 hidden lg:block"
-                  >
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-gradient-to-br from-emerald-500/30 to-emerald-400/30 rounded-lg flex items-center justify-center">
-                        <div className="w-3 h-3 bg-emerald-500 rounded-full" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold">50+ Componentes</div>
-                        <div className="text-xs text-muted-foreground">
-                          Prontos para usar
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: -20, x: 20 }}
-                    animate={{ opacity: 1, y: 0, x: 0 }}
-                    transition={{ delay: 1.6, duration: 0.6 }}
-                    className="absolute -bottom-6 -left-6 bg-background/90 backdrop-blur-xl border border-secondary/20 rounded-2xl p-3 shadow-xl hover:shadow-2xl transition-all duration-300 hidden lg:block"
-                  >
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500/30 to-blue-400/30 rounded-lg flex items-center justify-center">
-                        <div className="w-3 h-3 bg-blue-500 rounded-full" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold">TypeScript</div>
-                        <div className="text-xs text-muted-foreground">
-                          100% tipado
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
               </motion.div>
             </div>
           </div>
@@ -766,9 +545,8 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
       </section>
 
       {/* Enhanced Stats Section */}
-      <section className="relative py-16 sm:py-20 lg:py-28 border-y-2 border-primary/10 bg-gradient-to-r from-background via-primary/5 to-background overflow-hidden">
+      <section className="relative py-16 sm:py-20 lg:py-28 border-y-2 border-primary/10 bg-background overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:20px_20px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-transparent" />
 
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -791,17 +569,14 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
                 viewport={{ once: true }}
                 className="text-center group cursor-pointer relative"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl blur-xl scale-125 opacity-0 group-hover:opacity-100 transition-all duration-500" />
                 <div className="relative bg-background/80 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-xl group-hover:shadow-2xl border border-primary/20 group-hover:border-primary/40 transition-all duration-500">
                   <div className="flex items-center justify-center mb-4 sm:mb-6">
-                    <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 text-primary group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                    <div className="p-4 sm:p-5 rounded-2xl bg-primary/20 text-primary group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
                       {stat.icon}
                     </div>
                   </div>
                   <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2 sm:mb-3 transition-all duration-500">
-                    <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent group-hover:from-primary group-hover:to-secondary">
-                      {stat.value}
-                    </span>
+                    <span className="text-foreground">{stat.value}</span>
                   </div>
                   <div className="text-sm sm:text-base lg:text-lg text-muted-foreground font-bold tracking-wide">
                     {stat.label}
@@ -860,7 +635,7 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
       {/* Revolutionary Features Section - Enhanced with Professional Design Techniques */}
       <section className="relative py-20 sm:py-32 lg:py-40 overflow-hidden">
         {/* Sophisticated Background with Depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-secondary/5" />
+        <div className="absolute inset-0 bg-background" />
         <div className="absolute inset-0 bg-[linear-gradient(135deg,_transparent_25%,_var(--primary)_25.1%,_var(--primary)_25.9%,_transparent_26%)] opacity-5" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,_var(--primary)_0%,_transparent_60%)] opacity-10" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,_var(--secondary)_0%,_transparent_60%)] opacity-10" />
@@ -883,10 +658,8 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
                   Por que desenvolvedores
                 </span>
                 <span className="block">
-                  <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                    escolhem Glacien
-                  </span>
-                  <span className="text-muted-foreground/60">?</span>
+                  <span className="text-primary">escolhem Glacien</span>
+                  <span className="text-primary ml-1">?</span>
                 </span>
               </h2>
 
@@ -1018,7 +791,7 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
             {/* Primary CTA Button */}
             <Button
               size="lg"
-              className="group relative px-8 py-4 text-base font-semibold bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+              className="group relative px-8 py-4 text-base font-semibold bg-primary hover:from-primary/90 hover:to-secondary/90 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
               onClick={() => navigate("/components")}
             >
               {/* Button content */}
@@ -1053,13 +826,9 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
             className="text-center mb-16 sm:mb-20 lg:mb-28"
           >
             <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black mb-6 sm:mb-8">
-              <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
-                Simples de usar,
-              </span>
+              <span className="text-primary">Simples de usar,</span>
               <br />
-              <span className="bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
-                poderoso de customizar
-              </span>
+              <span className="text-primary">poderoso de customizar</span>
             </h2>
             <motion.div
               initial={{ scaleX: 0 }}
@@ -1069,7 +838,7 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
               className="h-2 bg-gradient-to-r from-secondary via-primary to-secondary rounded-full mx-auto mb-8 max-w-2xl"
             />
             <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground max-w-4xl mx-auto leading-relaxed px-4 font-medium">
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">
+              <span className="text-primary font-bold">
                 Instale, importe e comece a usar
               </span>
               . É realmente simples assim.
@@ -1129,7 +898,8 @@ export function App() {
         
         <h1 className="text-3xl font-bold bg-gradient-to-r 
                        from-primary to-secondary bg-clip-text 
-                       text-transparent">
+                       text-transparent"
+            style={{ fontFamily: 'Bricolage Grotesque, Inter, sans-serif', fontWeight: 950, letterSpacing: '-0.03em', filter: 'drop-shadow(0 1px 2px hsl(var(--foreground) / 0.1))' }}>
           Bem-vindo ao Glacien
         </h1>
         
@@ -1200,9 +970,7 @@ export function App() {
                   Transforme sua
                 </span>
                 <span className="block mb-2">
-                  <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                    produtividade
-                  </span>
+                  <span className="text-primary">produtividade</span>
                 </span>
                 <span className="block text-lg sm:text-xl lg:text-2xl font-medium text-muted-foreground mt-4">
                   em minutos, não em meses
@@ -1253,7 +1021,7 @@ export function App() {
               {/* Primary Action - Enhanced */}
               <Button
                 size="lg"
-                className="group relative overflow-hidden w-full sm:w-auto px-10 py-6 text-lg font-bold shadow-2xl hover:shadow-3xl transition-all duration-500 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 border-0 transform hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative overflow-hidden w-full sm:w-auto px-10 py-6 text-lg font-bold shadow-2xl hover:shadow-3xl transition-all duration-500 bg-primary hover:from-primary/90 hover:to-secondary/90 border-0 transform hover:scale-[1.02] active:scale-[0.98]"
                 onClick={() =>
                   window.open(
                     "https://www.npmjs.com/package/@glacien/ui",
@@ -1333,7 +1101,18 @@ export function App() {
               className="flex flex-col"
             >
               <div className="mb-4">
-                <h3 className="font-extrabold text-2xl sm:text-3xl mb-2 bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+                <h3
+                  className="font-extrabold text-3xl sm:text-4xl mb-3 text-primary"
+                  style={{
+                    fontFamily: "Bricolage Grotesque, Inter, sans-serif",
+                    fontWeight: 950,
+                    letterSpacing: "-0.04em",
+                    filter:
+                      "drop-shadow(0 1px 2px hsl(var(--foreground) / 0.1))",
+                    transform: "scaleY(1.1)",
+                    display: "inline-block",
+                  }}
+                >
                   Glacien
                 </h3>
                 <div className="h-1 w-16 bg-gradient-to-r from-primary to-secondary rounded-full mb-4" />

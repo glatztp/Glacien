@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./public/logo.png" alt="glacien UI Logo" width="160" height="160" />
+<img src="./public/logo.png" alt="glacien Logo" width="160" height="160" />
 
 ---
 

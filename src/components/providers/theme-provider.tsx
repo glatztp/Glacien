@@ -5,6 +5,7 @@ type Theme =
   | "light"
   | "dark"
   | "system"
+  | "simple"
   | "neon"
   | "sunset"
   | "ocean"
@@ -27,6 +28,7 @@ interface ThemeContextType {
   actualTheme:
     | "light"
     | "dark"
+    | "simple"
     | "neon"
     | "sunset"
     | "ocean"
@@ -54,13 +56,21 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   });
 
   const [actualTheme, setActualTheme] = useState<
-    "light" | "dark" | "neon" | "sunset" | "ocean" | "coffee" | "galaxy"
+    | "light"
+    | "dark"
+    | "simple"
+    | "neon"
+    | "sunset"
+    | "ocean"
+    | "coffee"
+    | "galaxy"
   >("light");
 
   const getThemeColors = (
     themeType:
       | "light"
       | "dark"
+      | "simple"
       | "neon"
       | "sunset"
       | "ocean"
@@ -109,6 +119,27 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         "popover-foreground": "0 0% 95%",
         destructive: "0 84% 60%",
         "destructive-foreground": "210 40% 98%",
+      },
+      simple: {
+        background: "0 0% 100%",
+        foreground: "0 0% 0%",
+        primary: "0 0% 0%",
+        "primary-foreground": "0 0% 100%",
+        secondary: "0 0% 100%",
+        "secondary-foreground": "0 0% 0%",
+        muted: "0 0% 96%",
+        "muted-foreground": "0 0% 40%",
+        accent: "0 0% 96%",
+        "accent-foreground": "0 0% 0%",
+        border: "0 0% 85%",
+        input: "0 0% 85%",
+        ring: "0 0% 0%",
+        card: "0 0% 100%",
+        "card-foreground": "0 0% 0%",
+        popover: "0 0% 100%",
+        "popover-foreground": "0 0% 0%",
+        destructive: "0 84% 60%",
+        "destructive-foreground": "0 0% 100%",
       },
       neon: {
         background: "240 15% 3%",
@@ -310,6 +341,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     resolvedTheme:
       | "light"
       | "dark"
+      | "simple"
       | "neon"
       | "sunset"
       | "ocean"
@@ -321,6 +353,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.classList.remove(
       "light",
       "dark",
+      "simple",
       "neon",
       "sunset",
       "ocean",
@@ -331,11 +364,21 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     const themeColors = getThemeColors(resolvedTheme);
     Object.entries(themeColors).forEach(([property, value]) => {
-      root.style.setProperty(`--${property}`, value);
+      root.style.setProperty(`--${property}`, value as string);
     });
 
-    // Só sobrescreve as cores principais e variantes com base no colorScheme se o tema for light ou dark
-    if (resolvedTheme === "light" || resolvedTheme === "dark") {
+    // Só sobrescreve as cores principais e variantes com base no colorScheme se o tema for light, dark ou simple
+    if (
+      resolvedTheme === "light" ||
+      resolvedTheme === "dark" ||
+      resolvedTheme === "simple"
+    ) {
+      // Para o tema simple, não aplicamos cores coloridas
+      if (resolvedTheme === "simple") {
+        // Simple usa apenas preto e branco, não precisa de colorScheme
+        return;
+      }
+
       const schemeColors = colorSchemes[scheme];
       root.style.setProperty("--primary", schemeColors.primary);
       root.style.setProperty("--ring", schemeColors.ring);
@@ -359,7 +402,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const resolveTheme = (
     themeValue: Theme
-  ): "light" | "dark" | "neon" | "sunset" | "ocean" | "coffee" | "galaxy" => {
+  ):
+    | "light"
+    | "dark"
+    | "simple"
+    | "neon"
+    | "sunset"
+    | "ocean"
+    | "coffee"
+    | "galaxy" => {
     if (themeValue === "system") {
       return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"

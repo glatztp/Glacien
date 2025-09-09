@@ -32,6 +32,7 @@ import {
   Copy,
   Share,
   Swatches,
+  // Circle,
 } from "phosphor-react";
 import { useTheme } from "../providers/theme-provider";
 
@@ -92,6 +93,22 @@ const themes = {
       border: "hsl(220 13% 70%)",
     },
   },
+  // simple: {
+  //   name: "Simple",
+  //   description: "Puramente preto e branco, sem gradientes",
+  //   icon: <Circle className="h-5 w-5" />,
+  //   category: "Minimalista",
+  //   gradient: "from-gray-50 to-white",
+  //   preview: {
+  //     background: "hsl(0 0% 100%)",
+  //     foreground: "hsl(0 0% 0%)",
+  //     primary: "hsl(0 0% 0%)",
+  //     secondary: "hsl(0 0% 100%)",
+  //     muted: "hsl(0 0% 96%)",
+  //     accent: "hsl(0 0% 96%)",
+  //     border: "hsl(0 0% 85%)",
+  //   },
+  // },
   neon: {
     name: "Neon",
     description: "Vibrante e futurista para criar impacto",
@@ -318,10 +335,10 @@ export function ThemesPage() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight"
           >
-            <span className="block bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
+            <span className="block text-primary">
               Personalize
             </span>
-            <span className="block bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+            <span className="block text-primary">
               Sua Interface
             </span>
           </motion.h1>
@@ -356,21 +373,21 @@ export function ThemesPage() {
               <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 h-16 p-2 bg-background/80 backdrop-blur-xl border-2 border-border/50 rounded-2xl shadow-xl">
                 <TabsTrigger
                   value="themes"
-                  className="h-12 text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl"
+                  className="h-12 text-base font-semibold data-[state=active]:bg-primary data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl"
                 >
                   <Palette className="h-5 w-5 mr-2" />
                   <span className="hidden sm:inline">Temas</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="colors"
-                  className="h-12 text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl"
+                  className="h-12 text-base font-semibold data-[state=active]:bg-primary data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl"
                 >
                   <Swatches className="h-5 w-5 mr-2" />
                   <span className="hidden sm:inline">Cores</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="settings"
-                  className="h-12 text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl"
+                  className="h-12 text-base font-semibold data-[state=active]:bg-primary data-[state=active]:from-primary data-[state=active]:to-secondary data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl"
                 >
                   <Gear className="h-5 w-5 mr-2" />
                   <span className="hidden sm:inline">Config</span>
@@ -561,6 +578,7 @@ export function ThemesPage() {
                             "ocean",
                             "coffee",
                             "galaxy",
+                            // "simple",
                           ];
                           if (coloredThemes.includes(theme)) {
                             setCopiedColor("color-warning");

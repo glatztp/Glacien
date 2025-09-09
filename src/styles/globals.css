@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -170,6 +172,63 @@
     --shadow-lg: 0 10px 15px hsl(0 0% 0% / 0.4), 0 4px 6px hsl(0 0% 0% / 0.3);
     --shadow-xl: 0 20px 25px hsl(0 0% 0% / 0.5), 0 10px 10px hsl(0 0% 0% / 0.4);
     --shadow-glow: 0 0 30px hsl(217 91% 65% / 0.5);
+  }
+
+  .simple {
+    /* Tema Simple - Apenas preto e branco */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    /* Cards simples */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    /* Popovers simples */
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    /* Cores primárias - apenas preto */
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 0 0% 10%;
+    --primary-active: 0 0% 20%;
+
+    /* Cores secundárias - apenas branco */
+    --secondary: 0 0% 100%;
+    --secondary-foreground: 0 0% 0%;
+    --secondary-hover: 0 0% 96%;
+
+    /* Cores neutras */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
+
+    /* Cores de destaque */
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 0%;
+    --accent-hover: 0 0% 92%;
+
+    /* Cores de ação simples */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 0 0% 0%;
+    --success-foreground: 0 0% 100%;
+    --warning: 0 0% 0%;
+    --warning-foreground: 0 0% 100%;
+    --info: 0 0% 0%;
+    --info-foreground: 0 0% 100%;
+
+    /* Bordas e inputs */
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 0 0% 0%;
+
+    /* Sombras simples - sem cor */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-xl:
+      0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 20px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -793,6 +852,104 @@
 
 .high-contrast .border {
   border-width: 2px !important;
+}
+
+/* Tema Simple - Remove gradientes e força cores simples */
+.simple .bg-gradient-to-r,
+.simple .bg-gradient-to-l,
+.simple .bg-gradient-to-t,
+.simple .bg-gradient-to-b,
+.simple .bg-gradient-to-br,
+.simple .bg-gradient-to-bl,
+.simple .bg-gradient-to-tr,
+.simple .bg-gradient-to-tl,
+.simple [class*="bg-gradient"] {
+  background: hsl(var(--background)) !important;
+  background-image: none !important;
+}
+
+.simple .text-gradient-primary,
+.simple .text-gradient-rainbow,
+.simple [class*="text-gradient"] {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.simple .border-gradient,
+.simple .border-gradient-rainbow {
+  border: 2px solid hsl(var(--border)) !important;
+  background: hsl(var(--background)) !important;
+}
+
+.simple .shadow-glow-primary,
+.simple .shadow-rainbow,
+.simple .hover-glow:hover {
+  box-shadow: var(--shadow-md) !important;
+  transform: scale(1) !important;
+}
+
+.simple .animate-gradient,
+.simple .animate-shimmer,
+.simple .bg-gradient-aurora,
+.simple .bg-gradient-cosmic {
+  background: hsl(var(--background)) !important;
+  background-image: none !important;
+  animation: none !important;
+}
+
+.simple .hover-gradient {
+  background: hsl(var(--primary)) !important;
+  background-image: none !important;
+}
+
+.simple .hover-rainbow::before {
+  display: none !important;
+}
+
+/* Força botões simples no tema Simple */
+.simple button,
+.simple .button {
+  background-image: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.simple button:hover,
+.simple .button:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(0) !important;
+}
+
+/* Remove efeitos especiais no tema Simple */
+.simple .glass-effect,
+.simple .glass-effect-strong {
+  background: hsl(var(--background)) !important;
+  backdrop-filter: none !important;
+  border: 1px solid hsl(var(--border)) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.simple .particle-bg::before {
+  display: none !important;
+}
+
+.simple .shiny-text {
+  color: hsl(var(--foreground)) !important;
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  animation: none !important;
+}
+
+.simple .shine-circle,
+.simple .shine-cube {
+  background: hsl(var(--muted)) !important;
+  background-image: none !important;
+  animation: none !important;
 }
 
 /* Estilos para modo reduzido */

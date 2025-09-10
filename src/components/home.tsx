@@ -109,6 +109,7 @@ import TermsPage from "./layout/terms-page";
 import { NavigationMenuPage } from "./pages/navigation-menu-page";
 import GradientBlinds from "./ui/gradient-blinds";
 import CookieConsent from "./ui/cookie-consent";
+// import LaserFlow from "./ui/laser";
 
 const componentPages: Record<string, unknown> = {
   alert: AlertPage,
@@ -249,7 +250,13 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
     },
   ];
 
-  const [stats, setStats] = useState([
+  type Stat = {
+    label: string;
+    value: string | number;
+    icon: React.ReactNode;
+  };
+
+  const [stats, setStats] = useState<Stat[]>([
     { label: "Componentes", value: "50+", icon: <Code2 className="h-4 w-4" /> },
     { label: "Downloads", value: "-", icon: <Download className="h-4 w-4" /> },
     { label: "GitHub Stars", value: "-", icon: <Star className="h-4 w-4" /> },
@@ -718,10 +725,30 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
             </div>
           </motion.div>
         </div>
+        {/* bottom cross-fade: suaviza transição para a próxima section (Features) */}
+        <div
+          className="absolute -bottom-0 left-0 right-0 h-28 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to top, var(--background), transparent)",
+            zIndex: 25,
+            opacity: 0.95,
+          }}
+        />
       </section>
 
       {/* Revolutionary Features Section - Enhanced with Professional Design Techniques */}
       <section className="relative py-20 sm:py-32 lg:py-40 overflow-hidden">
+        {/* top cross-fade: recebe o fade da seção anterior (Stats) */}
+        <div
+          className="absolute top-0 left-0 right-0 h-28 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, var(--background), transparent)",
+            zIndex: 15,
+            opacity: 0.96,
+          }}
+        />
         {/* Sophisticated Background with Depth */}
         <div className="absolute inset-0 bg-background" />
         <div className="absolute inset-0 bg-[linear-gradient(135deg,_transparent_25%,_var(--primary)_25.1%,_var(--primary)_25.9%,_transparent_26%)] opacity-5" />
@@ -896,15 +923,7 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
       </section>
 
       {/* Revolutionary Code Example Section */}
-      <section className="relative py-20 sm:py-28 lg:py-40 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-muted/40 via-background to-primary/10" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/15 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-secondary/15 via-transparent to-transparent" />
-
-        {/* Animated background elements */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/10 rounded-full blur-2xl animate-pulse delay-1000" />
-
+      <section className="relative py-12 sm:py-24 lg:py-24 overflow-hidden">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -970,7 +989,7 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
                       transition={{ delay: 0.8, duration: 1.5 }}
                       viewport={{ once: true }}
                     >
-                      {`import { Button, Card, Toast, Avatar } from '@Glacien/components'
+                      {`import { Button, Card, Toast, Avatar } from '@glacien/ui'
 
 export function App() {
   return (
@@ -984,18 +1003,15 @@ export function App() {
           badgeColor="yellow"
         />
         
-        <h1 className="text-3xl font-bold bg-gradient-to-r 
-                       from-primary to-secondary bg-clip-text 
-                       text-transparent"
-            style={{ fontFamily: 'Bricolage Grotesque, Inter, sans-serif', fontWeight: 950, letterSpacing: '-0.03em', filter: 'drop-shadow(0 1px 2px hsl(var(--foreground) / 0.1))' }}>
+        <h1 className="text-3xl font-bold">
           Bem-vindo ao Glacien
         </h1>
         
         <Button 
           size="lg"
           className="w-full" 
-          onClick={() => toast.success("🎉 Incrível!")}>
-          Experiência Mágica
+          onClick={() => toast.success("Sucesso")}>
+          Aperte
         </Button>
       </div>
     </Card>
@@ -1012,8 +1028,8 @@ export function App() {
 
       <section className="relative py-24 sm:py-32 lg:py-48 overflow-hidden">
         {/* LaserFlow Background Effect - Full Height */}
-        {/* <div className="absolute inset-0 z-0">
-          <LaserFlow
+        <div className="absolute inset-0 z-0">
+          {/* <LaserFlow
             color="#ffffff"
             horizontalBeamOffset={0.0}
             verticalBeamOffset={0.0} // Centralizado verticalmente
@@ -1030,41 +1046,69 @@ export function App() {
             decay={1.5}
             falloffStart={0.8}
             fogFallSpeed={1.2}
-          />
-        </div> */}
+          /> */}
+        </div>
 
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-background/90 via-background/30 to-background/70" />
+        <div className="absolute inset-0 z-10" />
 
-        {/* Sophisticated Background Architecture */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "url('/g-chain.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            zIndex: 8,
+            opacity: 0.2,
+          }}
+        />
+        {/*
         <div className="absolute inset-0 z-5 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
         <div className="absolute inset-0 z-5 bg-[radial-gradient(circle_at_30%_20%,_var(--primary)_0%,_transparent_60%)] opacity-15" />
         <div className="absolute inset-0 z-5 bg-[radial-gradient(circle_at_70%_80%,_var(--secondary)_0%,_transparent_60%)] opacity-15" />
 
-        {/* Strategic Ambient Elements */}
-        <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-primary rounded-full opacity-60 animate-pulse" />
+        {/* <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-primary rounded-full opacity-60 animate-pulse" />
         <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-secondary rounded-full opacity-70 animate-pulse delay-700" />
         <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-primary rounded-full opacity-50 animate-pulse delay-1400" />
-        <div className="absolute bottom-1/3 right-1/3 w-1.5 h-1.5 bg-secondary rounded-full opacity-60 animate-pulse delay-300" />
+        <div className="absolute bottom-1/3 right-1/3 w-1.5 h-1.5 bg-secondary rounded-full opacity-60 animate-pulse delay-300" /> */}
 
         <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Content with Strategic Layout */}
           <div className="max-w-6xl mx-auto text-center">
-            {/* Trust Signal Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: -10 }}
+           <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: -6 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border border-emerald-500/30 backdrop-blur-sm mb-8 lg:mb-12"
+              className="inline-flex items-center gap-4 px-4 py-2 rounded-full bg-gradient-to-r from-white/3 to-white/6 border border-border/10 backdrop-blur-md shadow-sm hover:shadow-md transition-shadow duration-200 mb-8 lg:mb-12"
             >
-              <div className="flex -space-x-2">
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 border-2 border-background" />
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-background" />
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-background" />
+              <div className="flex -space-x-3 items-center">
+                {[0, 1, 2].map((i) => (
+                  <div
+                    key={i}
+                    className={`w-9 h-9 rounded-full overflow-hidden ring-2 ring-white/70 shadow-md transform ${
+                      i === 0 ? "z-30" : i === 1 ? "-translate-x-2 z-20" : "-translate-x-4 z-10"
+                    }`}
+                    style={{
+                      background:
+                        i === 0
+                          ? "linear-gradient(135deg,#34d399,#10b981)"
+                          : i === 1
+                          ? "linear-gradient(135deg,#60a5fa,#3b82f6)"
+                          : "linear-gradient(135deg,#a78bfa,#7c3aed)",
+                    }}
+                  />
+                ))}
               </div>
-              <span className="text-sm font-bold text-emerald-600 tracking-wide">
-                +148 Desenvolvedores já estão usando
-              </span>
+
+              <div className="flex flex-col text-left">
+                <span className="text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-primary">
+                  {typeof stats[1]?.value === 'number' ? stats[1].value.toLocaleString() : stats[1]?.value || '-'} downloads
+                </span>
+                <span className="text-xs text-muted-foreground">Instalações </span>
+              </div>
+
+              <div className="ml-4 hidden sm:flex items-center">
+                <span className="px-2 py-1 text-xs font-semibold rounded-full bg-emerald-600 text-white shadow">Popular</span>
+              </div>
             </motion.div>
 
             {/* Compelling Headline with Strategic Emphasis */}
@@ -1087,7 +1131,6 @@ export function App() {
                 </span>
               </h2>
 
-              {/* Dynamic Progress Bar */}
               <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
@@ -1100,7 +1143,6 @@ export function App() {
               </motion.div>
             </motion.div>
 
-            {/* Value Proposition with Social Proof */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -1114,13 +1156,12 @@ export function App() {
                   200+ horas
                 </span>
                 de desenvolvimento e foque no que realmente importa:
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold mx-2">
+                <span className="text-primary font-bold mx-2">
                   sua lógica de negócio
                 </span>
               </p>
             </motion.div>
 
-            {/* Enhanced CTA Buttons with Urgency */}
             <motion.div
               initial={{ opacity: 0, y: 30, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -1128,7 +1169,6 @@ export function App() {
               viewport={{ once: true }}
               className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-xl mx-auto"
             >
-              {/* Primary Action - Enhanced */}
               <Button
                 size="lg"
                 className="group relative overflow-hidden w-full sm:w-auto px-10 py-6 text-lg font-bold shadow-2xl hover:shadow-3xl transition-all duration-500 bg-primary hover:from-primary/90 hover:to-secondary/90 border-0 transform hover:scale-[1.02] active:scale-[0.98]"
@@ -1145,21 +1185,23 @@ export function App() {
 
                 {/* Content */}
                 <div className="relative flex items-center justify-center gap-3">
-                  <Rocket className="h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" />
-                  <span className="font-black tracking-wide">
-                    Começar Grátis
+                  <span className="font-black tracking-wide">Baixar</span>
+
+                  <span
+                    role="img"
+                    aria-label="npm"
+                    className="inline-flex items-center justify-center w-6 h-6 rounded-sm bg-red-600 text-white shadow-sm border border-red-700 transition-all duration-200 group-hover:scale-105"
+                    style={{ boxShadow: "0 4px 10px rgba(16, 24, 40, 0.12)" }}
+                  >
+                    <SiNpm className="w-3.5 h-3.5 text-white" aria-hidden />
                   </span>
-                  <div className="px-2 py-0.5 bg-white/20 rounded-full text-xs font-bold">
-                    NPM
-                  </div>
                 </div>
               </Button>
 
-              {/* Secondary Action - Professional */}
               <Button
                 variant="outline"
                 size="lg"
-                className="group relative w-full sm:w-auto px-10 py-6 text-lg font-bold border-2 border-primary/40 hover:border-primary/70 bg-background/70 backdrop-blur-xl hover:bg-primary/10 transition-all duration-500 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative w-full sm:w-auto px-10 py-6 text-lg font-bold border-2 border-primary//40 hover:border-primary/70 bg-background/70 backdrop-blur-xl hover:bg-primary/10 transition-all duration-500 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
                 onClick={() => navigate("/components")}
               >
                 <div className="flex items-center justify-center gap-3">

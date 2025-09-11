@@ -490,44 +490,199 @@ export default function DocumentationPage() {
                   </p>
                 </div>
 
-                <Card className="border-amber-200 bg-amber-50/50 dark:border-amber-800 dark:bg-amber-950/20">
+                <Card className="border-primary/30 bg-primary/5 dark:border-primary-800 dark:bg-primary-950/10">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
+                    <CardTitle className="flex items-center gap-2 text-primary dark:text-primary/70">
                       <AlertCircle size={20} />
-                      Required Dependencies
+                      Requisitos & Verificações
                     </CardTitle>
+                    <CardDescription>
+                      Dependências mínimas, opções recomendadas e comandos para
+                      verificar seu ambiente de desenvolvimento.
+                    </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    {[
-                      {
-                        name: "Node.js",
-                        version: "16.14.0+",
-                        description: "JavaScript runtime for build tools",
-                      },
-                      {
-                        name: "React",
-                        version: "18.0.0+",
-                        description: "Core library for components",
-                      },
-                      {
-                        name: "React DOM",
-                        version: "18.0.0+",
-                        description: "DOM renderer for React",
-                      },
-                    ].map((req, index) => (
-                      <div
-                        key={index}
-                        className="p-4 bg-white dark:bg-gray-800 rounded-lg border"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className="font-semibold">{req.name}</h4>
-                          <Badge variant="outline">{req.version}</Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          {req.description}
-                        </p>
+
+                  <CardContent className="space-y-6">
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-semibold">Obrigatórios</h4>
+                        {[
+                          {
+                            name: "Node.js",
+                            version: "16.14.0+",
+                            description:
+                              "Runtime JavaScript usado pelas ferramentas de build e pelo package manager.",
+                            check: "node -v",
+                          },
+                          {
+                            name: "npm / pnpm / yarn",
+                            version: "8+ / 7+ / 1+",
+                            description:
+                              "Gerenciador de pacotes — use o que preferir (npm é padrão).",
+                            check: "npm -v",
+                          },
+                          {
+                            name: "React",
+                            version: "18.0.0+",
+                            description:
+                              "Biblioteca principal para os componentes.",
+                            check:
+                              "npm ls react --depth=0 || npx react --version",
+                          },
+                        ].map((it, i) => (
+                          <div
+                            key={i}
+                            className="p-4 bg-primary/5  rounded-lg border border-primary/20 flex items-start gap-4"
+                          >
+                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                              <Monitor size={18} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center justify-between mb-1">
+                                <div className="font-semibold">{it.name}</div>
+                                <Badge variant="outline">{it.version}</Badge>
+                              </div>
+                              <div className="text-sm text-muted-foreground mb-2">
+                                {it.description}
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <code className="text-xs font-mono bg-muted/30 px-2 py-1 rounded">
+                                  {it.check}
+                                </code>
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  onClick={() =>
+                                    navigator.clipboard.writeText(it.check)
+                                  }
+                                >
+                                  <Copy size={14} />
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-semibold">
+                          Opcionais & Ferramentas
+                        </h4>
+                        <div className="p-4 bg-primary/5  rounded-lg border border-primary/20 space-y-3">
+                          <div className="flex items-start gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                              <FileText size={18} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center justify-between">
+                                <div className="font-semibold">
+                                  Tailwind CSS
+                                </div>
+                                <Badge variant="outline">3.x+</Badge>
+                              </div>
+                              <div className="text-sm text-muted-foreground">
+                                Recomendado para estilos utilitários e
+                                consistência.
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-start gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                              <Lightning size={18} className="text-primary" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center justify-between">
+                                <div className="font-semibold">
+                                  Vite / Next / Remix
+                                </div>
+                                <Badge variant="outline">Compatível</Badge>
+                              </div>
+                              <div className="text-sm text-muted-foreground">
+                                Escolha a plataforma que melhor se encaixa ao
+                                seu fluxo de trabalho.
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-start gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center text-green-700">
+                              <CheckCircle size={18} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-semibold">
+                                Ferramentas de teste
+                              </div>
+                              <div className="text-sm text-muted-foreground">
+                                Jest / Vitest para testes unitários e integração
+                                (opcional).
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-2 p-4 rounded-lg bg-primary/5 border border-primary/20">
+                          <div className="flex items-start gap-3">
+                            <div className="flex-1">
+                              <div className="font-semibold">
+                                Verifique seu ambiente
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-1">
+                                Execute os comandos abaixo para garantir que
+                                tudo esteja pronto.
+                              </div>
+                              <pre className="mt-3 text-sm font-mono bg-background/50 p-3 rounded">
+                                node -v npm -v npx -v
+                              </pre>
+                              <div className="mt-3 flex gap-2">
+                                <Button
+                                  size="sm"
+                                  onClick={() =>
+                                    navigator.clipboard.writeText(
+                                      "node -v\nnpm -v\nnpx -v"
+                                    )
+                                  }
+                                >
+                                  Copiar comandos
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() =>
+                                    setTimeout(
+                                      () =>
+                                        window.scrollTo({
+                                          top: 0,
+                                          behavior: "smooth",
+                                        }),
+                                      10
+                                    )
+                                  }
+                                >
+                                  Ajuda
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="rounded-lg p-4 bg-primary/10 border border-primary/30">
+                      <div className="flex items-start gap-3">
+                        <div className="mt-0.5">
+                          <CheckCircle className="text-primary" />
+                        </div>
+                        <div>
+                          <div className="font-semibold">Dica</div>
+                          <div className="text-sm text-muted-foreground">
+                            Usar um gerenciador de versões do Node (nvm ou
+                            volta) facilita manter a compatibilidade entre
+                            projetos.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
 
@@ -735,7 +890,6 @@ export default function DocumentationPage() {
               </motion.div>
             )}
 
-            {/* Section: Compatibility */}
             {activeSection === "compatibility" && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -755,41 +909,63 @@ export default function DocumentationPage() {
                   <Card>
                     <CardHeader>
                       <CardTitle>Frameworks Suportados</CardTitle>
+                      <CardDescription className="mt-1">
+                        Suporte e notas rápidas por plataforma — use a que
+                        melhor se adequa ao seu fluxo (SSR, SPA, Edge).
+                      </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       {[
                         {
                           name: "Next.js",
-                          version: "13.x, 14.x, 15.x",
-                          status: "✓",
+                          version: "13.x - 15.x",
+                          icon: <SiNextdotjs className="h-6 w-6" aria-hidden />,
+                          note: "SSR & Edge-ready",
                         },
                         {
                           name: "Vite + React",
                           version: "4.x, 5.x",
-                          status: "✓",
+                          icon: <SiVite className="h-6 w-6" aria-hidden />,
+                          note: "Fast dev server, ideal para SPAs",
                         },
                         {
                           name: "Create React App",
                           version: "5.x",
-                          status: "✓",
+                          icon: <SiReact className="h-6 w-6" aria-hidden />,
+                          note: "Compatível com projetos legados",
                         },
-                        { name: "Remix", version: "1.x, 2.x", status: "✓" },
-                        { name: "Gatsby", version: "4.x, 5.x", status: "✓" },
+                        {
+                          name: "Remix",
+                          version: "1.x - 2.x",
+                          icon: <SiRemix className="h-6 w-6" aria-hidden />,
+                          note: "Boa integração com rotas e loaders",
+                        },
+                        {
+                          name: "Gatsby",
+                          version: "4.x, 5.x",
+                          icon: <SiGatsby className="h-6 w-6" aria-hidden />,
+                          note: "Static site generation",
+                        },
                       ].map((framework, index) => (
                         <div
                           key={index}
                           className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
                         >
-                          <div>
-                            <span className="font-medium">
-                              {framework.name}
-                            </span>
-                            <div className="text-sm text-muted-foreground">
-                              {framework.version}
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                              {framework.icon}
+                            </div>
+                            <div>
+                              <div className="font-medium">
+                                {framework.name}
+                              </div>
+                              <div className="text-sm text-muted-foreground">
+                                {framework.note}
+                              </div>
                             </div>
                           </div>
-                          <Badge className="bg-green-500 text-white">
-                            {framework.status}
+                          <Badge className="bg-green-600 text-white">
+                            {framework.version}
                           </Badge>
                         </div>
                       ))}
@@ -799,32 +975,71 @@ export default function DocumentationPage() {
                   <Card>
                     <CardHeader>
                       <CardTitle>Navegadores</CardTitle>
+                      <CardDescription className="mt-1">
+                        Suporte recomendado — recomendamos foco em navegadores
+                        evergreen para melhor experiência.
+                      </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       {[
-                        { name: "Chrome", version: "90+", status: "✓" },
-                        { name: "Firefox", version: "88+", status: "✓" },
-                        { name: "Safari", version: "14+", status: "✓" },
-                        { name: "Edge", version: "90+", status: "✓" },
+                        {
+                          name: "Chrome",
+                          version: "90+",
+                          note: "Full support",
+                        },
+                        {
+                          name: "Firefox",
+                          version: "88+",
+                          note: "Full support",
+                        },
+                        {
+                          name: "Safari",
+                          version: "14+",
+                          note: "Partial: CSS features",
+                        },
+                        { name: "Edge", version: "90+", note: "Full support" },
                       ].map((browser, index) => (
                         <div
                           key={index}
                           className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
                         >
                           <div>
-                            <span className="font-medium">{browser.name}</span>
+                            <div className="font-medium">{browser.name}</div>
                             <div className="text-sm text-muted-foreground">
-                              {browser.version}
+                              {browser.version} · {browser.note}
                             </div>
                           </div>
-                          <Badge className="bg-green-500 text-white">
-                            {browser.status}
+                          <Badge className="bg-green-600 text-white">
+                            Suportado
                           </Badge>
                         </div>
                       ))}
                     </CardContent>
                   </Card>
                 </div>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Notas de Compatibilidade</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">
+                      Recomendamos dar suporte a navegadores modernos
+                      (evergreen). Para compatibilidade com navegadores antigos
+                      configure um pipeline de polyfills (ex.: core-js) e revise
+                      seu
+                      <code className="mx-1 font-mono text-xs">
+                        browserslist
+                      </code>
+                      .
+                    </p>
+                    <div className="mt-3 text-sm flex gap-2">
+                      <Badge variant="outline">ES Modules</Badge>
+                      <Badge variant="outline">HTTP/2 / Brotli</Badge>
+                      <Badge variant="outline">Service Worker</Badge>
+                    </div>
+                  </CardContent>
+                </Card>
 
                 <SectionNavigation currentSectionId="compatibility" />
               </motion.div>
@@ -850,49 +1065,114 @@ export default function DocumentationPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Estrutura de Camadas</CardTitle>
+                    <CardDescription>
+                      Visão resumida das camadas da biblioteca,
+                      responsabilidades e tecnologias recomendadas.
+                    </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    {[
-                      {
-                        layer: "Camada de Apresentação",
-                        description:
-                          "Componentes React com interface visual e interações",
-                        tech: ["React 18", "TypeScript", "Framer Motion"],
-                      },
-                      {
-                        layer: "Camada de Estilização",
-                        description:
-                          "Sistema de design tokens e estilos responsivos",
-                        tech: ["Tailwind CSS", "CSS Variables", "PostCSS"],
-                      },
-                      {
-                        layer: "Camada de Primitives",
-                        description:
-                          "Componentes básicos acessíveis e sem estilo",
-                        tech: ["Radix UI", "Headless UI", "ARIA"],
-                      },
-                    ].map((item, index) => (
-                      <div
-                        key={index}
-                        className="p-4 border-l-4 border-l-blue-500 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg"
-                      >
-                        <h4 className="font-semibold mb-2">{item.layer}</h4>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          {item.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {item.tech.map((tech, idx) => (
-                            <Badge
-                              key={idx}
-                              variant="outline"
-                              className="text-xs"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
+
+                  <CardContent className="space-y-6">
+                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                      {[
+                        {
+                          title: "Apresentação",
+                          desc: "Componentes compostos com foco em UX, consistência e acessibilidade.",
+                          tags: ["React 18", "TypeScript", "Framer Motion"],
+                        },
+                        {
+                          title: "Estilização",
+                          desc: "Tokens de design, sistema de temas e utilitários responsivos.",
+                          tags: ["Tailwind CSS", "CSS Vars", "PostCSS"],
+                        },
+                        {
+                          title: "Primitives",
+                          desc: "Elementos acessíveis e desacoplados (Radix/Headless) para composição.",
+                          tags: ["Radix UI", "ARIA", "Headless"],
+                        },
+                      ].map((col, i) => (
+                        <div
+                          key={i}
+                          className="p-6 rounded-xl bg-background/50 border border-border shadow-sm hover:shadow-md transition-shadow"
+                        >
+                          <div className="flex items-start gap-4">
+                            <div className="flex-1">
+                              <div className="font-semibold">{col.title}</div>
+                              <div className="text-sm text-muted-foreground mt-1">
+                                {col.desc}
+                              </div>
+                              <div className="mt-3 flex flex-wrap gap-2">
+                                {col.tags.map((t) => (
+                                  <Badge
+                                    key={t}
+                                    variant="outline"
+                                    className="text-xs px-2 py-0.5"
+                                  >
+                                    {t}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
+                      <div className="rounded-xl p-6 bg-background/40 border border-border">
+                        <div className="font-semibold mb-2">
+                          Práticas recomendadas
+                        </div>
+                        <ul className="text-sm list-disc pl-5 space-y-2 text-muted-foreground">
+                          <li>
+                            Prefira composição em vez de herança de estilos.
+                          </li>
+                          <li>
+                            Exponha props pequenas e previsíveis (variant, size,
+                            disabled).
+                          </li>
+                          <li>
+                            Mantenha os tokens de cor e espaçamento
+                            centralizados.
+                          </li>
+                          <li>
+                            Escreva testes de snapshot e acessibilidade para
+                            componentes críticos.
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="rounded-xl p-6 bg-background/40 border border-border">
+                        <div className="font-semibold mb-2">
+                          Checklist de Acessibilidade
+                        </div>
+                        <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+                          <div className="flex items-start gap-3">
+                            <CheckCircle className="text-green-600 min-w-[20px] mt-1" />
+                            <div className="leading-snug">
+                              Semântica correta (buttons, labels)
+                            </div>
+                          </div>
+                          <div className="flex items-start gap-3">
+                            <CheckCircle className="text-green-600 min-w-[20px] mt-1" />
+                            <div className="leading-snug">
+                              Contraste mínimo WCAG AA
+                            </div>
+                          </div>
+                          <div className="flex items-start gap-3">
+                            <CheckCircle className="text-green-600 min-w-[20px] mt-1" />
+                            <div className="leading-snug">
+                              Navegação por teclado completa
+                            </div>
+                          </div>
+                          <div className="flex items-start gap-3">
+                            <CheckCircle className="text-green-600 min-w-[20px] mt-1" />
+                            <div className="leading-snug">
+                              Estados ARIA para componentes interativos
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    ))}
+                    </div>
                   </CardContent>
                 </Card>
 

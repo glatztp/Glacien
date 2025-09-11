@@ -25,6 +25,8 @@ import {
   Users,
   Globe,
   BookOpen,
+  HelpCircle,
+  Bug,
 } from "lucide-react";
 
 import { LogoLoop } from "./ui/loop";
@@ -39,6 +41,7 @@ import {
   SiVercel,
   SiGithub,
   SiVite,
+  SiDiscord,
 } from "react-icons/si";
 
 import { Button, Badge, ThemeToggle } from "./ui";
@@ -973,7 +976,7 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 shadow-lg animate-pulse delay-100"></div>
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br from-green-400 to-green-600 shadow-lg animate-pulse delay-200"></div>
                     </div>
-                    <span className="ml-4 text-sm sm:text-base font-mono font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    <span className="ml-4 text-sm sm:text-base font-mono font-bold text-primary">
                       App.tsx
                     </span>
                   </div>
@@ -1073,7 +1076,7 @@ export function App() {
 
         <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto text-center">
-           <motion.div
+            <motion.div
               initial={{ opacity: 0, scale: 0.94, y: -6 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
@@ -1085,15 +1088,19 @@ export function App() {
                   <div
                     key={i}
                     className={`w-9 h-9 rounded-full overflow-hidden ring-2 ring-white/70 shadow-md transform ${
-                      i === 0 ? "z-30" : i === 1 ? "-translate-x-2 z-20" : "-translate-x-4 z-10"
+                      i === 0
+                        ? "z-30"
+                        : i === 1
+                          ? "-translate-x-2 z-20"
+                          : "-translate-x-4 z-10"
                     }`}
                     style={{
                       background:
                         i === 0
                           ? "linear-gradient(135deg,#34d399,#10b981)"
                           : i === 1
-                          ? "linear-gradient(135deg,#60a5fa,#3b82f6)"
-                          : "linear-gradient(135deg,#a78bfa,#7c3aed)",
+                            ? "linear-gradient(135deg,#60a5fa,#3b82f6)"
+                            : "linear-gradient(135deg,#a78bfa,#7c3aed)",
                     }}
                   />
                 ))}
@@ -1101,13 +1108,20 @@ export function App() {
 
               <div className="flex flex-col text-left">
                 <span className="text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-primary">
-                  {typeof stats[1]?.value === 'number' ? stats[1].value.toLocaleString() : stats[1]?.value || '-'} downloads
+                  {typeof stats[1]?.value === "number"
+                    ? stats[1].value.toLocaleString()
+                    : stats[1]?.value || "-"}{" "}
+                  downloads
                 </span>
-                <span className="text-xs text-muted-foreground">Instalações </span>
+                <span className="text-xs text-muted-foreground">
+                  Instalações{" "}
+                </span>
               </div>
 
               <div className="ml-4 hidden sm:flex items-center">
-                <span className="px-2 py-1 text-xs font-semibold rounded-full bg-emerald-600 text-white shadow">Popular</span>
+                <span className="px-2 py-1 text-xs font-semibold rounded-full bg-emerald-600 text-white shadow">
+                  Popular
+                </span>
               </div>
             </motion.div>
 
@@ -1238,10 +1252,10 @@ export function App() {
         </div>
       </section>
 
-      {/*Footer*/}
-      <footer className="relative border-t border-primary/10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-secondary/5" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:20px_20px]" />
+  {/*Footer*/}
+  <footer className="relative overflow-hidden bg-gradient-to-t from-primary/10 via-primary/6 to-transparent border-t border-primary/6">
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top_left,_rgba(82,39,255,0.04)_0%,transparent_30%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:20px_20px] opacity-30" />
 
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
@@ -1279,20 +1293,20 @@ export function App() {
               </p>
 
               <div className="flex items-center gap-3 mt-3">
-                <button
+                <a
                   aria-label="GitHub"
-                  onClick={() =>
-                    window.open("https://github.com/glatztp/Glacien", "_blank")
-                  }
-                  className="inline-flex items-center justify-center p-2 rounded-md bg-background/60 hover:bg-primary/5 border border-border/20 transition focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  href="https://github.com/glatztp/Glacien"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center p-2 rounded-md bg-white/6 hover:bg-white/10 border border-white/6 transition focus:outline-none focus:ring-2 focus:ring-primary/20"
                 >
                   <Github className="h-5 w-5 text-primary" />
-                </button>
+                </a>
 
-                <button
+                <a
                   aria-label="Comunidade"
-                  onClick={() => window.open("#", "_self")}
-                  className="relative inline-flex items-center gap-2 px-3 py-2 rounded-md bg-background/60 hover:bg-primary/5 border border-border/20 transition text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  href="#"
+                  className="relative inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/6 hover:bg-white/10 border border-white/6 transition text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
                 >
                   <svg
                     className="w-4 h-4"
@@ -1332,7 +1346,7 @@ export function App() {
                       ✓
                     </motion.span>
                   )}
-                </button>
+                </a>
               </div>
 
               <form
@@ -1435,13 +1449,26 @@ export function App() {
               {
                 title: "Recursos",
                 items: [
-                  { name: "Documentação", action: () => navigate("/docs") },
+                  {
+                    name: "Documentação",
+                    action: () => navigate("/docs"),
+                    icon: <BookOpen className="w-4 h-4" />,
+                  },
                   {
                     name: "Componentes",
                     action: () => navigate("/components"),
+                    icon: <Code2 className="w-4 h-4" />,
                   },
-                  { name: "Exemplos", action: () => navigate("/components") },
-                  { name: "Temas", action: () => navigate("/themes") },
+                  {
+                    name: "Exemplos",
+                    action: () => navigate("/components"),
+                    icon: <Code2 className="w-4 h-4" />,
+                  },
+                  {
+                    name: "Temas",
+                    action: () => navigate("/themes"),
+                    icon: <Palette className="w-4 h-4" />,
+                  },
                 ],
               },
               {
@@ -1454,16 +1481,33 @@ export function App() {
                         "https://github.com/glatztp/Glacien",
                         "_blank"
                       ),
+                    icon: <Github className="w-4 h-4" />,
                   },
-                  { name: "Discord", action: () => {} },
+                  {
+                    name: "Discord",
+                    action: () => {},
+                    icon: <SiDiscord className="w-4 h-4" />,
+                  },
                 ],
               },
               {
                 title: "Suporte",
                 items: [
-                  { name: "FAQ", action: () => {} },
-                  { name: "Issues", action: () => {} },
-                  { name: "Contribuir", action: () => {} },
+                  {
+                    name: "FAQ",
+                    action: () => {},
+                    icon: <HelpCircle className="w-4 h-4" />,
+                  },
+                  {
+                    name: "Issues",
+                    action: () => {},
+                    icon: <Bug className="w-4 h-4" />,
+                  },
+                  {
+                    name: "Contribuir",
+                    action: () => {},
+                    icon: <Users className="w-4 h-4" />,
+                  },
                 ],
               },
             ].map((section, sectionIndex) => (
@@ -1498,21 +1542,31 @@ export function App() {
                           item.action();
                         }}
                       >
-                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-background/60 border border-border/20 text-primary">
-                          <svg
-                            className="w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle
-                              cx="12"
-                              cy="12"
-                              r="3"
-                              stroke="currentColor"
-                              strokeWidth="1.2"
-                            />
-                          </svg>
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-background/5 to-primary/5 border border-border/10 text-primary shadow-sm transform transition-all duration-200 hover:scale-105">
+                          {item.icon || (
+                            <svg
+                              className="w-4 h-4"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="3"
+                                stroke="currentColor"
+                                strokeWidth="1.2"
+                              />
+                              <path
+                                d="M6 12h12"
+                                stroke="currentColor"
+                                strokeWidth="1"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                opacity="0.6"
+                              />
+                            </svg>
+                          )}
                         </span>
                         <span className="truncate">{item.name}</span>
                       </a>

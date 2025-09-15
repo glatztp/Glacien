@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import * as React from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import { motion, type Variants } from "framer-motion";
@@ -57,47 +56,46 @@ const avatarAnimations: Record<string, Variants> = {
 };
 
 // Variantes de tamanho usando CVA
-const avatarVariants = cva(
-  "relative flex shrink-0 overflow-hidden rounded-full",
-  {
-    variants: {
-      size: {
-        xs: "h-6 w-6",
-        sm: "h-8 w-8",
-        default: "h-10 w-10",
-        md: "h-12 w-12",
-        lg: "h-16 w-16",
-        xl: "h-20 w-20",
-        "2xl": "h-24 w-24",
-        "3xl": "h-32 w-32",
-        "4xl": "h-40 w-40",
-      },
-      variant: {
-        default: "",
-        bordered: "ring-2 ring-border",
-        shadow: "shadow-lg",
-        glow: "shadow-lg shadow-primary/25",
-      },
-      status: {
-        none: "",
-        online: "ring-2 ring-green-500",
-        offline: "ring-2 ring-gray-400",
-        busy: "ring-2 ring-red-500",
-        away: "ring-2 ring-yellow-500",
-      },
+const avatarVariants = cva("relative flex shrink-0 overflow-hidden", {
+  variants: {
+    size: {
+      xs: "h-6 w-6",
+      sm: "h-8 w-8",
+      default: "h-10 w-10",
+      md: "h-12 w-12",
+      lg: "h-16 w-16",
+      xl: "h-20 w-20",
+      "2xl": "h-24 w-24",
+      "3xl": "h-32 w-32",
+      "4xl": "h-40 w-40",
     },
-    defaultVariants: {
-      size: "default",
-      variant: "default",
-      status: "none",
+    variant: {
+      default: "",
+      bordered: "ring-2 ring-border",
+      shadow: "shadow-lg",
+      glow: "shadow-lg shadow-primary/25",
     },
-  }
-);
+    status: {
+      none: "",
+      online: "ring-2 ring-green-500",
+      offline: "ring-2 ring-gray-400",
+      busy: "ring-2 ring-red-500",
+      away: "ring-2 ring-yellow-500",
+    },
+  },
+  defaultVariants: {
+    size: "default",
+    variant: "default",
+    status: "none",
+  },
+});
 
 // Interface estendida para Avatar
 export interface AvatarProps
   extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>,
     VariantProps<typeof avatarVariants> {
+  // Controla arredondamento: true = full, false = none, number|string = CSS value
+  rounded?: boolean | number | string;
   // Props de animação
   animation?: keyof typeof avatarAnimations | "none";
   customAnimation?: Variants;
@@ -160,8 +158,7 @@ const Avatar = React.forwardRef<
       borderColor,
       statusDot = false,
       statusColor,
-
-      fallbackDelay = 600,
+      rounded = true,
 
       onMotionHoverStart,
       onMotionHoverEnd,
@@ -172,39 +169,25 @@ const Avatar = React.forwardRef<
     },
     ref
   ) => {
-    // Estados internos
-    const [isImageLoaded] = React.useState(false);
-    const [, setShowFallback] = React.useState(false);
-
-    // Controle de delay para fallback
-    React.useEffect(() => {
-      if (!isImageLoaded) {
-        const timer = setTimeout(() => {
-          setShowFallback(true);
-        }, fallbackDelay);
-
-        return () => clearTimeout(timer);
-      }
-    }, [isImageLoaded, fallbackDelay]);
+    // Nota: o fallback de imagem é tratado pelo AvatarPrimitive.Fallback
+    // e pelo componente AvatarFallback (delayMs). Não precisamos gerenciar
+    // timers aqui.
 
     // Classes dinâmicas
     const dynamicClasses = React.useMemo(() => {
-      const classes = [];
+      const classes: string[] = [];
 
-      if (gradient) {
+      // Rounded classes handled via prop; default is rounded-full
+      if (rounded === false) classes.push("rounded-none");
+      else if (typeof rounded === "boolean") classes.push("rounded-full");
+
+      if (gradient)
         classes.push("bg-gradient-to-br from-primary to-primary/70");
-      }
-
-      if (borderColor) {
-        classes.push(`ring-2`);
-      }
-
-      if (clickable) {
-        classes.push("cursor-pointer select-none");
-      }
+      if (borderColor) classes.push("ring-2");
+      if (clickable) classes.push("cursor-pointer select-none");
 
       return classes.join(" ");
-    }, [gradient, borderColor, clickable]);
+    }, [gradient, borderColor, clickable, rounded]);
 
     // Variantes de animação
     const animationVariants =
@@ -237,7 +220,14 @@ const Avatar = React.forwardRef<
       away: "bg-yellow-500",
     };
 
-    const avatarElement = (
+    const radiusStyle: React.CSSProperties | undefined =
+      typeof rounded === "number"
+        ? { borderRadius: `${rounded}px` }
+        : typeof rounded === "string"
+          ? { borderRadius: rounded }
+          : undefined;
+
+    return (
       <motion.div
         className={cn(
           avatarVariants({ size, variant, status }),
@@ -247,6 +237,7 @@ const Avatar = React.forwardRef<
         style={{
           borderColor: borderColor,
           ...(borderColor && { borderWidth: 2, borderStyle: "solid" }),
+          ...radiusStyle,
         }}
         variants={animationVariants}
         initial="initial"
@@ -295,8 +286,6 @@ const Avatar = React.forwardRef<
         </AvatarPrimitive.Root>
       </motion.div>
     );
-
-    return avatarElement;
   }
 );
 Avatar.displayName = "Avatar";

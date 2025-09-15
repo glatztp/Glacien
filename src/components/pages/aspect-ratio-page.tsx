@@ -51,7 +51,7 @@ export function AspectRatioPage() {
                   <Play size={16} />
                   16:9 - Vídeo
                 </h4>
-                <AspectRatio ratio={16 / 9}>
+                <AspectRatio rounded ratio={16 / 9}>
                   <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center h-full border-2 border-dashed border-blue-300">
                     <div className="text-center">
                       <Play size={32} className="mx-auto text-blue-600 mb-2" />
@@ -70,7 +70,7 @@ export function AspectRatioPage() {
                   <Square size={16} />
                   1:1 - Quadrado
                 </h4>
-                <AspectRatio ratio={1}>
+                <AspectRatio rounded ratio={1}>
                   <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center h-full border-2 border-dashed border-green-300">
                     <div className="text-center">
                       <Image
@@ -92,7 +92,7 @@ export function AspectRatioPage() {
                   <Monitor size={16} />
                   4:3 - Tradicional
                 </h4>
-                <AspectRatio ratio={4 / 3}>
+                <AspectRatio rounded ratio={4 / 3}>
                   <div className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center h-full border-2 border-dashed border-purple-300">
                     <div className="text-center">
                       <Monitor
@@ -114,7 +114,7 @@ export function AspectRatioPage() {
                   <Camera size={16} />
                   3:2 - Fotografia
                 </h4>
-                <AspectRatio ratio={3 / 2}>
+                <AspectRatio rounded ratio={3 / 2}>
                   <div className="bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg flex items-center justify-center h-full border-2 border-dashed border-orange-300">
                     <div className="text-center">
                       <Camera
@@ -136,7 +136,7 @@ export function AspectRatioPage() {
                   <DeviceMobile size={16} />
                   9:16 - Vertical
                 </h4>
-                <AspectRatio ratio={9 / 16}>
+                <AspectRatio rounded ratio={9 / 16}>
                   <div className="bg-gradient-to-br from-pink-100 to-pink-200 rounded-lg flex items-center justify-center h-full border-2 border-dashed border-pink-300">
                     <div className="text-center">
                       <DeviceMobile
@@ -158,7 +158,7 @@ export function AspectRatioPage() {
                   <FilmStrip size={16} />
                   21:9 - Cinema
                 </h4>
-                <AspectRatio ratio={21 / 9}>
+                <AspectRatio rounded ratio={21 / 9}>
                   <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex items-center justify-center h-full border-2 border-dashed border-gray-300">
                     <div className="text-center">
                       <FilmStrip
@@ -191,7 +191,7 @@ export function AspectRatioPage() {
               <div className="space-y-4">
                 <h4 className="font-medium">Galeria de Fotos</h4>
                 <div className="grid grid-cols-2 gap-2">
-                  <AspectRatio ratio={1}>
+                  <AspectRatio rounded ratio={1}>
                     <div className="bg-gradient-to-br from-blue-400 to-purple-600 rounded-lg relative overflow-hidden group cursor-pointer">
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
                       <div className="absolute bottom-2 left-2 right-2">
@@ -204,7 +204,7 @@ export function AspectRatioPage() {
                       </div>
                     </div>
                   </AspectRatio>
-                  <AspectRatio ratio={1}>
+                  <AspectRatio rounded ratio={1}>
                     <div className="bg-gradient-to-br from-green-400 to-blue-600 rounded-lg relative overflow-hidden group cursor-pointer">
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
                       <div className="absolute bottom-2 left-2 right-2">
@@ -217,7 +217,7 @@ export function AspectRatioPage() {
                       </div>
                     </div>
                   </AspectRatio>
-                  <AspectRatio ratio={1}>
+                  <AspectRatio rounded ratio={1}>
                     <div className="bg-gradient-to-br from-yellow-400 to-red-600 rounded-lg relative overflow-hidden group cursor-pointer">
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
                       <div className="absolute bottom-2 left-2 right-2">
@@ -230,7 +230,7 @@ export function AspectRatioPage() {
                       </div>
                     </div>
                   </AspectRatio>
-                  <AspectRatio ratio={1}>
+                  <AspectRatio rounded ratio={1}>
                     <div className="bg-gradient-to-br from-pink-400 to-purple-600 rounded-lg relative overflow-hidden group cursor-pointer">
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
                       <div className="absolute bottom-2 left-2 right-2">
@@ -249,7 +249,7 @@ export function AspectRatioPage() {
               {/* Player de Vídeo */}
               <div className="space-y-4">
                 <h4 className="font-medium">Player de Vídeo</h4>
-                <AspectRatio ratio={16 / 9}>
+                <AspectRatio rounded ratio={16 / 9}>
                   <div className="bg-black rounded-lg relative overflow-hidden group cursor-pointer">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/60"></div>
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -300,7 +300,7 @@ export function AspectRatioPage() {
                       Desktop (16:9)
                     </p>
                     <div className="hidden lg:block">
-                      <AspectRatio ratio={16 / 9}>
+                      <AspectRatio rounded ratio={16 / 9}>
                         <div className="bg-gradient-to-br from-indigo-100 to-indigo-200 rounded-lg flex items-center justify-center h-full border-2 border-dashed border-indigo-300">
                           <div className="text-center">
                             <Monitor
@@ -315,7 +315,7 @@ export function AspectRatioPage() {
                       </AspectRatio>
                     </div>
                     <div className="lg:hidden">
-                      <AspectRatio ratio={4 / 3}>
+                      <AspectRatio rounded ratio={4 / 3}>
                         <div className="bg-gradient-to-br from-indigo-100 to-indigo-200 rounded-lg flex items-center justify-center h-full border-2 border-dashed border-indigo-300">
                           <div className="text-center">
                             <DeviceMobile
@@ -360,7 +360,7 @@ export function AspectRatioPage() {
                     },
                   ].map((product, index) => (
                     <div key={index} className="space-y-2">
-                      <AspectRatio ratio={1}>
+                      <AspectRatio rounded ratio={1}>
                         <div
                           className={`bg-gradient-to-br ${product.color} rounded-lg relative overflow-hidden group cursor-pointer`}
                         >
@@ -415,7 +415,7 @@ export function AspectRatioPage() {
                     <p className="text-sm text-muted-foreground">
                       Leaderboard (728x90)
                     </p>
-                    <AspectRatio ratio={728 / 90}>
+                    <AspectRatio rounded ratio={728 / 90}>
                       <div className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-lg flex items-center justify-center h-full text-white">
                         <div className="text-center">
                           <p className="font-bold text-lg">MEGA PROMOÇÃO!</p>
@@ -433,7 +433,7 @@ export function AspectRatioPage() {
                       <p className="text-sm text-muted-foreground">
                         Medium Rectangle (300x250)
                       </p>
-                      <AspectRatio ratio={300 / 250}>
+                      <AspectRatio rounded ratio={300 / 250}>
                         <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center h-full text-white relative overflow-hidden">
                           <div className="text-center z-10">
                             <h3 className="font-bold text-lg mb-2">
@@ -462,7 +462,7 @@ export function AspectRatioPage() {
                       <p className="text-sm text-muted-foreground">
                         Skyscraper (160x600)
                       </p>
-                      <AspectRatio ratio={160 / 600}>
+                      <AspectRatio rounded ratio={160 / 600}>
                         <div className="bg-gradient-to-b from-blue-500 to-teal-500 rounded-lg flex items-center justify-center h-full text-white">
                           <div className="text-center px-2">
                             <h4 className="font-bold text-sm mb-4">
@@ -494,7 +494,7 @@ export function AspectRatioPage() {
                     <p className="text-sm text-muted-foreground">
                       Ultra Wide (32:9)
                     </p>
-                    <AspectRatio ratio={32 / 9}>
+                    <AspectRatio rounded ratio={32 / 9}>
                       <div className="bg-gradient-to-r from-gray-800 via-gray-900 to-black rounded-lg flex items-center justify-center h-full text-white relative overflow-hidden">
                         <div className="text-center">
                           <Monitor size={32} className="mx-auto mb-2" />
@@ -519,7 +519,7 @@ export function AspectRatioPage() {
                       <p className="text-sm text-muted-foreground">
                         Ultra Tall (2:5)
                       </p>
-                      <AspectRatio ratio={2 / 5}>
+                      <AspectRatio rounded ratio={2 / 5}>
                         <div className="bg-gradient-to-b from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center h-full text-white relative">
                           <div className="text-center px-2">
                             <DeviceMobile size={24} className="mx-auto mb-2" />
@@ -560,7 +560,7 @@ export function AspectRatioPage() {
                   Ferramenta de Recorte
                 </h4>
                 <div className="max-w-md">
-                  <AspectRatio ratio={4 / 3}>
+                  <AspectRatio rounded ratio={4 / 3}>
                     <div className="bg-gradient-to-br from-cyan-100 to-blue-200 rounded-lg relative overflow-hidden group">
                       {/* Imagem base */}
                       <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-600"></div>
@@ -611,7 +611,7 @@ export function AspectRatioPage() {
                         <format.icon size={14} />
                         {format.name}
                       </div>
-                      <AspectRatio ratio={format.ratio}>
+                      <AspectRatio rounded ratio={format.ratio}>
                         <div className="bg-gradient-to-br from-emerald-100 to-teal-200 rounded-lg flex items-center justify-center h-full border-2 border-emerald-300 relative">
                           <div className="text-center">
                             <Image
@@ -630,8 +630,8 @@ export function AspectRatioPage() {
                               {format.ratio > 1
                                 ? "16:9"
                                 : format.ratio === 1
-                                ? "1:1"
-                                : "9:16"}
+                                  ? "1:1"
+                                  : "9:16"}
                             </Badge>
                           </div>
                         </div>

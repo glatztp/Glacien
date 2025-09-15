@@ -13,13 +13,7 @@ import {
   Badge,
   Button,
 } from "../../index";
-import {
-  Crown,
-  Star,
-  Heart,
-  Bell,
-  Shield,
-} from "phosphor-react";
+import { Crown, Star, Heart, Bell, Shield } from "phosphor-react";
 
 export function AvatarPage() {
   const [selectedAnimation, setSelectedAnimation] = React.useState("default");
@@ -234,6 +228,12 @@ export function AvatarPage() {
                       </Avatar>
                       <Avatar variant="glow" size="lg">
                         <AvatarFallback>GL</AvatarFallback>
+                      </Avatar>
+                      {/* Exemplo de avatar quadrado usando rounded=false */}
+                      <Avatar variant="default" size="lg" rounded={false}>
+                        <AvatarFallback className="bg-indigo-500 text-white">
+                          SQ
+                        </AvatarFallback>
                       </Avatar>
                     </div>
                     <div className="text-xs text-muted-foreground">

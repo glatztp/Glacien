@@ -414,7 +414,7 @@ Releases are managed by maintainers and follow semantic versioning:
 
 ## Getting Help
 
-- **Documentation**: [https://Glacien.vercel.app/docs](https://Glacien.vercel.app/docs)
+- **Documentation**: [https://Glacien.online/docs](https://Glacien.online/docs)
 - **Issues**: [GitHub Issues](https://github.com/glatztp/Glacien/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/glatztp/Glacien/discussions)
 

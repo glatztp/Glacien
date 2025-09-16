@@ -13,7 +13,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-[📖 **Documentação**](https://Glacien.vercel.app/docs) • [🚀 **Live Demo**](https://Glacien.vercel.app) • [📦 **NPM**](https://www.npmjs.com/package/@glacien/ui) • [🐛 **Reportar Issues**](https://github.com/glatztp/Glacien/issues) • [💬 **Discussões**](https://github.com/glatztp/Glacien/discussions)
+[📖 **Documentação**](https://Glacien.online/docs) • [🚀 **Live Demo**](https://Glacien.online) • [📦 **NPM**](https://www.npmjs.com/package/@glacien/ui) • [🐛 **Reportar Issues**](https://github.com/glatztp/Glacien/issues) • [💬 **Discussões**](https://github.com/glatztp/Glacien/discussions)
 
 </div>
 
@@ -53,7 +53,7 @@ yarn add @glacien/ui lucide-react
 pnpm add @glacien/ui lucide-react
 ```
 
-Veja a [documentação de instalação](https://glacien.vercel.app/docs/installation) para exemplos de setup em Next.js, Vite, CRA, Remix e Gatsby.
+Veja a [documentação de instalação](https://glacien.online/docs/installation) para exemplos de setup em Next.js, Vite, CRA, Remix e Gatsby.
 
 ---
 
@@ -86,7 +86,7 @@ export default function App() {
 - **Layout**: Card, Separator, ScrollArea, Accordion, Collapsible, Resizable, AspectRatio, Container
 - **Dados**: DataTable, Avatar, Table, List, Timeline
 
-Veja a [lista completa de componentes](https://glacien.vercel.app/docs/components) com exemplos e playground.
+Veja a [lista completa de componentes](https://glacien.online/docs/components) com exemplos e playground.
 
 ---
 

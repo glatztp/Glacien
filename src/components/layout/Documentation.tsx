@@ -384,7 +384,6 @@ export default function DocumentationPage() {
                 </div>
               </div>
             </div>
-
             {activeSection === "introduction" && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -473,7 +472,6 @@ export default function DocumentationPage() {
                 <SectionNavigation currentSectionId="introduction" />
               </motion.div>
             )}
-
             {/* Section: Prerequisites */}
             {activeSection === "prerequisites" && (
               <motion.div
@@ -689,7 +687,6 @@ export default function DocumentationPage() {
                 <SectionNavigation currentSectionId="prerequisites" />
               </motion.div>
             )}
-
             {/* Section: Installation */}
             {activeSection === "setup" && (
               <motion.div
@@ -889,7 +886,6 @@ export default function DocumentationPage() {
                 <SectionNavigation currentSectionId="setup" />
               </motion.div>
             )}
-
             {activeSection === "compatibility" && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -1044,7 +1040,6 @@ export default function DocumentationPage() {
                 <SectionNavigation currentSectionId="compatibility" />
               </motion.div>
             )}
-
             {/* Section: Architecture */}
             {activeSection === "architecture" && (
               <motion.div
@@ -1179,80 +1174,6 @@ export default function DocumentationPage() {
                 <SectionNavigation currentSectionId="architecture" />
               </motion.div>
             )}
-
-            {/* Section: Specifications */}
-            {activeSection === "specifications" && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-8"
-              >
-                <div>
-                  <h1 className="text-4xl font-bold tracking-tight mb-4">
-                    Specifications
-                  </h1>
-                  <p className="text-xl text-muted-foreground">
-                    Requisitos técnicos detalhados e especificações de
-                    performance.
-                  </p>
-                </div>
-
-                <div className="grid gap-6 md:grid-cols-2">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Métricas de Performance</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-2 gap-4">
-                        {[
-                          { metric: "Bundle Size", value: "< 50KB" },
-                          { metric: "First Paint", value: "< 1.2s" },
-                          { metric: "Interactivity", value: "< 2.5s" },
-                          { metric: "Accessibility", value: "AA WCAG" },
-                        ].map((item, index) => (
-                          <div
-                            key={index}
-                            className="text-center p-4 bg-muted/50 rounded-lg"
-                          >
-                            <div className="text-2xl font-bold text-primary mb-1">
-                              {item.value}
-                            </div>
-                            <div className="text-sm font-medium">
-                              {item.metric}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Requisitos do Sistema</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      {[
-                        { name: "Node.js", version: "16.14.0+" },
-                        { name: "React", version: "18.0.0+" },
-                        { name: "TypeScript", version: "4.5.0+ (opcional)" },
-                        { name: "Tailwind CSS", version: "3.0.0+ (opcional)" },
-                      ].map((req, index) => (
-                        <div
-                          key={index}
-                          className="flex justify-between items-center p-2 bg-muted/50 rounded"
-                        >
-                          <span className="font-medium">{req.name}</span>
-                          <Badge variant="outline">{req.version}</Badge>
-                        </div>
-                      ))}
-                    </CardContent>
-                  </Card>
-                </div>
-
-                <SectionNavigation currentSectionId="specifications" />
-              </motion.div>
-            )}
-
             {/* Section: Integration */}
             {activeSection === "integration" && (
               <motion.div
@@ -1265,38 +1186,285 @@ export default function DocumentationPage() {
                     Integration
                   </h1>
                   <p className="text-xl text-muted-foreground">
-                    Como implementar em projetos existentes sem breaking
-                    changes.
+                    Como integrar a biblioteca em projetos existentes sem
+                    breaking changes — estratégias, exemplos práticos e comandos
+                    prontos para copiar.
                   </p>
+                </div>
+
+                <div className="grid gap-6 md:grid-cols-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Migração Gradual</CardTitle>
+                      <CardDescription>
+                        Integre componentes progressivamente, valide visual e
+                        comportamento por etapas.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <p className="text-sm text-muted-foreground">
+                        Comece importando componentes não críticos (Botões,
+                        Badges), execute testes visuais e de acessibilidade e
+                        então avance para layouts e padrões globais.
+                      </p>
+
+                      <div className="rounded-lg p-3 bg-muted/50 border border-border">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="font-medium">Instalar</div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() =>
+                              copyToClipboard("npm install @glacien/ui")
+                            }
+                          >
+                            <Copy size={12} />
+                          </Button>
+                        </div>
+
+                        <div className="text-sm font-mono bg-background/50 p-3 rounded whitespace-pre-wrap">
+                          npm install @glacien/ui
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="font-medium mb-1">Exemplo mínimo</div>
+                        <div className="text-sm font-mono bg-background/50 p-3 rounded whitespace-pre-wrap">
+                          {`import { Button } from '@glacien/ui';
+
+export default function Example() {
+  return <Button>Olá Glacien</Button>;
+}`}
+                        </div>
+                        <div className="mt-2 text-xs text-muted-foreground">
+                          Importe apenas os componentes que utilizar para manter
+                          bundle enxuto.
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>CSS / Tailwind</CardTitle>
+                      <CardDescription>
+                        Como evitar conflitos e garantir que o Tailwind capture
+                        classes usadas pela biblioteca.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <p className="text-sm text-muted-foreground">
+                        Adicione o diretório da distribuição da biblioteca em
+                        <code className="mx-1 font-mono">content</code> do
+                        tailwind.config.js para evitar perda de classes.
+                      </p>
+
+                      <div className="p-3 bg-muted/50 rounded">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="font-medium">
+                            Exemplo tailwind.config.js
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() =>
+                              copyToClipboard(
+                                `module.exports = {
+              content: [
+                './src/**/*.{js,ts,jsx,tsx}',
+                './node_modules/@glacien/ui/dist/**/*.js'
+              ],
+            };`
+                              )
+                            }
+                          >
+                            <Copy size={12} />
+                          </Button>
+                        </div>
+
+                        <div className="text-sm font-mono bg-background/50 p-3 rounded whitespace-pre-wrap">
+                          {`module.exports = {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@glacien/ui/dist/**/*.js'
+  ],
+};`}
+                        </div>
+                      </div>
+
+                      <div className="text-sm text-muted-foreground">
+                        Em casos de conflito de tokens prefira:
+                        <ul className="list-disc pl-5 mt-2">
+                          <li>Override via CSS variables do tema</li>
+                          <li>Usar prefix em Tailwind (se necessário)</li>
+                        </ul>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div className="grid gap-6 md:grid-cols-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Import & Tree-shaking</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <p className="text-sm text-muted-foreground">
+                        Use named imports do pacote principal para garantir
+                        tree-shaking e evitar bundles desnecessários.
+                      </p>
+
+                      <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="p-3 bg-background/50 rounded border border-border">
+                          <div className="flex items-start justify-between mb-2">
+                            <div className="font-semibold text-sm text-muted-foreground">
+                              Recomendado
+                            </div>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() =>
+                                navigator.clipboard.writeText(
+                                  "import { Button } from '@glacien/ui';"
+                                )
+                              }
+                            >
+                              <Copy size={14} />
+                            </Button>
+                          </div>
+                          <div className="text-sm font-mono whitespace-pre-wrap">
+                                { "import { Button } from '@glacien/ui;"}
+                          </div>
+                        </div>
+
+                        <div className="p-3 bg-background/50 rounded border border-border">
+                          <div className="flex items-start justify-between mb-2">
+                            <div className="font-semibold text-sm text-muted-foreground">
+                              Evitar
+                            </div>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() =>
+                                navigator.clipboard.writeText(
+                                  "import Glacien from '@glacien/ui/dist/full-bundle';"
+                                )
+                              }
+                            >
+                              <Copy size={14} />
+                            </Button>
+                          </div>
+                          <div className="text-sm font-mono whitespace-pre-wrap">
+                            import Glacien from '@glacien/ui/dist/full-bundle';
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Theming & Provider</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <p className="text-sm text-muted-foreground">
+                        Passe tokens via provider para centralizar tema e evitar
+                        mutações diretas nos componentes.
+                      </p>
+
+                      <div className="text-sm font-mono bg-background/50 p-3 rounded whitespace-pre-wrap">
+                        {`<GlacienProvider theme={{ colors: { primary: '#1e3a8a' } }}>
+  <App />
+</GlacienProvider>`}
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Migração Gradual</CardTitle>
+                    <CardTitle>Exemplos & Troubleshooting</CardTitle>
                     <CardDescription>
-                      Integre componentes progressivamente sem afetar o código
-                      existente
+                      Trechos prontos para copiar e problemas comuns com
+                      soluções
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="bg-gray-900 dark:bg-gray-100 text-gray-100 dark:text-gray-900 p-4 rounded-lg">
-                      <pre className="text-sm font-mono">
-                        {`// 1. Instale a biblioteca
-npm install @glacien/ui
+                    <div className="space-y-3 text-sm text-muted-foreground">
+                      <div>
+                        <div className="font-medium">Import errado</div>
+                        <div>
+                          Se você importar todo o pacote e notar aumento de
+                          bundle, verifique se está usando named imports.
+                        </div>
+                        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="p-3 bg-background/50 rounded border border-border">
+                            <div className="flex items-start justify-between mb-2">
+                              <div className="font-semibold text-sm text-muted-foreground">
+                                Evitar
+                              </div>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() =>
+                                  navigator.clipboard.writeText(
+                                    "import Glacien from '@glacien/ui/dist/full-bundle';"
+                                  )
+                                }
+                              >
+                                <Copy size={14} />
+                              </Button>
+                            </div>
+                            <div className="text-sm font-mono whitespace-pre-wrap">
+                              import Glacien from
+                              '@glacien/ui/dist/full-bundle';
+                            </div>
+                          </div>
 
-// 2. Importe apenas os componentes que usar
-import { Button } from '@glacien/ui';
+                          <div className="p-3 bg-background/50 rounded border border-border">
+                            <div className="flex items-start justify-between mb-2">
+                              <div className="font-semibold text-sm text-muted-foreground">
+                                Recomendado
+                              </div>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() =>
+                                  navigator.clipboard.writeText(
+                                    "import { Button } from '@glacien/ui';"
+                                  )
+                                }
+                              >
+                                <Copy size={14} />
+                              </Button>
+                            </div>
+                            <div className="text-sm font-mono whitespace-pre-wrap">
+                                { "import { Button } from '@glacien/ui;"}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-// 3. Use junto com componentes existentes
-function ExistingComponent() {
-  return (
-    <div>
-      <OldButton>Botão Antigo</OldButton>
-      <Button>Novo Botão</Button>
-    </div>
-  );
-}`}
-                      </pre>
+                      <div>
+                        <div className="font-medium">SSR issues</div>
+                        <div>
+                          Para componentes que usam window/DOM, carregue no
+                          cliente: dynamic import / React.lazy / useEffect.
+                        </div>
+                        <div className="mt-2 text-sm font-mono bg-background/50 p-3 rounded whitespace-pre-wrap">
+                          {`// Next.js dynamic import
+import dynamic from 'next/dynamic';
+const ClientOnlyComponent = dynamic(() => import('./Heavy'), { ssr: false });`}
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="font-medium">Conflitos de estilos</div>
+                        <div>
+                          Importe o CSS da biblioteca após o reset global ou use
+                          escopo local (CSS Modules).
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -1304,7 +1472,6 @@ function ExistingComponent() {
                 <SectionNavigation currentSectionId="integration" />
               </motion.div>
             )}
-
             {/* Section: Verification */}
             {activeSection === "verification" && (
               <motion.div
@@ -1347,7 +1514,6 @@ function ExistingComponent() {
                 <SectionNavigation currentSectionId="verification" />
               </motion.div>
             )}
-
             {/* Section: Theming */}
             {activeSection === "theming" && (
               <motion.div
@@ -1395,7 +1561,6 @@ function ExistingComponent() {
                 <SectionNavigation currentSectionId="theming" />
               </motion.div>
             )}
-
             {/* Section: API Reference */}
             {activeSection === "api" && (
               <motion.div
@@ -1444,7 +1609,6 @@ function ExistingComponent() {
                 <SectionNavigation currentSectionId="api" />
               </motion.div>
             )}
-
             {/* Section: Advanced */}
             {activeSection === "advanced" && (
               <motion.div
@@ -1494,7 +1658,6 @@ module.exports = {
                 <SectionNavigation currentSectionId="advanced" />
               </motion.div>
             )}
-
             {/* Section: Deployment */}
             {activeSection === "deployment" && (
               <motion.div
@@ -1550,7 +1713,6 @@ Publish directory: dist`}
                 <SectionNavigation currentSectionId="deployment" />
               </motion.div>
             )}
-
             {![
               "introduction",
               "prerequisites",

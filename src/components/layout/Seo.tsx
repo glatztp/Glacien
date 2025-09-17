@@ -64,6 +64,13 @@ export function getHeadHtml({
   return parts.join("\n");
 }
 
+// Default site-wide metadata (used by index.html and as fallback)
+export const DEFAULT_SITE_TITLE =
+  "Glacien — Biblioteca de componentes React/TypeScript";
+export const DEFAULT_SITE_DESCRIPTION =
+  "Biblioteca de componentes React/TypeScript inspirada no shadcn/ui. Moderna, acessível e altamente customizável — usada por equipes que querem produtividade e design profissional.";
+export const DEFAULT_CANONICAL = "https://glacien.online/";
+
 function escapeHtml(s: string) {
   return s
     .replace(/&/g, "&amp;")

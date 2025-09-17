@@ -126,12 +126,14 @@ const getGradientDirection = (position: string): string => {
   return directions[position] || "to bottom";
 };
 
-const debounce = (fn: (...args: any[]) => void, wait: number) => {
+const debounce = (fn: any, wait: number) => {
   let timeout: ReturnType<typeof setTimeout>;
+  /* eslint-disable no-unused-vars */
   return (...args: any[]) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => fn(...args), wait);
   };
+  /* eslint-enable no-unused-vars */
 };
 
 const useResponsiveDimension = (
@@ -227,20 +229,21 @@ const GradualBlur: React.FC<GradualBlurProps> = (props) => {
 
     const curveFunc = CURVE_FUNCTIONS[config.curve] || CURVE_FUNCTIONS.linear;
 
-        /* eslint-disable @typescript-eslint/no-explicit-any, no-unused-vars */
-        const applyCurve = (fn: any, v: number) => fn(v);
-        /* eslint-enable @typescript-eslint/no-explicit-any, no-unused-vars */
+    /* eslint-disable @typescript-eslint/no-explicit-any, no-unused-vars */
+    const applyCurve = (fn: any, v: number) => fn(v);
+    /* eslint-enable @typescript-eslint/no-explicit-any, no-unused-vars */
 
-        for (let i = 1; i <= config.divCount; i++) {
-          let _progress = i / config.divCount;
-          _progress = applyCurve(curveFunc, _progress);
+    for (let i = 1; i <= config.divCount; i++) {
+      let _progress = i / config.divCount;
+      _progress = applyCurve(curveFunc, _progress);
 
       let blurValue: number;
       if (config.exponential) {
         blurValue =
           Number(math.pow(2, _progress * 4)) * 0.0625 * currentStrength;
       } else {
-        blurValue = 0.0625 * (_progress * config.divCount + 1) * currentStrength;
+        blurValue =
+          0.0625 * (_progress * config.divCount + 1) * currentStrength;
       }
 
       const p1 = math.round((increment * i - increment) * 10) / 10;

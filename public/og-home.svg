@@ -11,7 +11,7 @@
     <rect x="60" y="60" width="1080" height="510" rx="24" fill="url(#g)" opacity="0.08"/>
   </g>
   <g font-family="Inter, Roboto, Arial, sans-serif" fill="#fff">
-    <text x="120" y="300" font-size="56" font-weight="700">Glacien — Component library</text>
-    <text x="120" y="360" font-size="28" fill="#cbd5e1">Modern, accessible React components</text>
+    <text x="120" y="300" font-size="48" font-weight="700">Glacien — Biblioteca de componentes React/TypeScript</text>
+    <text x="120" y="360" font-size="26" fill="#cbd5e1">Componentes React modernos, acessíveis e prontos para produção</text>
   </g>
 </svg>

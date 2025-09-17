@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Seo from "./Seo";
 import { motion } from "framer-motion";
 import {
   Button,
@@ -226,6 +227,18 @@ export default function DocumentationPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title={`@Glacien/ui — ${activeSection}`}
+        description={`Documentação - ${activeSection} · Glacien UI — Component library com exemplos, guias e integração.`}
+        canonical={`https://glacien.online/docs#${activeSection}`}
+        breadcrumbs={[
+          { name: "Documentation", url: "https://glacien.online/docs" },
+          {
+            name: activeSection,
+            url: `https://glacien.online/docs#${activeSection}`,
+          },
+        ]}
+      />
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Navigation - Estilo shadcn/ui */}
@@ -1333,7 +1346,7 @@ export default function Example() {
                             </Button>
                           </div>
                           <div className="text-sm font-mono whitespace-pre-wrap">
-                                { "import { Button } from '@glacien/ui;"}
+                            {"import { Button } from '@glacien/ui;"}
                           </div>
                         </div>
 
@@ -1439,7 +1452,7 @@ export default function Example() {
                               </Button>
                             </div>
                             <div className="text-sm font-mono whitespace-pre-wrap">
-                                { "import { Button } from '@glacien/ui;"}
+                              {"import { Button } from '@glacien/ui;"}
                             </div>
                           </div>
                         </div>

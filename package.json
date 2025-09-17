@@ -49,7 +49,10 @@
     "publish:minor": "npm run build && npm version minor && npm publish",
     "release": "semantic-release",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "generate:sitemap": "node ./scripts/generate-sitemap.js",
+    "generate:og": "node ./scripts/generate-og.js",
+    "generate:meta": "npm run generate:og && npm run generate:sitemap"
   },
   "keywords": [
     "react",

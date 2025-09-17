@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#0f172a"/>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <g fill="none">
+    <rect x="60" y="60" width="1080" height="510" rx="24" fill="url(#g)" opacity="0.08"/>
+  </g>
+  <g font-family="Inter, Roboto, Arial, sans-serif" fill="#fff">
+    <text x="120" y="300" font-size="56" font-weight="700">Glacien — Component library</text>
+    <text x="120" y="360" font-size="28" fill="#cbd5e1">Modern, accessible React components</text>
+  </g>
+</svg>

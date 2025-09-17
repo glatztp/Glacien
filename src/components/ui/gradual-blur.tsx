@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {
   CSSProperties,
   useEffect,
@@ -100,15 +101,13 @@ const PRESETS: Record<string, Partial<GradualBlurProps>> = {
   },
 };
 
-const CURVE_FUNCTIONS: Record<string, (progress: number) => number> = {
-  linear: (progress) => progress,
-  bezier: (progress) => progress * progress * (3 - 2 * progress),
-  "ease-in": (progress) => progress * progress,
-  "ease-out": (progress) => 1 - Math.pow(1 - progress, 2),
-  "ease-in-out": (progress) =>
-    progress < 0.5
-      ? 2 * progress * progress
-      : 1 - Math.pow(-2 * progress + 2, 2) / 2,
+const CURVE_FUNCTIONS = {
+  linear: (p: number) => p,
+  bezier: (p: number) => p * p * (3 - 2 * p),
+  "ease-in": (p: number) => p * p,
+  "ease-out": (p: number) => 1 - Math.pow(1 - p, 2),
+  "ease-in-out": (p: number) =>
+    p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2,
 };
 
 const mergeConfigs = (
@@ -127,12 +126,9 @@ const getGradientDirection = (position: string): string => {
   return directions[position] || "to bottom";
 };
 
-const debounce = <T extends (...args: unknown[]) => void>(
-  fn: T,
-  wait: number
-) => {
+const debounce = (fn: (...args: any[]) => void, wait: number) => {
   let timeout: ReturnType<typeof setTimeout>;
-  return (...args: Parameters<T>) => {
+  return (...args: any[]) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => fn(...args), wait);
   };
@@ -231,16 +227,20 @@ const GradualBlur: React.FC<GradualBlurProps> = (props) => {
 
     const curveFunc = CURVE_FUNCTIONS[config.curve] || CURVE_FUNCTIONS.linear;
 
-    for (let i = 1; i <= config.divCount; i++) {
-      let progress = i / config.divCount;
-      progress = curveFunc(progress);
+        /* eslint-disable @typescript-eslint/no-explicit-any, no-unused-vars */
+        const applyCurve = (fn: any, v: number) => fn(v);
+        /* eslint-enable @typescript-eslint/no-explicit-any, no-unused-vars */
+
+        for (let i = 1; i <= config.divCount; i++) {
+          let _progress = i / config.divCount;
+          _progress = applyCurve(curveFunc, _progress);
 
       let blurValue: number;
       if (config.exponential) {
         blurValue =
-          Number(math.pow(2, progress * 4)) * 0.0625 * currentStrength;
+          Number(math.pow(2, _progress * 4)) * 0.0625 * currentStrength;
       } else {
-        blurValue = 0.0625 * (progress * config.divCount + 1) * currentStrength;
+        blurValue = 0.0625 * (_progress * config.divCount + 1) * currentStrength;
       }
 
       const p1 = math.round((increment * i - increment) * 10) / 10;

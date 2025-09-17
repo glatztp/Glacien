@@ -1,0 +1,20 @@
+{
+  "name": "Glacien UI",
+  "short_name": "Glacien",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#18181b",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-p.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

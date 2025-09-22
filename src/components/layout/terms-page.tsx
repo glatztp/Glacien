@@ -9,77 +9,156 @@ export default function TermsPage() {
       id: "introduction",
       title: "1. Introdução",
       content: [
-        "Estes Termos de Uso descrevem as regras e responsabilidades ao utilizar este site e quaisquer serviços relacionados. Ao acessar o site, você concorda com estes termos.",
+        "Estes Termos de Uso estabelecem os direitos e obrigações aplicáveis ao acesso e uso deste site, bem como quaisquer serviços ou recursos relacionados. Ao utilizar o site, você concorda em cumprir estes termos e todas as políticas referenciadas aqui.",
+      ],
+    },
+    {
+      id: "scope",
+      title: "2. Escopo e aceitação",
+      content: [
+        "Estes termos regem o uso do site e de seus serviços; não criam relação de emprego, sociedade ou agência entre você e os mantenedores. Se você não concordar com algum dos termos, por favor não utilize o serviço.",
       ],
     },
     {
       id: "access",
-      title: "2. Acesso e disponibilidade",
+      title: "3. Acesso e disponibilidade",
       content: [
-        "Fazemos esforços razoáveis para manter o serviço disponível, mas não garantimos disponibilidade ininterrupta. Podemos suspender o acesso por manutenção ou por motivos legais.",
+        "Fazemos esforços razoáveis para manter o serviço disponível, mas não garantimos disponibilidade ininterrupta. Podemos suspender ou limitar o acesso temporariamente por motivos de manutenção, atualizações, segurança ou por exigência legal.",
       ],
     },
     {
       id: "user-obligations",
-      title: "3. Obrigações do usuário",
+      title: "4. Obrigações do usuário",
       content: [
-        "Você concorda em utilizar o serviço de forma lícita, não violar direitos de terceiros e não introduzir malware ou conteúdo abusivo. É sua responsabilidade proteger suas credenciais.",
+        "Você concorda em: usar o serviço de forma lícita; não violar direitos de terceiros; não praticar ataques, distribuir malware, ou comprometer a segurança do serviço; e proteger suas credenciais de acesso. Quaisquer ações realizadas a partir da sua conta são de sua responsabilidade.",
       ],
     },
     {
-      id: "content-license",
-      title: "4. Licença de uso do conteúdo",
+      id: "acceptable-use",
+      title: "5. Uso aceitável",
       content: [
-        "O conteúdo público do projeto é disponibilizado sob a licença indicada no repositório. Respeite os termos da licença ao reutilizar código ou ativos.",
+        "É proibido utilizar o site para fins que sejam ilegais, que promovam ódio, violência, fraude ou invasão de privacidade. Também é proibido uso que gere tráfego artificial, scraping massivo sem autorização, engenharia reversa dos serviços, ou qualquer atividade que prejudique a experiência de outros usuários.",
+      ],
+    },
+    {
+      id: "intellectual-property",
+      title: "6. Propriedade intelectual",
+      content: [
+        "Todos os direitos de propriedade intelectual relacionados ao site, seu design, textos, imagens e código são detidos por nós ou por seus licenciadores. Quando o projeto disponibiliza código em repositórios públicos, ele é fornecido sob a licença especificada naquele repositório — respeite essa licença ao reutilizar o material.",
+        "Você não pode remover avisos de direitos autorais ou marca registrada presentes no conteúdo, nem declarar propriedade sobre conteúdo que não seja seu.",
+      ],
+    },
+    {
+      id: "contributions",
+      title: "7. Contribuições e feedback",
+      content: [
+        "Contribuições de código, ideias, relatórios de bugs ou sugestões submetidas ao repositório podem ser tratadas como não confidenciais. Ao enviar contribuições, você concorda que podemos usar, modificar e redistribuir o conteúdo sem obrigação de pagamento. Utilize as orientações do CONTRIBUTING.md ao contribuir.",
+      ],
+    },
+    {
+      id: "user-content",
+      title: "8. Conteúdo gerado por usuários",
+      content: [
+        "Se usuários puderem postar conteúdo (ex.: comentários, exemplos, snippets), você garante que tem o direito de fazê-lo e que o conteúdo não infringe direitos de terceiros. Reservamo-nos o direito de moderar, editar, remover ou recusar qualquer conteúdo que viole estes Termos ou que seja, a nosso critério, inapropriado.",
+      ],
+    },
+    {
+      id: "dmca",
+      title: "9. Notificação de violação de direitos autorais (DMCA)",
+      content: [
+        "Se você acredita que seu trabalho protegido por direitos autorais foi copiado e está acessível neste site de maneira que constitua infração, notifique-nos por escrito com as informações necessárias para a identificação do material protegido e da localização do material supostamente infrator. Forneceremos um procedimento razoável para tratar reclamações e contra-notificações, conforme exigido pela legislação aplicável.",
       ],
     },
     {
       id: "third-party",
-      title: "5. Links e terceiros",
+      title: "10. Links e serviços de terceiros",
       content: [
-        "Podemos incluir links para sites de terceiros. Não nos responsabilizamos por práticas de privacidade ou conteúdo desses sites.",
+        "O site pode conter links para produtos, serviços ou conteúdos mantidos por terceiros. Não nos responsabilizamos por esses produtos/serviços, suas políticas de privacidade ou práticas. Links não significam endosso.",
       ],
     },
     {
-      id: "disclaimer",
-      title: "6. Isenção de garantias",
+      id: "security",
+      title: "11. Segurança e incidentes",
       content: [
-        "O serviço é fornecido 'como está' sem garantias expressas. Não garantimos que o serviço atenderá todas as suas necessidades.",
+        "Empregamos medidas razoáveis de segurança para proteger o serviço, mas nenhum sistema é invulnerável. Se você detectar um problema de segurança, notifique-nos com detalhes para que possamos investigar. Não realize testes intrusivos sem consentimento prévio.",
+      ],
+    },
+    {
+      id: "data-retention",
+      title: "12. Retenção e uso de dados",
+      content: [
+        "Coletamos e processamos dados conforme descrito na nossa Política de Privacidade. Dados relacionados a contas, issues e contribuições podem ser mantidos por um período compatível com fins legais, administrativos e de melhoria do serviço. Para solicitações de exclusão, consulte a Política de Privacidade ou entre em contato.",
+      ],
+    },
+    {
+      id: "warranty",
+      title: "13. Isenção de garantias",
+      content: [
+        "O serviço é fornecido 'no estado em que se encontra' e 'conforme disponível', sem garantias expressas ou implícitas. Não garantimos que o serviço será ininterrupto, livre de erros, seguro ou que atenderá às suas expectativas.",
       ],
     },
     {
       id: "liability",
-      title: "7. Limitação de responsabilidade",
+      title: "14. Limitação de responsabilidade",
       content: [
-        "Na máxima extensão permitida por lei, não seremos responsáveis por danos diretos, indiretos, especiais ou consequenciais decorrentes do uso do serviço.",
+        "Na máxima extensão permitida por lei, não seremos responsáveis por danos diretos, indiretos, especiais, incidentais ou consequenciais, perda de lucro, dados ou receitas decorrentes do uso ou incapacidade de usar o serviço. Em hipótese alguma nossa responsabilidade agregada excederá um valor razoável (por exemplo: R$ 1.000), salvo disposição legal em contrário.",
       ],
     },
     {
-      id: "modifications",
-      title: "8. Alterações nos termos",
+      id: "indemnification",
+      title: "15. Indenização",
       content: [
-        "Podemos atualizar estes termos a qualquer momento. Notificaremos mudanças relevantes no repositório ou por outros meios adequados.",
+        "Você concorda em indenizar e isentar os mantenedores de quaisquer reclamações, perdas, responsabilidades, danos, custos e despesas (incluindo honorários advocatícios razoáveis) decorrentes do seu uso do serviço ou de violação destes Termos.",
       ],
     },
     {
       id: "termination",
-      title: "9. Rescisão",
+      title: "16. Suspensão e rescisão",
       content: [
-        "Reservamo-nos o direito de limitar, suspender ou encerrar o acesso de usuários que violem estes termos ou a lei.",
+        "Podemos, a nosso critério, suspender ou encerrar seu acesso ao serviço caso você viole estes Termos, prejudique a segurança do serviço, ou por exigência legal. Após rescisão, seu direito de usar o serviço cessará, mas obrigações que devam sobreviver à rescisão (ex.: cláusulas de propriedade, limitação de responsabilidade e indenização) permanecerão válidas.",
       ],
     },
     {
-      id: "governing-law",
-      title: "10. Legislação aplicável",
+      id: "changes",
+      title: "17. Alterações nestes Termos e nas ofertas",
       content: [
-        "Estes termos serão regidos e interpretados de acordo com a legislação aplicável ao proprietário do projeto, salvo disposição em contrário obrigatória.",
+        "Podemos alterar estes Termos a qualquer momento. Quando houver alterações materiais, procuraremos notificar de maneira adequada (por exemplo, via changelog, repositório ou email se aplicável). O uso continuado após alterações implicará aceitação dos novos termos.",
+      ],
+    },
+    {
+      id: "export-compliance",
+      title: "18. Conformidade com exportação",
+      content: [
+        "Você concorda em cumprir leis de controle de exportação e não utilizar o serviço em violação a tais leis. É proibida a exportação do software ou dados para países ou pessoas sancionadas sem a devida autorização.",
+      ],
+    },
+    {
+      id: "dispute",
+      title: "19. Resolução de disputas",
+      content: [
+        "Quaisquer disputas decorrentes destes Termos deverão ser buscadas primeiramente por via amigável. Caso não seja possível, a disputa será resolvida conforme a legislação aplicável e jurisdição indicada na seção de legislação aplicável.",
+      ],
+    },
+    {
+      id: "severability",
+      title: "20. Separabilidade",
+      content: [
+        "Se qualquer disposição destes Termos for considerada inválida ou inexequível, essa disposição será aplicada na máxima extensão possível e as demais permanecerão em vigor.",
+      ],
+    },
+    {
+      id: "entire-agreement",
+      title: "21. Acordo integral",
+      content: [
+        "Estes Termos constituem o acordo integral entre você e os mantenedores com relação ao uso do serviço, substituindo quaisquer entendimentos anteriores.",
       ],
     },
     {
       id: "contact",
-      title: "11. Contato",
+      title: "22. Contato",
       content: [
-        "Para questões relacionadas a estes Termos, abra uma issue no repositório do projeto ou utilize os canais de contato indicados na página principal.",
+        "Para questões relacionadas a estes Termos, direitos autorais, solicitações legais ou pedidos de remoção, abra uma issue no repositório (https://github.com/glatztp/gltz) ou envie uma mensagem para contato@glacien.online se disponível.",
+        "Inclua informações claras e completas: identificação do material, localização do conteúdo supostamente infrator, e um contato para resposta.",
       ],
     },
   ];
@@ -138,8 +217,8 @@ export default function TermsPage() {
                 transition={{ duration: 0.45 }}
               >
                 <p className="lead text-muted-foreground">
-                  Leia atentamente estes Termos antes de usar o serviço. Leia com
-                  atenção e use o sumário para navegar.
+                  Leia atentamente estes Termos antes de usar o serviço. Leia
+                  com atenção e use o sumário para navegar.
                 </p>
 
                 {sections.map((sec) => (

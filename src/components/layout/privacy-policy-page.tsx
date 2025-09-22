@@ -10,56 +10,105 @@ export default function PrivacyPolicyPage() {
       id: "introduction",
       title: "1. Introdução",
       content: [
-        "Esta Política de Privacidade descreve como coletamos, usamos e protegemos as informações pessoais quando você utiliza nossos serviços.",
+        "Esta Política de Privacidade descreve como coletamos, usamos, divulgamos e protegemos informações pessoais quando você interage com o site e serviços relacionados. Leia atentamente; ao utilizar o serviço, você concorda com as práticas aqui descritas.",
       ],
     },
     {
       id: "data-we-collect",
-      title: "2. Dados que coletamos",
+      title: "2. Quais dados coletamos",
       content: [
-        "Coletamos dados que você fornece diretamente (por exemplo: nome, e‑mail) e dados de uso automaticamente gerados (logs, identificadores de dispositivo).",
+        "Coletamos diferentes tipos de informações dependendo de como você usa o serviço, incluindo:",
+        "• Dados fornecidos por você: nome, endereço de e‑mail, conteúdo que você submete (ex.: snippets, issues), e outras informações que optar por fornecer.",
+        "• Dados de uso e diagnóstico: registros de acesso, endereços IP, identificadores de sessão, informações sobre dispositivo e navegador, dados de performance e erros.",
+        "• Dados coletados por meio de cookies e tecnologias semelhantes (mais detalhes na seção de Cookies).",
+      ],
+    },
+    {
+      id: "legal-basis",
+      title: "3. Base legal para o tratamento",
+      content: [
+        "Quando aplicável, tratamos seus dados com base em uma ou mais das seguintes bases legais: consentimento (quando solicitado), execução de contrato, cumprimento de obrigação legal, interesse legítimo (por exemplo: segurança, prevenção de fraude, melhoria do serviço) ou proteção de direitos legais.",
       ],
     },
     {
       id: "how-we-use",
-      title: "3. Finalidades do tratamento",
+      title: "4. Finalidades do tratamento",
       content: [
-        "Usamos os dados para prestar o serviço, melhorar a experiência, comunicar novidades e cumprir obrigações legais.",
+        "Utilizamos seus dados para: fornecer e operar o serviço; autenticar e gerenciar contas; comunicar atualizações e notificações; analisar e melhorar o produto; prevenir abuso e atividades fraudulentas; e cumprir obrigações legais.",
       ],
     },
     {
       id: "cookies",
-      title: "4. Cookies e similares",
+      title: "5. Cookies e tecnologias semelhantes",
       content: [
-        "Utilizamos cookies para autenticar sessões, armazenar preferências e coletar métricas de uso. Você pode controlar cookies nas configurações do navegador.",
+        "Utilizamos cookies, pixels e outras tecnologias para fins técnicos e analíticos. Exemplos:",
+        "• Cookies essenciais: necessários para autenticação e segurança da sessão.",
+        "• Cookies de desempenho/analíticos: para medir uso e melhorar a experiência (ex.: Google Analytics ou similar).",
+        "Você pode controlar o uso de cookies pelo navegador; no entanto, bloquear cookies essenciais pode impactar a funcionalidade do serviço.",
+      ],
+    },
+    {
+      id: "sharing",
+      title: "6. Compartilhamento e terceiros",
+      content: [
+        "Podemos compartilhar dados com provedores de serviço que nos auxiliam na operação (ex.: hospedagem, monitoramento, análise), sempre sob contratos que exigem proteção e uso limitado. Também podemos divulgar informações em resposta a exigências legais, ordens judiciais ou para proteger direitos, propriedade ou segurança.",
+      ],
+    },
+    {
+      id: "international-transfers",
+      title: "7. Transferências internacionais",
+      content: [
+        "Como operamos globalmente, seus dados podem ser transferidos e armazenados em servidores localizados fora do seu país. Tomamos medidas adequadas (cláusulas contratuais padrão ou garantias equivalentes) para proteger dados transferidos internacionalmente, conforme aplicável.",
+      ],
+    },
+    {
+      id: "data-retention",
+      title: "8. Retenção e eliminação de dados",
+      content: [
+        "Reteremos dados pelo tempo necessário às finalidades informadas ou conforme exigido por lei. Quando não houver mais necessidade, os dados serão excluídos ou anonimizados. Para solicitações específicas de exclusão, consulte a seção de Direitos ou entre em contato.",
+      ],
+    },
+    {
+      id: "user-rights",
+      title: "9. Seus direitos",
+      content: [
+        "Quando aplicável, você tem direitos sobre seus dados: acesso, correção, exclusão, limitação do tratamento, oposição, portabilidade e revogação do consentimento. Para exercer direitos, abra uma issue no repositório ou use o canal de contato indicado. Responderemos conforme exigido pela legislação aplicável.",
       ],
     },
     {
       id: "security",
-      title: "5. Segurança",
+      title: "10. Segurança",
       content: [
-        "Adotamos controles técnicos e organizacionais proporcionais para proteger os dados, incluindo criptografia e políticas de acesso.",
+        "Adotamos medidas técnicas e administrativas razoáveis para proteger dados contra perda, uso indevido, acesso não autorizado, divulgação, alteração e destruição. Exemplos: controles de acesso, encriptação em trânsito, backups e revisões regulares de segurança. Apesar disso, nenhum método de transmissão ou armazenamento é 100% seguro.",
       ],
     },
     {
-      id: "retention",
-      title: "6. Conservação",
+      id: "children",
+      title: "11. Privacidade de crianças",
       content: [
-        "Reteremos dados somente pelo tempo necessário às finalidades informadas ou conforme exigido por lei; depois serão excluídos ou anonimizados.",
+        "O serviço não se destina a crianças menores de 13 anos (ou idade equivalente conforme a jurisdição). Não coletamos conscientemente dados pessoais de crianças. Se tomarmos conhecimento de coleta não autorizada, tomaremos medidas para excluir as informações.",
       ],
     },
     {
-      id: "rights",
-      title: "7. Direitos",
+      id: "automated-decision",
+      title: "12. Decisões automatizadas e perfilamento",
       content: [
-        "Você pode solicitar acesso, correção, exclusão e portabilidade de seus dados quando aplicável; solicitações são tratadas conforme a legislação vigente.",
+        "Não realizamos decisões automatizadas que geram efeitos jurídicos sobre você sem intervenção humana relevante. Podemos empregar análise automatizada para fins de métricas e melhoria do serviço, sempre com salvaguardas apropriadas.",
+      ],
+    },
+    {
+      id: "changes",
+      title: "13. Alterações nesta Política",
+      content: [
+        "Podemos atualizar esta Política de Privacidade periodicamente. Quando houver mudanças materiais, procuraremos notificar por meio do repositório, changelog ou outros canais aplicáveis. Recomendamos revisar esta página regularmente.",
       ],
     },
     {
       id: "contact",
-      title: "8. Contato",
+      title: "14. Como nos contatar",
       content: [
-        "Abra uma issue no repositório do projeto ou use os canais indicados na página principal para questões sobre privacidade.",
+        "Para questões sobre privacidade, solicitações de acesso ou exclusão, dúvidas legais ou relatos de incidentes, abra uma issue no repositório (https://github.com/glatztp/gltz) ou envie email para contato@glacien.online (se disponível).",
+        "Inclua detalhes suficientes para identificar a solicitação (por exemplo, email usado, descrição do dado, URL afetada). Faremos o possível para responder prontamente.",
       ],
     },
   ];

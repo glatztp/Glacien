@@ -1503,26 +1503,215 @@ const ClientOnlyComponent = dynamic(() => import('./Heavy'), { ssr: false });`}
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Lista de Verificação</CardTitle>
+                    <CardTitle>Checklist de Verificação</CardTitle>
+                    <CardDescription>
+                      Passos práticos para confirmar instalação, integração,
+                      acessibilidade, e preparo para produção.
+                    </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    {[
-                      "Pacote instalado corretamente",
-                      "CSS importado no projeto",
-                      "Componentes renderizando sem erros",
-                      "TypeScript funcionando (se aplicável)",
-                      "Temas aplicados corretamente",
-                    ].map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-3 p-3 bg-green-50/50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800"
-                      >
-                        <CheckCircle size={16} className="text-green-600" />
-                        <span className="text-sm">{item}</span>
+
+                  <CardContent className="space-y-6">
+                    {/* Quick checklist */}
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-semibold">Rápido</h4>
+                      <div className="grid gap-3 md:grid-cols-2">
+                        {[
+                          {
+                            label: "Pacote instalado corretamente",
+                            hint: "npm/yarn instalou @glacien/ui e dependências",
+                          },
+                          {
+                            label: "CSS importado",
+                            hint: "import '@glacien/ui/dist/index.css' ou incluir no build",
+                          },
+                          {
+                            label: "Componentes renderizam",
+                            hint: "Sem erros no console ao montar componentes",
+                          },
+                          {
+                            label: "TypeScript sem erros",
+                            hint: "npx tsc --noEmit",
+                          },
+                        ].map((it, i) => (
+                          <div
+                            key={i}
+                            className="flex items-start gap-3 p-3 rounded-lg border border-border bg-background/50"
+                          >
+                            <CheckCircle
+                              size={18}
+                              className="text-green-600 mt-1"
+                            />
+                            <div className="flex-1">
+                              <div className="font-medium">{it.label}</div>
+                              <div className="text-sm text-muted-foreground">
+                                {it.hint}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+
+                    {/* Commands */}
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-semibold">Comandos úteis</h4>
+                      <div className="grid gap-3">
+                        {[
+                          {
+                            cmd: "npm install @glacien/ui",
+                            label: "Instalar pacote",
+                          },
+                          {
+                            cmd: "import '@glacien/ui/dist/index.css'",
+                            label: "Importar CSS (ex: index.tsx)",
+                          },
+                          { cmd: "npx tsc --noEmit", label: "Verificar tipos" },
+                          { cmd: "npm run lint", label: "Rodar lint" },
+                          { cmd: "npm run build", label: "Build de produção" },
+                        ].map((c, idx) => (
+                          <div
+                            key={idx}
+                            className="flex items-center justify-between gap-4 p-3 rounded-lg border border-border bg-background/30"
+                          >
+                            <div className="text-sm font-mono truncate">
+                              {c.cmd}
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() => copyToClipboard(c.cmd)}
+                                className="inline-flex items-center gap-2 px-2 py-1 rounded-md border border-border hover:bg-primary/5 text-sm"
+                                aria-label={`Copiar comando ${c.label}`}
+                              >
+                                <Copy size={14} /> Copiar
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Accessibility & Performance */}
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-semibold">
+                        Acessibilidade & Performance
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        Execute verificações rápidas para garantir conformidade
+                        e desempenho:
+                      </p>
+                      <div className="grid gap-3">
+                        <div className="p-3 rounded-lg border border-border bg-background/30">
+                          <div className="flex items-start gap-3">
+                            <div className="flex-1">
+                              <div className="font-medium">
+                                Acessibilidade (axe)
+                              </div>
+                              <div className="text-sm text-muted-foreground">
+                                Instale e rode axe-core ou use Lighthouse para
+                                identificar problemas de contraste, labels,
+                                roles e foco.
+                              </div>
+                              <div className="mt-2 flex gap-2">
+                                <button
+                                  onClick={() =>
+                                    copyToClipboard(
+                                      "npx axe ./path-to-page.html"
+                                    )
+                                  }
+                                  className="px-2 py-1 rounded border text-sm"
+                                >
+                                  Copiar comando
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    copyToClipboard(
+                                      "npx lighthouse https://localhost:3000 --preset=desktop --only-categories=accessibility"
+                                    )
+                                  }
+                                  className="px-2 py-1 rounded border text-sm"
+                                >
+                                  Lighthouse (accessibility)
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="p-3 rounded-lg border border-border bg-background/30">
+                          <div className="font-medium">
+                            Performance (Lighthouse)
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            Verifique LCP, FCP, TBT e reduzir JS inicial. Use um
+                            ambiente de produção local para resultados
+                            realistas.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Visual tests & Storybook */}
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-semibold">Testes visuais</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Configure Storybook para validar componentes
+                        isoladamente e integrar testes visuais (ex.: Chromatic,
+                        Loki) no CI.
+                      </p>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() =>
+                            copyToClipboard("npx sb init && npm run storybook")
+                          }
+                          className="px-3 py-1 rounded border text-sm"
+                        >
+                          Iniciar Storybook
+                        </button>
+                        <button
+                          onClick={() =>
+                            copyToClipboard(
+                              "npx chromatic --project-token=<token>"
+                            )
+                          }
+                          className="px-3 py-1 rounded border text-sm"
+                        >
+                          Chromatic (visual)
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Troubleshooting */}
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-semibold">
+                        Troubleshooting comum
+                      </h4>
+                      <ul className="list-disc pl-5 text-sm space-y-2 text-muted-foreground">
+                        <li>
+                          <strong>CSS ausente:</strong> verifique se o CSS da
+                          biblioteca está importado e que o Tailwind está
+                          configurado para incluir as classes do pacote.
+                        </li>
+                        <li>
+                          <strong>Erros SSR:</strong> componentes que usam
+                          window/document devem ser carregados no cliente
+                          (dynamic import / React.lazy).
+                        </li>
+                        <li>
+                          <strong>Problemas de tipagem:</strong> rode{" "}
+                          <code className="font-mono">npx tsc --noEmit</code> e
+                          atualize seus types/paths.
+                        </li>
+                        <li>
+                          <strong>Compatibilidade de tema:</strong> confirme que
+                          o Provider de tema está envolvido na árvore de
+                          componentes.
+                        </li>
+                      </ul>
+                    </div>
                   </CardContent>
                 </Card>
+
+                <SectionNavigation currentSectionId="verification" />
 
                 <SectionNavigation currentSectionId="verification" />
               </motion.div>

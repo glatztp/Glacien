@@ -1,6 +1,6 @@
 {
   "name": "@glacien/ui",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "type": "module",
   "description": "A comprehensive, accessible, and highly customizable React/TypeScript component library built with modern web standards. Features Radix UI primitives, Tailwind CSS integration, and enterprise-grade design systems.",
   "homepage": "https://glacien.online",

@@ -11,6 +11,11 @@ interface SeoProps {
   canonical?: string;
   breadcrumbs?: BreadcrumbItem[];
   ogImage?: string; // absolute URL to og image
+  author?: string;
+  publishedAt?: string; // ISO date
+  modifiedAt?: string; // ISO date
+  lang?: string; // e.g. 'pt-BR'
+  siteName?: string;
 }
 
 /**
@@ -24,6 +29,11 @@ export function getHeadHtml({
   canonical,
   breadcrumbs,
   ogImage,
+  author,
+  publishedAt,
+  modifiedAt,
+  lang,
+  siteName,
 }: SeoProps) {
   const parts: string[] = [];
 
@@ -50,6 +60,12 @@ export function getHeadHtml({
     );
   parts.push(`<meta property="og:type" content="website" />`);
   parts.push(`<meta property="og:locale" content="pt_BR" />`);
+  // Site name
+  parts.push(
+    `<meta property="og:site_name" content="${escapeHtml(
+      siteName || DEFAULT_SITE_NAME
+    )}" />`
+  );
   if (ogImage || DEFAULT_OG_IMAGE)
     parts.push(
       `<meta property="og:image" content="${escapeHtml(ogImage || DEFAULT_OG_IMAGE)}" />`,
@@ -68,6 +84,19 @@ export function getHeadHtml({
   if (ogImage || DEFAULT_OG_IMAGE)
     parts.push(
       `<meta name="twitter:image" content="${escapeHtml(ogImage || DEFAULT_OG_IMAGE)}" />`
+    );
+
+  // author meta
+  if (author)
+    parts.push(`<meta name="author" content="${escapeHtml(author)}" />`);
+
+  // theme color (helps some mobile browsers)
+  parts.push(`<meta name="theme-color" content="#0ea5a4" />`);
+
+  // hreflang alternate
+  if (canonical && (lang || "pt-BR"))
+    parts.push(
+      `<link rel="alternate" hreflang="${escapeHtml(lang || "pt-BR")}" href="${escapeHtml(canonical)}" />`
     );
 
   // Keywords (small set, optional)
@@ -105,6 +134,30 @@ export function getHeadHtml({
     `<script type="application/ld+json" id="seo-website">${escapeHtml(JSON.stringify(website))}</script>`
   );
 
+  // WebPage JSON-LD (page-level structured data)
+  const webPage: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    url: canonical || DEFAULT_CANONICAL,
+    inLanguage: lang || "pt-BR",
+    name: title || DEFAULT_SITE_TITLE,
+    description: description || DEFAULT_SITE_DESCRIPTION,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonical || DEFAULT_CANONICAL,
+    },
+  };
+
+  if (author) {
+    webPage.author = { "@type": "Person", name: author };
+  }
+  if (publishedAt) webPage.datePublished = publishedAt;
+  if (modifiedAt) webPage.dateModified = modifiedAt;
+
+  parts.push(
+    `<script type="application/ld+json" id="seo-webpage">${escapeHtml(JSON.stringify(webPage))}</script>`
+  );
+
   // BreadcrumbList (if provided)
   if (breadcrumbs && breadcrumbs.length) {
     const itemList = breadcrumbs.map((b, i) => ({
@@ -137,6 +190,7 @@ export const DEFAULT_SITE_DESCRIPTION =
   "Biblioteca de componentes React/TypeScript inspirada no shadcn/ui. Moderna, acessível e altamente customizável — usada por equipes que querem produtividade e design profissional.";
 export const DEFAULT_CANONICAL = "https://glacien.online/";
 export const DEFAULT_OG_IMAGE = "https://glacien.online/og-home.png";
+export const DEFAULT_SITE_NAME = "Glacien";
 
 function escapeHtml(s: string) {
   return s
@@ -153,6 +207,11 @@ export default function Seo({
   canonical,
   breadcrumbs,
   ogImage,
+  author,
+  publishedAt,
+  modifiedAt,
+  lang,
+  siteName,
 }: SeoProps) {
   useEffect(() => {
     if (title) document.title = title;
@@ -218,6 +277,11 @@ export default function Seo({
       "og:locale"
     ).setAttribute("content", "pt_BR");
     ensureMeta(
+      'meta[property="og:site_name"]',
+      "content",
+      "og:site_name"
+    ).setAttribute("content", siteName || DEFAULT_SITE_NAME);
+    ensureMeta(
       'meta[name="twitter:card"]',
       "content",
       "twitter:card"
@@ -233,6 +297,47 @@ export default function Seo({
         "content",
         "twitter:image"
       ).setAttribute("content", ogImage || DEFAULT_OG_IMAGE);
+    }
+
+    // author
+    if (author) {
+      let metaAuthor = document.querySelector('meta[name="author"]');
+      if (!metaAuthor) {
+        metaAuthor = document.createElement("meta");
+        metaAuthor.setAttribute("name", "author");
+        document.head.appendChild(metaAuthor);
+      }
+      metaAuthor.setAttribute("content", author);
+    }
+
+    // article dates
+    if (publishedAt) {
+      ensureMeta(
+        'meta[property="article:published_time"]',
+        "content",
+        "article:published_time"
+      ).setAttribute("content", publishedAt);
+    }
+    if (modifiedAt) {
+      ensureMeta(
+        'meta[property="article:modified_time"]',
+        "content",
+        "article:modified_time"
+      ).setAttribute("content", modifiedAt);
+    }
+
+    // hreflang link
+    if (canonical) {
+      let linkAlt = document.querySelector(
+        'link[rel="alternate"][hreflang]'
+      ) as HTMLLinkElement | null;
+      if (!linkAlt) {
+        linkAlt = document.createElement("link");
+        linkAlt.setAttribute("rel", "alternate");
+        document.head.appendChild(linkAlt);
+      }
+      linkAlt.setAttribute("hreflang", lang || "pt-BR");
+      linkAlt.setAttribute("href", canonical);
     }
 
     // Keywords (non-intrusive)

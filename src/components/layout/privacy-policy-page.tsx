@@ -5,6 +5,10 @@ import { ArrowLeft } from "phosphor-react";
 export default function PrivacyPolicyPage() {
   const navigate = useNavigate();
 
+  // Policy metadata
+  const POLICY_VERSION = "1.1";
+  const EFFECTIVE_DATE = "2025-09-25"; // ISO
+
   const sections = [
     {
       id: "definitions",
@@ -79,6 +83,14 @@ export default function PrivacyPolicyPage() {
       ],
     },
     {
+      id: "breach",
+      title: "10. Notificação de violação de dados (Data Breach)",
+      content: [
+        "Em caso de violação de segurança que comprometa dados pessoais, nós investigaremos prontamente e, quando exigido por lei, notificaremos os titulares afetados e autoridades competentes sem atraso indevido.",
+        "Relate incidentes imediatamente para security@glacien.online com o máximo de detalhes (o que aconteceu, quando, quais sistemas afetados, contatos para retorno).",
+      ],
+    },
+    {
       id: "user-rights",
       title: "10. Direitos dos titulares (ex.: GDPR)",
       content: [
@@ -87,8 +99,31 @@ export default function PrivacyPolicyPage() {
       ],
     },
     {
+      id: "how-to-request",
+      title: "11. Como exercer seus direitos (passo a passo)",
+      content: [
+        "1) Abra uma issue no repositório ou envie email para contato@glacien.online identificando o direito que deseja exercer (ex.: acesso, exclusão).",
+        "2) Forneça prova de identidade mínima (ex.: email cadastrado, captura de tela) quando necessário para evitar divulgações indevidas.",
+        "3) Processaremos sua solicitação e responderemos no prazo legal aplicável; se precisar de informações adicionais, entraremos em contato.",
+      ],
+    },
+    {
+      id: "logging",
+      title: "12. Logs, monitoramento e retenção técnica",
+      content: [
+        "Mantemos registros de logs e telemetria para diagnóstico, segurança e auditoria. Logs técnicos são retidos por períodos limitados (ex.: 30-90 dias) e utilizados para detecção e resposta a incidentes.",
+      ],
+    },
+    {
+      id: "third-parties",
+      title: "13. Terceiros e serviços usados (exemplos)",
+      content: [
+        "Exemplos de categorias de terceiros que podem processar dados: provedores de hospedagem (ex.: Vercel, Netlify), provedores de analytics (ex.: Google Analytics), serviços de CI/CD, provedores de email e gateways de pagamento. Consulte a política para obter a lista atualizada.",
+      ],
+    },
+    {
       id: "dpa",
-      title: "11. Acordos de processamento de dados (DPA)",
+      title: "14. Acordos de processamento de dados (DPA)",
       content: [
         "Para clientes empresariais que necessitem de garantias contratuais adicionais, podemos fornecer um Acordo de Processamento de Dados (DPA). Contate-nos para discutir termos e requisitos específicos.",
       ],
@@ -122,10 +157,20 @@ export default function PrivacyPolicyPage() {
       ],
     },
     {
+      id: "policy-meta",
+      title: "Informações da política",
+      content: [
+        `Versão: ${POLICY_VERSION}`,
+        `Data de vigência: ${new Date(EFFECTIVE_DATE).toLocaleDateString()}`,
+        "Última revisão: consulte o changelog para histórico de alterações.",
+      ],
+    },
+    {
       id: "contact",
       title: "16. Contato e DPO",
       content: [
-        "Para questões sobre privacidade, solicitações de direitos, ou para solicitar um DPA, abra uma issue no repositório ou envie email para contato@glacien.online. Relatos de segurança e incidentes devem ser enviados para security@glacien.online.",
+        "Para questões sobre privacidade, solicitações de direitos, ou para solicitar um DPA, abra uma issue no repositório ou envie email para contato@glacien.online.",
+        "Relatos de segurança e incidentes devem ser enviados para security@glacien.online. Para assuntos relacionados à proteção de dados pessoais, envie para dpo@glacien.online.",
       ],
     },
   ];

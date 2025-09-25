@@ -6,43 +6,58 @@ export default function TermsPage() {
 
   const sections = [
     {
-      id: "introduction",
-      title: "1. Introdução",
+      id: "definitions",
+      title: "1. Definições",
       content: [
-        "Estes Termos de Uso estabelecem os direitos e obrigações aplicáveis ao acesso e uso deste site, bem como quaisquer serviços ou recursos relacionados. Ao utilizar o site, você concorda em cumprir estes termos e todas as políticas referenciadas aqui.",
+        "Neste documento, 'Serviço' refere-se ao site, software, documentação e quaisquer funcionalidades oferecidas pelo projeto Glacien; 'Nós'/'Nosso' refere-se aos mantenedores do projeto; 'Você' ou 'Usuário' refere-se à pessoa que acessa ou utiliza o Serviço.",
+      ],
+    },
+    {
+      id: "introduction",
+      title: "2. Introdução",
+      content: [
+        "Estes Termos de Uso estabelecem direitos e obrigações aplicáveis ao acesso e uso do Serviço. Ao utilizar o Serviço, você concorda em cumprir estes Termos e todas as políticas referenciadas aqui.",
       ],
     },
     {
       id: "scope",
-      title: "2. Escopo e aceitação",
+      title: "3. Escopo e aceitação",
       content: [
-        "Estes termos regem o uso do site e de seus serviços; não criam relação de emprego, sociedade ou agência entre você e os mantenedores. Se você não concordar com algum dos termos, por favor não utilize o serviço.",
+        "Estes termos regem o uso do Serviço; não criam relação de emprego, sociedade ou agência entre você e os mantenedores. Se você não concordar com algum dos termos, por favor não utilize o Serviço.",
+      ],
+    },
+    {
+      id: "definitions-accounts",
+      title: "4. Contas e registro",
+      content: [
+        "Algumas funcionalidades podem requerer cadastro. Você é responsável por manter a confidencialidade das credenciais e por quaisquer ações realizadas a partir da sua conta. Não compartilhe senhas e notifique imediatamente em caso de uso não autorizado.",
+        "Reservamo-nos o direito de recusar, suspender ou encerrar contas que violem estes Termos ou que sejam usadas de forma a prejudicar o Serviço ou outros usuários.",
       ],
     },
     {
       id: "access",
-      title: "3. Acesso e disponibilidade",
+      title: "5. Acesso e disponibilidade",
       content: [
         "Fazemos esforços razoáveis para manter o serviço disponível, mas não garantimos disponibilidade ininterrupta. Podemos suspender ou limitar o acesso temporariamente por motivos de manutenção, atualizações, segurança ou por exigência legal.",
       ],
     },
     {
       id: "user-obligations",
-      title: "4. Obrigações do usuário",
+      title: "6. Obrigações do usuário",
       content: [
         "Você concorda em: usar o serviço de forma lícita; não violar direitos de terceiros; não praticar ataques, distribuir malware, ou comprometer a segurança do serviço; e proteger suas credenciais de acesso. Quaisquer ações realizadas a partir da sua conta são de sua responsabilidade.",
       ],
     },
     {
       id: "acceptable-use",
-      title: "5. Uso aceitável",
+      title: "7. Uso aceitável",
       content: [
         "É proibido utilizar o site para fins que sejam ilegais, que promovam ódio, violência, fraude ou invasão de privacidade. Também é proibido uso que gere tráfego artificial, scraping massivo sem autorização, engenharia reversa dos serviços, ou qualquer atividade que prejudique a experiência de outros usuários.",
       ],
     },
     {
       id: "intellectual-property",
-      title: "6. Propriedade intelectual",
+      title: "8. Propriedade intelectual",
       content: [
         "Todos os direitos de propriedade intelectual relacionados ao site, seu design, textos, imagens e código são detidos por nós ou por seus licenciadores. Quando o projeto disponibiliza código em repositórios públicos, ele é fornecido sob a licença especificada naquele repositório — respeite essa licença ao reutilizar o material.",
         "Você não pode remover avisos de direitos autorais ou marca registrada presentes no conteúdo, nem declarar propriedade sobre conteúdo que não seja seu.",
@@ -50,115 +65,152 @@ export default function TermsPage() {
     },
     {
       id: "contributions",
-      title: "7. Contribuições e feedback",
+      title: "9. Contribuições e feedback",
       content: [
         "Contribuições de código, ideias, relatórios de bugs ou sugestões submetidas ao repositório podem ser tratadas como não confidenciais. Ao enviar contribuições, você concorda que podemos usar, modificar e redistribuir o conteúdo sem obrigação de pagamento. Utilize as orientações do CONTRIBUTING.md ao contribuir.",
       ],
     },
     {
+      id: "open-source-licenses",
+      title: "10. Licenças de código aberto",
+      content: [
+        "Parte do código e das dependências pode estar publicado sob licenças open-source. Essas licenças (MIT, Apache, BSD, etc.) impõem obrigações específicas — verifique os arquivos de licença no repositório antes de reutilizar o código.",
+      ],
+    },
+    {
       id: "user-content",
-      title: "8. Conteúdo gerado por usuários",
+      title: "11. Conteúdo gerado por usuários",
       content: [
         "Se usuários puderem postar conteúdo (ex.: comentários, exemplos, snippets), você garante que tem o direito de fazê-lo e que o conteúdo não infringe direitos de terceiros. Reservamo-nos o direito de moderar, editar, remover ou recusar qualquer conteúdo que viole estes Termos ou que seja, a nosso critério, inapropriado.",
       ],
     },
     {
       id: "dmca",
-      title: "9. Notificação de violação de direitos autorais (DMCA)",
+      title: "12. Notificação de violação de direitos autorais (DMCA)",
       content: [
         "Se você acredita que seu trabalho protegido por direitos autorais foi copiado e está acessível neste site de maneira que constitua infração, notifique-nos por escrito com as informações necessárias para a identificação do material protegido e da localização do material supostamente infrator. Forneceremos um procedimento razoável para tratar reclamações e contra-notificações, conforme exigido pela legislação aplicável.",
       ],
     },
     {
+      id: "payments",
+      title: "13. Pagamentos e cobranças (quando aplicável)",
+      content: [
+        "Se oferecermos serviços pagos, as condições de pagamento, reembolso e cancelamento serão comunicadas explicitamente nas páginas de compra. Verifique termos específicos antes de contratar serviços premium.",
+        "Não temos obrigação de oferecer reembolso, salvo quando previsto em lei ou em política específica informada no momento da contratação.",
+      ],
+    },
+    {
       id: "third-party",
-      title: "10. Links e serviços de terceiros",
+      title: "14. Links e serviços de terceiros",
       content: [
         "O site pode conter links para produtos, serviços ou conteúdos mantidos por terceiros. Não nos responsabilizamos por esses produtos/serviços, suas políticas de privacidade ou práticas. Links não significam endosso.",
       ],
     },
     {
       id: "security",
-      title: "11. Segurança e incidentes",
+      title: "15. Segurança e incidentes",
       content: [
         "Empregamos medidas razoáveis de segurança para proteger o serviço, mas nenhum sistema é invulnerável. Se você detectar um problema de segurança, notifique-nos com detalhes para que possamos investigar. Não realize testes intrusivos sem consentimento prévio.",
       ],
     },
     {
+      id: "security-disclosure",
+      title: "16. Programa de divulgação de vulnerabilidades",
+      content: [
+        "Agradecemos relatórios responsáveis de vulnerabilidades. Se encontrar uma vulnerabilidade, envie detalhes (reprodução, gravidade, impacto) para security@glacien.online ou abra uma issue privada quando disponível. Não explore ou divulgue publicamente antes de solucionarmos o problema.",
+      ],
+    },
+    {
       id: "data-retention",
-      title: "12. Retenção e uso de dados",
+      title: "17. Retenção e uso de dados",
       content: [
         "Coletamos e processamos dados conforme descrito na nossa Política de Privacidade. Dados relacionados a contas, issues e contribuições podem ser mantidos por um período compatível com fins legais, administrativos e de melhoria do serviço. Para solicitações de exclusão, consulte a Política de Privacidade ou entre em contato.",
       ],
     },
     {
+      id: "data-processing",
+      title: "18. Processamento de dados e conformidade (DPA/GDPR)",
+      content: [
+        "Quando aplicável, seguimos princípios de proteção de dados pessoais (transparência, minimização, finalidade). Usuários na UE têm direitos sob o GDPR — consulte nossa Política de Privacidade para procedimentos de acesso, retificação, exclusão e portabilidade.",
+        "Podemos fornecer um Acordo de Processamento de Dados (DPA) mediante solicitação para clientes empresariais que exijam garantias contratuais adicionais.",
+      ],
+    },
+    {
+      id: "cookies",
+      title: "19. Cookies e rastreamento",
+      content: [
+        "Utilizamos cookies e tecnologias semelhantes para melhorar a experiência, métricas e funcionalidade. Para mais informações sobre tipos de cookies e como desativá-los, consulte nossa Política de Privacidade.",
+      ],
+    },
+    {
       id: "warranty",
-      title: "13. Isenção de garantias",
+      title: "20. Isenção de garantias",
       content: [
         "O serviço é fornecido 'no estado em que se encontra' e 'conforme disponível', sem garantias expressas ou implícitas. Não garantimos que o serviço será ininterrupto, livre de erros, seguro ou que atenderá às suas expectativas.",
       ],
     },
     {
       id: "liability",
-      title: "14. Limitação de responsabilidade",
+      title: "21. Limitação de responsabilidade",
       content: [
         "Na máxima extensão permitida por lei, não seremos responsáveis por danos diretos, indiretos, especiais, incidentais ou consequenciais, perda de lucro, dados ou receitas decorrentes do uso ou incapacidade de usar o serviço. Em hipótese alguma nossa responsabilidade agregada excederá um valor razoável (por exemplo: R$ 1.000), salvo disposição legal em contrário.",
       ],
     },
     {
       id: "indemnification",
-      title: "15. Indenização",
+      title: "22. Indenização",
       content: [
         "Você concorda em indenizar e isentar os mantenedores de quaisquer reclamações, perdas, responsabilidades, danos, custos e despesas (incluindo honorários advocatícios razoáveis) decorrentes do seu uso do serviço ou de violação destes Termos.",
       ],
     },
     {
       id: "termination",
-      title: "16. Suspensão e rescisão",
+      title: "23. Suspensão e rescisão",
       content: [
         "Podemos, a nosso critério, suspender ou encerrar seu acesso ao serviço caso você viole estes Termos, prejudique a segurança do serviço, ou por exigência legal. Após rescisão, seu direito de usar o serviço cessará, mas obrigações que devam sobreviver à rescisão (ex.: cláusulas de propriedade, limitação de responsabilidade e indenização) permanecerão válidas.",
       ],
     },
     {
       id: "changes",
-      title: "17. Alterações nestes Termos e nas ofertas",
+      title: "24. Alterações nestes Termos e nas ofertas",
       content: [
         "Podemos alterar estes Termos a qualquer momento. Quando houver alterações materiais, procuraremos notificar de maneira adequada (por exemplo, via changelog, repositório ou email se aplicável). O uso continuado após alterações implicará aceitação dos novos termos.",
       ],
     },
     {
       id: "export-compliance",
-      title: "18. Conformidade com exportação",
+      title: "25. Conformidade com exportação",
       content: [
         "Você concorda em cumprir leis de controle de exportação e não utilizar o serviço em violação a tais leis. É proibida a exportação do software ou dados para países ou pessoas sancionadas sem a devida autorização.",
       ],
     },
     {
       id: "dispute",
-      title: "19. Resolução de disputas",
+      title: "26. Resolução de disputas",
       content: [
-        "Quaisquer disputas decorrentes destes Termos deverão ser buscadas primeiramente por via amigável. Caso não seja possível, a disputa será resolvida conforme a legislação aplicável e jurisdição indicada na seção de legislação aplicável.",
+        "Quaisquer disputas decorrentes destes Termos deverão ser buscadas primeiramente por via amigável. Caso não seja possível, a disputa será resolvida conforme a legislação aplicável. As partes elegem o foro da comarca de São Paulo, Brasil, salvo disposição em contrário prevista por lei aplicável.",
       ],
     },
     {
       id: "severability",
-      title: "20. Separabilidade",
+      title: "27. Separabilidade",
       content: [
         "Se qualquer disposição destes Termos for considerada inválida ou inexequível, essa disposição será aplicada na máxima extensão possível e as demais permanecerão em vigor.",
       ],
     },
     {
       id: "entire-agreement",
-      title: "21. Acordo integral",
+      title: "28. Acordo integral",
       content: [
         "Estes Termos constituem o acordo integral entre você e os mantenedores com relação ao uso do serviço, substituindo quaisquer entendimentos anteriores.",
       ],
     },
     {
       id: "contact",
-      title: "22. Contato",
+      title: "29. Contato",
       content: [
-        "Para questões relacionadas a estes Termos, direitos autorais, solicitações legais ou pedidos de remoção, abra uma issue no repositório (https://github.com/glatztp/gltz) ou envie uma mensagem para contato@glacien.online se disponível.",
-        "Inclua informações claras e completas: identificação do material, localização do conteúdo supostamente infrator, e um contato para resposta.",
+        "Para questões relacionadas a estes Termos, direitos autorais, solicitações legais ou pedidos de remoção, abra uma issue no repositório (https://github.com/glatztp/gltz) ou envie uma mensagem para contato@glacien.online.",
+        "Inclua informações claras e completas: identificação do material, localização do conteúdo supostamente infrator e um contato para resposta. Para relatórios de segurança, prefira security@glacien.online.",
       ],
     },
   ];

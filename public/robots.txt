@@ -1,5 +1,6 @@
 User-agent: *
+User-agent: *
 Allow: /
-Crawl-delay: 10
-Host: glacien.online
+Crawl-delay: 5
+Disallow: /dist/
 Sitemap: https://glacien.online/sitemap.xml

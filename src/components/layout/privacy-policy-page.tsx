@@ -7,108 +7,125 @@ export default function PrivacyPolicyPage() {
 
   const sections = [
     {
-      id: "introduction",
-      title: "1. Introdução",
+      id: "definitions",
+      title: "1. Definições",
       content: [
-        "Esta Política de Privacidade descreve como coletamos, usamos, divulgamos e protegemos informações pessoais quando você interage com o site e serviços relacionados. Leia atentamente; ao utilizar o serviço, você concorda com as práticas aqui descritas.",
+        "Nesta Política, 'Serviço' refere-se ao site, software e quaisquer funcionalidades oferecidas pelo projeto Glacien; 'Nós' refere-se aos mantenedores; 'Você' ou 'Titular' refere-se à pessoa física cujos dados são tratados.",
+      ],
+    },
+    {
+      id: "introduction",
+      title: "2. Introdução",
+      content: [
+        "Esta Política de Privacidade descreve como coletamos, usamos, divulgamos e protegemos informações pessoais quando você interage com o Serviço. Ao utilizar o Serviço, você concorda com as práticas aqui descritas.",
       ],
     },
     {
       id: "data-we-collect",
-      title: "2. Quais dados coletamos",
+      title: "3. Quais dados coletamos",
       content: [
-        "Coletamos diferentes tipos de informações dependendo de como você usa o serviço, incluindo:",
-        "• Dados fornecidos por você: nome, endereço de e‑mail, conteúdo que você submete (ex.: snippets, issues), e outras informações que optar por fornecer.",
-        "• Dados de uso e diagnóstico: registros de acesso, endereços IP, identificadores de sessão, informações sobre dispositivo e navegador, dados de performance e erros.",
-        "• Dados coletados por meio de cookies e tecnologias semelhantes (mais detalhes na seção de Cookies).",
+        "Coletamos diferentes tipos de informações dependendo de como você usa o Serviço. Exemplos de categorias:",
+        "• Dados de identificação: nome, email, nome de usuário, dados de perfil quando fornecidos.",
+        "• Conteúdo submetido: comentários, issues, snippets, contribuições de código.",
+        "• Dados técnicos: endereços IP, identificadores de sessão, user-agent, dados de performance e logs de erro.",
+        "• Dados de pagamento: apenas se você contratar serviços pagos (não armazenamos dados de cartão diretamente; usamos provedores de pagamento).",
       ],
     },
     {
       id: "legal-basis",
-      title: "3. Base legal para o tratamento",
+      title: "4. Base legal para o tratamento",
       content: [
-        "Quando aplicável, tratamos seus dados com base em uma ou mais das seguintes bases legais: consentimento (quando solicitado), execução de contrato, cumprimento de obrigação legal, interesse legítimo (por exemplo: segurança, prevenção de fraude, melhoria do serviço) ou proteção de direitos legais.",
+        "Quando aplicável, tratamos dados com base em: consentimento, execução de contrato, cumprimento de obrigação legal, interesse legítimo (segurança, melhoria do serviço) ou proteção de direitos legais.",
       ],
     },
     {
       id: "how-we-use",
-      title: "4. Finalidades do tratamento",
+      title: "5. Finalidades do tratamento",
       content: [
-        "Utilizamos seus dados para: fornecer e operar o serviço; autenticar e gerenciar contas; comunicar atualizações e notificações; analisar e melhorar o produto; prevenir abuso e atividades fraudulentas; e cumprir obrigações legais.",
-      ],
-    },
-    {
-      id: "cookies",
-      title: "5. Cookies e tecnologias semelhantes",
-      content: [
-        "Utilizamos cookies, pixels e outras tecnologias para fins técnicos e analíticos. Exemplos:",
-        "• Cookies essenciais: necessários para autenticação e segurança da sessão.",
-        "• Cookies de desempenho/analíticos: para medir uso e melhorar a experiência (ex.: Google Analytics ou similar).",
-        "Você pode controlar o uso de cookies pelo navegador; no entanto, bloquear cookies essenciais pode impactar a funcionalidade do serviço.",
+        "Utilizamos dados para operar o Serviço; autenticar usuários; comunicar atualizações; prover suporte; medir e melhorar a experiência; prevenir abuso; e cumprir obrigações legais.",
       ],
     },
     {
       id: "sharing",
-      title: "6. Compartilhamento e terceiros",
+      title: "6. Compartilhamento e processadores (terceiros)",
       content: [
-        "Podemos compartilhar dados com provedores de serviço que nos auxiliam na operação (ex.: hospedagem, monitoramento, análise), sempre sob contratos que exigem proteção e uso limitado. Também podemos divulgar informações em resposta a exigências legais, ordens judiciais ou para proteger direitos, propriedade ou segurança.",
+        "Podemos compartilhar dados com provedores de serviço que atuam como processadores (hospedagem, analytics, monitoramento). Exigimos contratos que limitem uso e obriguem a proteger os dados.",
+        "Podemos divulgar informações para cumprir ordens legais, proteger direitos ou em resposta a solicitações governamentais válidas.",
       ],
     },
     {
       id: "international-transfers",
       title: "7. Transferências internacionais",
       content: [
-        "Como operamos globalmente, seus dados podem ser transferidos e armazenados em servidores localizados fora do seu país. Tomamos medidas adequadas (cláusulas contratuais padrão ou garantias equivalentes) para proteger dados transferidos internacionalmente, conforme aplicável.",
+        "Como operamos globalmente, seus dados podem ser transferidos para fora do seu país. Implementamos salvaguardas como cláusulas contratuais padrão quando necessário. Contate-nos para detalhes específicos de transferências.",
+      ],
+    },
+    {
+      id: "cookies",
+      title: "8. Cookies, analytics e rastreamento",
+      content: [
+        "Utilizamos cookies e tecnologias similares para desempenho, analytics e funcionalidade. Categorias:",
+        "• Essenciais: necessários para segurança e autenticação.",
+        "• Analíticos: para medir uso e melhorar o Serviço (ex.: Google Analytics).",
+        "Você pode controlar cookies pelo navegador; consulte as configurações de privacidade. Para desabilitar tracking analítico, siga as instruções do seu navegador ou use mecanismos de opt-out fornecidos pelos provedores.",
       ],
     },
     {
       id: "data-retention",
-      title: "8. Retenção e eliminação de dados",
+      title: "9. Retenção e eliminação de dados",
       content: [
-        "Reteremos dados pelo tempo necessário às finalidades informadas ou conforme exigido por lei. Quando não houver mais necessidade, os dados serão excluídos ou anonimizados. Para solicitações específicas de exclusão, consulte a seção de Direitos ou entre em contato.",
+        "Reteremos dados enquanto forem necessários às finalidades descritas ou conforme exigido por lei. Períodos típicos: dados de conta enquanto a conta existir; logs de sistema por período técnico (ex.: 90 dias); dados de cobrança conforme obrigações fiscais.",
+        "Solicitações de exclusão serão avaliadas conforme obrigações legais e dependências técnicas (por exemplo: cópias de segurança).",
       ],
     },
     {
       id: "user-rights",
-      title: "9. Seus direitos",
+      title: "10. Direitos dos titulares (ex.: GDPR)",
       content: [
-        "Quando aplicável, você tem direitos sobre seus dados: acesso, correção, exclusão, limitação do tratamento, oposição, portabilidade e revogação do consentimento. Para exercer direitos, abra uma issue no repositório ou use o canal de contato indicado. Responderemos conforme exigido pela legislação aplicável.",
+        "Você pode ter direitos como acesso, retificação, exclusão, limitação, oposição, portabilidade e revogação de consentimento. Para exercer direitos, abra uma issue no repositório ou contate-nos pelo email indicado. Responderemos conforme a legislação aplicável.",
+        "Podemos solicitar informações para verificar sua identidade antes de atender pedidos sensíveis.",
+      ],
+    },
+    {
+      id: "dpa",
+      title: "11. Acordos de processamento de dados (DPA)",
+      content: [
+        "Para clientes empresariais que necessitem de garantias contratuais adicionais, podemos fornecer um Acordo de Processamento de Dados (DPA). Contate-nos para discutir termos e requisitos específicos.",
       ],
     },
     {
       id: "security",
-      title: "10. Segurança",
+      title: "12. Segurança dos dados",
       content: [
-        "Adotamos medidas técnicas e administrativas razoáveis para proteger dados contra perda, uso indevido, acesso não autorizado, divulgação, alteração e destruição. Exemplos: controles de acesso, encriptação em trânsito, backups e revisões regulares de segurança. Apesar disso, nenhum método de transmissão ou armazenamento é 100% seguro.",
-      ],
-    },
-    {
-      id: "children",
-      title: "11. Privacidade de crianças",
-      content: [
-        "O serviço não se destina a crianças menores de 13 anos (ou idade equivalente conforme a jurisdição). Não coletamos conscientemente dados pessoais de crianças. Se tomarmos conhecimento de coleta não autorizada, tomaremos medidas para excluir as informações.",
+        "Adotamos medidas técnicas e organizacionais razoáveis (controle de acesso, encriptação em trânsito, revisões de segurança) para proteger dados. Infelizmente, nenhuma medida é 100% eficaz; relatórios de incidentes devem ser enviados para security@glacien.online.",
       ],
     },
     {
       id: "automated-decision",
-      title: "12. Decisões automatizadas e perfilamento",
+      title: "13. Decisões automatizadas e perfilamento",
       content: [
-        "Não realizamos decisões automatizadas que geram efeitos jurídicos sobre você sem intervenção humana relevante. Podemos empregar análise automatizada para fins de métricas e melhoria do serviço, sempre com salvaguardas apropriadas.",
+        "Não realizamos decisões automatizadas com efeitos legais significativos sem intervenção humana. Utilizamos análise automatizada para métricas e detecção de abuso com salvaguardas apropriadas.",
+      ],
+    },
+    {
+      id: "children",
+      title: "14. Privacidade de crianças",
+      content: [
+        "O Serviço não é destinado a crianças menores de 13 anos (ou idade equivalente). Se descobrirmos que coletamos dados de uma criança sem consentimento parental válido, tomaremos medidas para excluir tais dados.",
       ],
     },
     {
       id: "changes",
-      title: "13. Alterações nesta Política",
+      title: "15. Alterações nesta Política",
       content: [
-        "Podemos atualizar esta Política de Privacidade periodicamente. Quando houver mudanças materiais, procuraremos notificar por meio do repositório, changelog ou outros canais aplicáveis. Recomendamos revisar esta página regularmente.",
+        "Podemos atualizar esta Política periodicamente. Quando houver mudanças materiais, procuraremos notificar por meio do repositório, changelog ou outros canais. Recomendamos revisar esta página regularmente.",
       ],
     },
     {
       id: "contact",
-      title: "14. Como nos contatar",
+      title: "16. Contato e DPO",
       content: [
-        "Para questões sobre privacidade, solicitações de acesso ou exclusão, dúvidas legais ou relatos de incidentes, abra uma issue no repositório (https://github.com/glatztp/gltz) ou envie email para contato@glacien.online (se disponível).",
-        "Inclua detalhes suficientes para identificar a solicitação (por exemplo, email usado, descrição do dado, URL afetada). Faremos o possível para responder prontamente.",
+        "Para questões sobre privacidade, solicitações de direitos, ou para solicitar um DPA, abra uma issue no repositório ou envie email para contato@glacien.online. Relatos de segurança e incidentes devem ser enviados para security@glacien.online.",
       ],
     },
   ];

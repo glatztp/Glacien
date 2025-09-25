@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "phosphor-react";
+import { PACKAGE_VERSION } from "../../lib/version";
 
 export default function PrivacyPolicyPage() {
   const navigate = useNavigate();
@@ -266,6 +267,9 @@ export default function PrivacyPolicyPage() {
                     issue no repositório do projeto ou utilize os canais de
                     contato listados na página principal. Responderemos após a
                     verificação mínima necessária.
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-3">
+                    Versão do pacote: {PACKAGE_VERSION}
                   </p>
                 </footer>
               </motion.div>

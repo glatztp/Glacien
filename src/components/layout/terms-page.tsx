@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { PACKAGE_VERSION } from "../../lib/version";
 
 export default function TermsPage() {
   const navigate = useNavigate();
@@ -304,6 +305,9 @@ export default function TermsPage() {
                   <p className="leading-relaxed text-foreground/90">
                     Para dúvidas ou solicitações, abra uma issue no repositório
                     ou utilize os canais disponíveis na página principal.
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-3">
+                    Versão do pacote: {PACKAGE_VERSION}
                   </p>
                 </footer>
               </motion.div>

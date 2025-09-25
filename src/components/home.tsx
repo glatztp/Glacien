@@ -45,6 +45,7 @@ import {
 } from "react-icons/si";
 
 import { Button, Badge, ThemeToggle } from "./ui";
+import { PACKAGE_VERSION } from "../lib/version";
 import FloatingSearch from "./ui/floating-search";
 import { useIsMobile } from "../hooks/useMobile";
 
@@ -112,6 +113,7 @@ import TermsPage from "./layout/terms-page";
 import { NavigationMenuPage } from "./pages/navigation-menu-page";
 import GradientBlinds from "./ui/gradient-blinds";
 import CookieConsent from "./ui/cookie-consent";
+import { Package } from "phosphor-react";
 // import LaserFlow from "./ui/laser";
 
 const componentPages: Record<string, unknown> = {
@@ -264,6 +266,11 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
     { label: "Downloads", value: "-", icon: <Download className="h-4 w-4" /> },
     { label: "GitHub Stars", value: "-", icon: <Star className="h-4 w-4" /> },
     {
+      label: "Version",
+      value: PACKAGE_VERSION,
+      icon: <Package className="h-4 w-4" />,
+    },
+    {
       label: "Desenvolvedores",
       value: "-",
       icon: <Users className="h-4 w-4" />,
@@ -310,6 +317,11 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
               ? contribData.length.toLocaleString()
               : "-",
             icon: <Users className="h-4 w-4" />,
+          },
+          {
+            label: "Version",
+            value: PACKAGE_VERSION || "-",
+            icon: <Package className="h-4 w-4" />,
           },
         ]);
       } catch (err) {
@@ -581,7 +593,7 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-16"
+            className="grid grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12 lg:gap-16"
           >
             {stats.map((stat, index) => (
               <motion.div
@@ -1252,8 +1264,8 @@ export function App() {
         </div>
       </section>
 
-  {/*Footer*/}
-  <footer className="relative overflow-hidden bg-gradient-to-t from-primary/10 via-primary/6 to-transparent border-t border-primary/6">
+      {/*Footer*/}
+      <footer className="relative overflow-hidden bg-gradient-to-t from-primary/10 via-primary/6 to-transparent border-t border-primary/6">
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top_left,_rgba(82,39,255,0.04)_0%,transparent_30%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:20px_20px] opacity-30" />
 
@@ -1586,7 +1598,7 @@ export function App() {
           >
             <div className="flex items-center gap-4">
               <div className="h-1 w-24 bg-gradient-to-r from-primary to-secondary rounded-full" />
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground flex items-center gap-3">
                 &copy; {new Date().getFullYear()}{" "}
                 <span
                   style={{
@@ -1596,7 +1608,16 @@ export function App() {
                 >
                   Glacien
                 </span>
-                . Todos os direitos reservados.
+                <span className="text-xs text-muted-foreground/80">
+                  . Todos os direitos reservados.
+                </span>
+                {/* Versão do pacote — exibida de forma discreta no rodapé */}
+                <span
+                  className="text-xs text-muted-foreground ml-2"
+                  aria-label="versão do pacote"
+                >
+                  v{PACKAGE_VERSION}
+                </span>
               </p>
             </div>
 
@@ -1683,8 +1704,6 @@ function DashboardContent() {
   return (
     <SidebarContext.Provider value={sidebarContextValue}>
       <div className="min-h-screen bg-background">
-        {/* headerVisible lifted to control FloatingSearch visibility */}
-        {/* headerVisible controlled by NavigationHeader via onVisibilityChange */}
         {currentSection !== "home" && (
           <NavigationHeader
             onNavigate={handleNavigation}

@@ -41,7 +41,6 @@ import {
   SiVercel,
   SiGithub,
   SiVite,
-  SiDiscord,
 } from "react-icons/si";
 
 import { Button, Badge, ThemeToggle } from "./ui";
@@ -914,7 +913,7 @@ function HomePage({ headerVisible = true }: { headerVisible?: boolean }) {
             <p className="text-base text-muted-foreground mb-6 max-w-xl mx-auto">
               Junte-se a milhares de desenvolvedores que já descobriram
               <span className="text-primary font-semibold mx-2">
-                a diferença
+                a diferença.
               </span>
             </p>
 
@@ -1122,11 +1121,11 @@ export function App() {
                 <span className="text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-primary">
                   {typeof stats[1]?.value === "number"
                     ? stats[1].value.toLocaleString()
-                    : stats[1]?.value || "-"}{" "}
-                  downloads
+                    : stats[1]?.value || "-"}
+                  download
                 </span>
                 <span className="text-xs text-muted-foreground">
-                  Instalações{" "}
+                  Instalações
                 </span>
               </div>
 
@@ -1494,12 +1493,7 @@ export function App() {
                         "_blank"
                       ),
                     icon: <Github className="w-4 h-4" />,
-                  },
-                  {
-                    name: "Discord",
-                    action: () => {},
-                    icon: <SiDiscord className="w-4 h-4" />,
-                  },
+                  }
                 ],
               },
               {

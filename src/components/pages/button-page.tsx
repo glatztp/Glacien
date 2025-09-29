@@ -48,10 +48,7 @@ function CodeSnippet({ code, title, showLanguage = true }: CodeSnippetProps) {
 
   return (
     <div className="mt-4">
-      <div
-        className="flex items-center justify-between rounded-t-md px-3 py-2 text-sm bg-secondary/50"
-       
-      >
+      <div className="flex items-center justify-between rounded-t-md px-3 py-2 text-sm bg-secondary/50">
         <div className="flex items-center gap-3">
           <span className="font-medium">{title ?? "Exemplo"}</span>
           {showLanguage && (
@@ -172,6 +169,25 @@ export function ButtonPage() {
     icons: `<Button leftIcon={<Download size={16} />}>Download</Button>\n<Button rightIcon={<Share size={16} />}>Compartilhar</Button>`,
     loading: `<Button loading loadingEffect="spinner">Spinner Loading</Button>\n<Button loading loadingEffect="dots">Dots Loading</Button>`,
     demo: `<Button variant="default" size="lg" gradient glow shadow="xl" rounded="lg" leftIcon={<Heart size={16} />}>Button</Button>`,
+    full: `
+import React from 'react';
+import { Button } from '@glacien/ui';
+import { Heart } from 'phosphor-react';
+
+export function MyExample() {
+  return (
+    <div className="space-y-4">
+      <Button variant="default" size="lg" leftIcon={<Heart size={16} />}>
+        Ação Principal
+      </Button>
+
+      <Button variant="secondary" size="sm">Secundário</Button>
+
+      <Button loading loadingEffect="spinner">Salvando...</Button>
+    </div>
+  );
+}
+`,
   };
 
   return (
@@ -186,7 +202,17 @@ export function ButtonPage() {
             </p>
           </div>
 
-          <div className="grid gap-6">
+         <div className="grid gap-6">
+            <ExampleCard
+              title="Exemplo Completo"
+              description="Como importar e usar o Button na sua aplicação (TSX)"
+              snippet={snippets.full}
+            >
+              <Button variant="default" size="lg" leftIcon={<Heart size={16} />}>
+                Ação Principal
+              </Button>
+            </ExampleCard>
+
             <ExampleCard
               title="Variantes"
               description="Diferentes estilos visuais para diferentes contextos"

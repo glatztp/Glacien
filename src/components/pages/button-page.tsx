@@ -1,153 +1,7 @@
+import { Heart, Download, Share, Star, Plus, Minus } from "phosphor-react";
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  Button,
-} from "../../index";
-import {
-  Download,
-  Heart,
-  Star,
-  Share,
-  Plus,
-  Minus,
-  Copy,
-  Check,
-} from "phosphor-react";
-import { motion, AnimatePresence } from "framer-motion";
-
-type CodeSnippetProps = {
-  code: string;
-  title?: string;
-  showLanguage?: boolean;
-};
-
-function CodeSnippet({ code, title, showLanguage = true }: CodeSnippetProps) {
-  const [copied, setCopied] = React.useState(false);
-
-  const displayedCode = React.useMemo(() => {
-    const indented = code
-      .split("\n")
-      .map((l) => `  ${l}`)
-      .join("\n");
-    return `${indented}\n`;
-  }, [code]);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(displayedCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (e) {
-      console.error("Copy failed", e);
-    }
-  };
-
-  return (
-    <div className="mt-4">
-      <div className="flex items-center justify-between rounded-t-md px-3 py-2 text-sm bg-secondary/50">
-        <div className="flex items-center gap-3">
-          <span className="font-medium">{title ?? "Exemplo"}</span>
-          {showLanguage && (
-            <span
-              className="px-2 py-0.5 text-xs rounded"
-              style={{
-                backgroundColor: `hsl(var(--border) / 1)`,
-                color: `hsl(var(--card-foreground) / 1)`,
-              }}
-            >
-              {"TSX"}
-            </span>
-          )}
-        </div>
-        <div className="flex items-center gap-2">
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            animate={{ scale: copied ? 1.05 : 1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            onClick={handleCopy}
-            aria-label="Copy code"
-            className="inline-flex items-center gap-2 rounded px-2 py-1 text-xs font-medium"
-            style={{
-              borderColor: `hsl(var(--border) / 1)`,
-              backgroundColor: "transparent",
-              color: `hsl(var(--card-foreground) / 1)`,
-            }}
-          >
-            {copied ? <Check size={14} /> : <Copy size={14} />}
-            <span>{copied ? "Copied" : "Copy"}</span>
-          </motion.button>
-        </div>
-      </div>
-      <pre
-        className="text-sm overflow-x-auto rounded-b-md border border-t-0 p-4"
-        style={{
-          borderColor: `hsl(var(--border) / 1)`,
-          backgroundColor: `hsl(var(--popover) / 1)`,
-          color: `hsl(var(--popover-foreground) / 1)`,
-        }}
-      >
-        {displayedCode}
-      </pre>
-    </div>
-  );
-}
-
-function ExampleCard({
-  title,
-  description,
-  children,
-  snippet,
-}: {
-  title: string;
-  description: string;
-  children: React.ReactNode;
-  snippet: string;
-}) {
-  const [showCode, setShowCode] = React.useState(false);
-
-  return (
-    <Card className="relative">
-      <div className="absolute right-3 top-3 z-10">
-        <Button
-          size="sm"
-          variant="ghost"
-          onClick={() => setShowCode(!showCode)}
-          aria-expanded={showCode}
-          aria-label={`${showCode ? "Fechar código" : "Ver código"} de ${title}`}
-        >
-          {showCode ? "Hide code" : "View code"}
-        </Button>
-      </div>
-
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-
-      <CardContent>
-        <AnimatePresence>
-          {showCode && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="overflow-hidden mb-4"
-            >
-              <CodeSnippet title={title} code={snippet} />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <div className="flex flex-wrap gap-3">{children}</div>
-      </CardContent>
-    </Card>
-  );
-}
+import { Button } from "../ui";
+import ExampleCard from "../ui/ExampleCard";
 
 export function ButtonPage() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -202,13 +56,17 @@ export function MyExample() {
             </p>
           </div>
 
-         <div className="grid gap-6">
+          <div className="grid gap-6">
             <ExampleCard
               title="Exemplo Completo"
               description="Como importar e usar o Button na sua aplicação (TSX)"
               snippet={snippets.full}
             >
-              <Button variant="default" size="lg" leftIcon={<Heart size={16} />}>
+              <Button
+                variant="default"
+                size="lg"
+                leftIcon={<Heart size={16} />}
+              >
                 Ação Principal
               </Button>
             </ExampleCard>

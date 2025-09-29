@@ -1,392 +1,270 @@
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  Button,
-  Input,
-  Textarea,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Checkbox,
-  Label,
-} from "../../index";
-import {
-  User,
-  EnvelopeSimple,
-  Phone,
-  MapPin,
-  Lock,
-  Eye,
-  EyeSlash,
-} from "phosphor-react";
+import { Button, Input } from "../../index";
+import { Eye, EyeSlash } from "phosphor-react";
+import ExampleCard from "../ui/ExampleCard";
 
 export function InputPage() {
   const [showPassword, setShowPassword] = React.useState(false);
 
+  const snippets = {
+    full: `import { Input, Label } from "@glacien/ui";
+
+export function MyExample() {
+  return (
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="full-name">Nome Completo</Label>
+        <Input id="full-name" placeholder="Digite seu nome..." />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="full-email">Email</Label>
+        <Input id="full-email" type="email" placeholder="email@exemplo.com" />
+      </div>
+    </div>
+  );
+}`,
+    basic: `
+        <Input placeholder="Digite seu nome..." />
+    
+        <Input placeholder="seu@email.com" />
+     
+        <Input placeholder="(11) 99999-9999" />
+      `,
+    icons: `import { Input, Label } from "@glacien/ui";
+import { User, EnvelopeSimple, Phone, MapPin } from "phosphor-react";
+
+export function Example() {
+  return (
+    <div className="grid md:grid-cols-2 gap-4">
+      <div className="space-y-2">
+        <Label htmlFor="icon-user">Usuário</Label>
+        <div className="relative">
+          <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <Input id="icon-user" type="text" placeholder="Nome de usuário" className="pl-10" />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="icon-email">Email</Label>
+        <div className="relative">
+          <EnvelopeSimple size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <Input id="icon-email" type="email" placeholder="email@exemplo.com" className="pl-10" />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="icon-phone">Telefone</Label>
+        <div className="relative">
+          <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <Input id="icon-phone" type="tel" placeholder="(11) 99999-9999" className="pl-10" />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="icon-address">Endereço</Label>
+        <div className="relative">
+          <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <Input id="icon-address" type="text" placeholder="Rua Exemplo, 123" className="pl-10" />
+        </div>
+      </div>
+    </div>
+  );
+}`,
+    password: `import { Input, Label } from "@glacien/ui";
+import { Eye, EyeSlash } from "phosphor-react";
+
+export function Example() {
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="password">Senha</Label>
+      <div className="relative">
+        <Input
+          id="password"
+          type={showPassword ? "text" : "password"}
+          placeholder="Digite sua senha"
+          className="pr-10"
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+        >
+          {showPassword ? <EyeSlash size={16} /> : <Eye size={16} />}
+        </button>
+      </div>
+    </div>
+  );
+}`,
+    states: `import { Input, Label } from "@glacien/ui";
+
+export function Example() {
+  return (
+    <div className="grid md:grid-cols-2 gap-4">
+      <div className="space-y-2">
+        <Label htmlFor="disabled">Desabilitado</Label>
+        <Input id="disabled" placeholder="Não editável" disabled />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="readonly">Somente leitura</Label>
+        <Input id="readonly" defaultValue="Apenas leitura" readOnly />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="error">Com erro</Label>
+        <Input id="error" placeholder="Erro..." className="border-red-500" />
+        <p className="text-sm text-red-500">Mensagem de erro</p>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="success">Com sucesso</Label>
+        <Input id="success" placeholder="Certo!" className="border-green-500" />
+        <p className="text-sm text-green-500">Tudo certo</p>
+      </div>
+    </div>
+  );
+}`,
+    textarea: `import { Label } from "@glacien/ui";
+
+export function Example() {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="textarea">Mensagem</Label>
+      <textarea
+        id="textarea"
+        placeholder="Digite sua mensagem..."
+        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+        rows={4}
+      />
+    </div>
+  );
+}`,
+    form: `import { Input, Label, Button } from "@glacien/ui";
+
+export function Example() {
+  return (
+    <form className="space-y-4 max-w-md">
+      <div className="space-y-2">
+        <Label htmlFor="form-name">Nome</Label>
+        <Input id="form-name" placeholder="Digite seu nome" required />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="form-email">Email</Label>
+        <Input id="form-email" type="email" placeholder="Digite seu email" required />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="form-password">Senha</Label>
+        <Input id="form-password" type="password" placeholder="Digite sua senha" required />
+      </div>
+      <Button type="submit" className="w-full">Cadastrar</Button>
+    </form>
+  );
+}`,
+  };
+
   return (
     <div className="flex gap-6 min-h-screen pt-12">
-      {/* Main Content */}
       <div className="flex-1 overflow-auto">
         <div className="space-y-8 p-6">
           <div>
             <h1 className="text-3xl font-bold">Input Component</h1>
             <p className="text-muted-foreground mt-2">
-              Componentes de entrada de dados para formulários e interações do
-              usuário.
+              Campos de entrada flexíveis, com suporte a ícones, validação,
+              estados e muito mais.
             </p>
           </div>
 
-          <div className="grid gap-6">
-            {/* Input Básico */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Input Básico</CardTitle>
-                <CardDescription>
-                  Inputs simples para diferentes tipos de dados
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="basic-text">Texto</Label>
-                    <Input
-                      id="basic-text"
-                      type="text"
-                      placeholder="Digite seu nome..."
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="basic-email">Email</Label>
-                    <Input
-                      id="basic-email"
-                      type="email"
-                      placeholder="seu@email.com"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="basic-tel">Telefone</Label>
-                    <Input
-                      id="basic-tel"
-                      type="tel"
-                      placeholder="(11) 99999-9999"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="basic-number">Número</Label>
-                    <Input id="basic-number" type="number" placeholder="123" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-2 gap-6">
+            <ExampleCard
+              title="Exemplo Completo"
+              description="Como importar e usar o Input na sua aplicação (TSX)"
+              snippet={snippets.full}
+            >
+              <div className="space-y-2">
+                <Input placeholder="Digite seu nome..." />
+                <Input placeholder="seu@email.com" />
+                <Input placeholder="(11) 99999-9999" />
+              </div>
+            </ExampleCard>
 
-            {/* Input com Ícones */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Input com Ícones</CardTitle>
-                <CardDescription>
-                  Adicionando ícones para melhor identificação visual
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="icon-user">Usuário</Label>
-                    <div className="relative">
-                      <User
-                        size={16}
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
-                      />
-                      <Input
-                        id="icon-user"
-                        type="text"
-                        placeholder="Nome de usuário"
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="icon-email">Email</Label>
-                    <div className="relative">
-                      <EnvelopeSimple
-                        size={16}
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
-                      />
-                      <Input
-                        id="icon-email"
-                        type="email"
-                        placeholder="seu@email.com"
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="icon-phone">Telefone</Label>
-                    <div className="relative">
-                      <Phone
-                        size={16}
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
-                      />
-                      <Input
-                        id="icon-phone"
-                        type="tel"
-                        placeholder="(11) 99999-9999"
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="icon-location">Localização</Label>
-                    <div className="relative">
-                      <MapPin
-                        size={16}
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
-                      />
-                      <Input
-                        id="icon-location"
-                        type="text"
-                        placeholder="Cidade, Estado"
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ExampleCard
+              title="Input Básico"
+              description="Inputs simples para texto, email e telefone"
+              snippet={snippets.basic}
+            >
+              <div className="space-y-2">
+                <Input placeholder="Digite seu nome..." />
+                <Input placeholder="seu@email.com" />
+                <Input placeholder="(11) 99999-9999" />
+              </div>
+            </ExampleCard>
 
-            {/* Input de Senha */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Input de Senha</CardTitle>
-                <CardDescription>
-                  Input com toggle de visibilidade
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="password">Senha</Label>
-                    <div className="relative">
-                      <Lock
-                        size={16}
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
-                      />
-                      <Input
-                        id="password"
-                        type={showPassword ? "text" : "password"}
-                        placeholder="••••••••"
-                        className="pl-10 pr-10"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                      >
-                        {showPassword ? (
-                          <EyeSlash size={16} />
-                        ) : (
-                          <Eye size={16} />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="confirm-password">Confirmar Senha</Label>
-                    <div className="relative">
-                      <Lock
-                        size={16}
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
-                      />
-                      <Input
-                        id="confirm-password"
-                        type="password"
-                        placeholder="••••••••"
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ExampleCard
+              title="Input com Ícones"
+              description="Versão compacta dos inputs com ícones (exemplo)"
+              snippet={snippets.icons}
+            >
+              <div className="space-y-2">
+                <Input placeholder="Digite seu nome..." />
+                <Input placeholder="seu@email.com" />
+                <Input placeholder="(11) 99999-9999" />
+              </div>
+            </ExampleCard>
 
-            {/* Estados do Input */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Estados do Input</CardTitle>
-                <CardDescription>
-                  Diferentes estados visuais e de interação
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="normal">Normal</Label>
-                    <Input
-                      id="normal"
-                      type="text"
-                      placeholder="Estado normal"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="focused">Focado</Label>
-                    <Input
-                      id="focused"
-                      type="text"
-                      placeholder="Estado focado"
-                      autoFocus
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="disabled">Desabilitado</Label>
-                    <Input
-                      id="disabled"
-                      type="text"
-                      placeholder="Estado desabilitado"
-                      disabled
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="error">Com Erro</Label>
-                    <Input
-                      id="error"
-                      type="text"
-                      placeholder="Estado de erro"
-                      className="border-red-500 focus:border-red-500"
-                    />
-                    <p className="text-sm text-red-500">
-                      Este campo é obrigatório
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ExampleCard
+              title="Input de Senha"
+              description="Campo de senha compacto"
+              snippet={snippets.password}
+            >
+              <div className="flex items-center gap-2">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Digite sua senha"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-sm text-muted-foreground"
+                >
+                  {showPassword ? <EyeSlash size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </ExampleCard>
 
-            {/* Textarea */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Textarea</CardTitle>
-                <CardDescription>
-                  Para entrada de texto multilinha
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Mensagem</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Digite sua mensagem aqui..."
-                      rows={4}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="description">Descrição</Label>
-                    <Textarea
-                      id="description"
-                      placeholder="Descreva em detalhes..."
-                      rows={4}
-                    />
-                    <p className="text-sm text-muted-foreground">
-                      Máximo de 500 caracteres
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ExampleCard
+              title="Estados do Input"
+              description="Exemplos compactos de estados"
+              snippet={snippets.states}
+            >
+              <div className="space-y-2">
+                <Input placeholder="Desabilitado" disabled />
+                <Input defaultValue="Apenas leitura" readOnly />
+              </div>
+            </ExampleCard>
 
-            {/* Formulário Completo */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Formulário de Exemplo</CardTitle>
-                <CardDescription>
-                  Combinando diferentes tipos de input
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName">Nome</Label>
-                      <Input
-                        id="firstName"
-                        type="text"
-                        placeholder="João"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName">Sobrenome</Label>
-                      <Input
-                        id="lastName"
-                        type="text"
-                        placeholder="Silva"
-                        required
-                      />
-                    </div>
-                  </div>
+            <ExampleCard
+              title="Textarea"
+              description="Campo de texto para múltiplas linhas"
+              snippet={snippets.textarea}
+            >
+              <div>
+                <textarea
+                  placeholder="Digite sua mensagem..."
+                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  rows={3}
+                />
+              </div>
+            </ExampleCard>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="form-email">Email</Label>
-                    <div className="relative">
-                      <EnvelopeSimple
-                        size={16}
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
-                      />
-                      <Input
-                        id="form-email"
-                        type="email"
-                        placeholder="joao.silva@email.com"
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="category">Categoria</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione uma categoria" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="frontend">Frontend</SelectItem>
-                        <SelectItem value="backend">Backend</SelectItem>
-                        <SelectItem value="fullstack">Fullstack</SelectItem>
-                        <SelectItem value="mobile">Mobile</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="bio">Biografia</Label>
-                    <Textarea
-                      id="bio"
-                      placeholder="Conte um pouco sobre você..."
-                      rows={3}
-                    />
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="terms" />
-                    <Label htmlFor="terms" className="text-sm">
-                      Aceito os termos e condições
-                    </Label>
-                  </div>
-
-                  <div className="flex gap-3">
-                    <Button type="submit">Salvar Dados</Button>
-                    <Button type="button" variant="outline">
-                      Cancelar
-                    </Button>
-                  </div>
-                </form>
-              </CardContent>
-            </Card>
+            <ExampleCard
+              title="Formulário Completo"
+              description="Versão compacta do formulário"
+              snippet={snippets.form}
+            >
+              <form className="space-y-2 max-w-md">
+                <Input placeholder="Nome" />
+                <Input placeholder="Email" />
+                <Button type="submit" className="w-full">
+                  Cadastrar
+                </Button>
+              </form>
+            </ExampleCard>
           </div>
         </div>
       </div>

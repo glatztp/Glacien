@@ -2,6 +2,7 @@ import React from "react";
 import CodeSnippet from "./CodeSnippet";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./button";
+import { Code, Eye, EyeSlash } from "phosphor-react";
 import {
   Card,
   CardHeader,
@@ -24,7 +25,10 @@ export default function ExampleCard({
   const [showCode, setShowCode] = React.useState(false);
 
   return (
-    <Card className="relative">
+    <Card className="relative overflow-hidden transition-shadow hover:shadow-lg">
+      {/* barra de destaque no topo */}
+      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-primary to-primary/60" />
+
       <div className="absolute right-3 top-3 z-10">
         <Button
           size="sm"
@@ -32,14 +36,27 @@ export default function ExampleCard({
           onClick={() => setShowCode(!showCode)}
           aria-expanded={showCode}
           aria-label={`${showCode ? "Fechar código" : "Ver código"} de ${title}`}
+          leftIcon={showCode ? <EyeSlash size={16} /> : <Eye size={16} />}
+          animation="smooth"
         >
-          {showCode ? "Hide code" : "View code"}
+          {showCode ? "Ocultar código" : "Ver código"}
         </Button>
       </div>
 
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <div className="flex items-start justify-between w-full gap-4">
+          <div>
+            <CardTitle className="flex items-center gap-3">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
+                <Code size={16} />
+              </span>
+              {title}
+            </CardTitle>
+            <CardDescription className="mt-1 text-sm text-muted-foreground">
+              {description}
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
 
       <CardContent>
@@ -57,7 +74,11 @@ export default function ExampleCard({
           )}
         </AnimatePresence>
 
-        <div className="flex flex-wrap gap-3">{children}</div>
+        <div className="flex w-full flex-wrap gap-3">
+          <div className="w-full rounded-md border border-input bg-muted p-4 flex items-center justify-center min-h-[72px]">
+            <div className="w-full max-w-full">{children}</div>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

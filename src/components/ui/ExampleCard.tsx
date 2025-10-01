@@ -3,6 +3,7 @@ import CodeSnippet from "./CodeSnippet";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./button";
 import { Code, Eye, EyeSlash } from "phosphor-react";
+import { cn } from "../../lib/utils";
 import {
   Card,
   CardHeader,
@@ -16,11 +17,13 @@ export default function ExampleCard({
   description,
   children,
   snippet,
+  className,
 }: {
   title: string;
   description: string;
   children: React.ReactNode;
   snippet: string;
+  className?: string;
 }) {
   const [showCode, setShowCode] = React.useState(false);
 
@@ -75,7 +78,12 @@ export default function ExampleCard({
         </AnimatePresence>
 
         <div className="flex w-full flex-wrap gap-3">
-          <div className="w-full rounded-md border border-input bg-muted p-4 flex items-center justify-center min-h-[72px]">
+          <div
+            className={cn(
+              "w-full rounded-md border border-input bg-muted p-4 flex items-center justify-center min-h-[72px]",
+              className
+            )}
+          >
             <div className="w-full max-w-full">{children}</div>
           </div>
         </div>

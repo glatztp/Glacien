@@ -1,4 +1,4 @@
-import { Heart, Download, Share, Star, Plus, Minus } from "phosphor-react";
+import { Heart, Download, Share, Plus, Minus } from "phosphor-react";
 import React from "react";
 import { Button } from "../ui";
 import ExampleCard from "../ui/ExampleCard";
@@ -75,78 +75,87 @@ export function MyExample() {
               title="Variantes"
               description="Diferentes estilos visuais para diferentes contextos"
               snippet={snippets.variants}
+              className="space-x-3 flex-wrap"
             >
-              <Button variant="default">Default</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="outline">Outline</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="link">Link</Button>
-              <Button variant="destructive">Destructive</Button>
+              <div className="flex flex-wrap gap-3">
+                <Button variant="default">Default</Button>
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="outline">Outline</Button>
+                <Button variant="ghost">Ghost</Button>
+                <Button variant="link">Link</Button>
+                <Button variant="destructive">Destructive</Button>
+              </div>
             </ExampleCard>
 
             <ExampleCard
               title="Tamanhos"
               description="Diferentes tamanhos para diferentes hierarquias visuais"
               snippet={snippets.sizes}
+              className="space-x-3"
             >
-              <Button size="sm">Small</Button>
-              <Button size="default">Default</Button>
-              <Button size="lg">Large</Button>
-              <Button size="icon">
-                <Heart size={16} />
-              </Button>
+              <div className="flex flex-wrap gap-3 items-center">
+                <Button size="sm">Small</Button>
+                <Button size="default">Default</Button>
+                <Button size="lg">Large</Button>
+                <Button size="icon">
+                  <Heart size={16} />
+                </Button>
+              </div>
             </ExampleCard>
 
             <ExampleCard
               title="Com Ícones"
               description="Botões com ícones para melhor comunicação visual"
               snippet={snippets.icons}
+              className="space-x-3"
             >
-              <Button leftIcon={<Download size={16} />}>Download</Button>
-              <Button rightIcon={<Share size={16} />}>Compartilhar</Button>
-              <Button
-                leftIcon={<Heart size={16} />}
-                rightIcon={<Star size={16} />}
-              >
-                Favoritar
-              </Button>
-              <Button size="icon" variant="outline">
-                <Plus size={16} />
-              </Button>
-              <Button size="icon" variant="destructive">
-                <Minus size={16} />
-              </Button>
+              <div className="flex flex-wrap gap-3 items-center">
+                <Button leftIcon={<Download size={16} />}>Download</Button>
+                <Button rightIcon={<Share size={16} />}>Compartilhar</Button>
+                <Button leftIcon={<Heart size={16} />}>
+                  Favoritar
+                </Button>
+                <Button size="icon" variant="outline">
+                  <Plus size={16} />
+                </Button>
+                <Button size="icon" variant="destructive">
+                  <Minus size={16} />
+                </Button>
+              </div>
             </ExampleCard>
 
             <ExampleCard
               title="Estados de Loading Avançados"
               description="Diferentes efeitos visuais para estados de carregamento"
               snippet={snippets.loading}
+              className="space-x-3"
             >
-              <Button loading loadingEffect="spinner" loadingText="Spinner...">
-                Spinner Loading
-              </Button>
-              <Button loading loadingEffect="dots" loadingText="Processando...">
-                Dots Loading
-              </Button>
-              <Button loading loadingEffect="bounce" loadingText="Enviando...">
-                Bounce Loading
-              </Button>
-              <Button
-                loading={isLoading}
-                onClick={handleLoadingToggle}
-                loadingText="Carregando..."
-              >
-                {isLoading ? "Carregando..." : "Toggle Loading"}
-              </Button>
-              <Button
-                loading={asyncLoading}
-                onClick={handleAsyncAction}
-                loadingText="Aguarde 2s..."
-                variant="secondary"
-              >
-                Ação Assíncrona
-              </Button>
+              <div className="flex flex-wrap gap-3 items-center">
+                <Button loading loadingEffect="spinner" loadingText="Spinner...">
+                  Spinner Loading
+                </Button>
+                <Button loading loadingEffect="dots" loadingText="Processando...">
+                  Dots Loading
+                </Button>
+                <Button loading loadingEffect="bounce" loadingText="Enviando...">
+                  Bounce Loading
+                </Button>
+                <Button
+                  loading={isLoading}
+                  onClick={handleLoadingToggle}
+                  loadingText="Carregando..."
+                >
+                  {isLoading ? "Carregando..." : "Toggle Loading"}
+                </Button>
+                <Button
+                  loading={asyncLoading}
+                  onClick={handleAsyncAction}
+                  loadingText="Aguarde 2s..."
+                  variant="secondary"
+                >
+                  Ação Assíncrona
+                </Button>
+              </div>
             </ExampleCard>
           </div>
         </div>

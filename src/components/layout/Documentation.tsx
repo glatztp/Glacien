@@ -23,6 +23,16 @@ import {
   Activity,
   ChevronRight,
   Monitor,
+  Zap,
+  Github,
+  Shield,
+  Code2,
+  Palette,
+  Package,
+  Rocket,
+  ExternalLink,
+  Users,
+  HelpCircle,
 } from "lucide-react";
 import { Lightning } from "phosphor-react";
 import {
@@ -32,6 +42,14 @@ import {
   SiRemix,
   SiGatsby,
   SiFiles,
+  SiEslint,
+  SiFramer,
+  SiRadixui,
+  SiTailwindcss,
+  SiTypescript,
+  SiNodedotjs,
+  SiNpm,
+  SiGit,
 } from "react-icons/si";
 
 interface NavigationItem {
@@ -241,10 +259,8 @@ export default function DocumentationPage() {
       />
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar Navigation - Estilo shadcn/ui */}
           <div className="w-full lg:w-64 shrink-0">
             <div className="sticky top-8 space-y-6">
-              {/* Header */}
               <div>
                 <h2 className="text-lg font-semibold tracking-tight mb-1">
                   @Glacien/ui
@@ -254,16 +270,13 @@ export default function DocumentationPage() {
                 </p>
               </div>
 
-              {/* Navigation */}
               <nav className="space-y-6">
                 {navigationStructure.map((category, categoryIndex) => (
                   <div key={categoryIndex} className="space-y-3">
-                    {/* Category Title */}
                     <h3 className="text-sm font-medium text-foreground tracking-tight">
                       {category.title}
                     </h3>
 
-                    {/* Category Items */}
                     <div className="space-y-1">
                       {category.items.map((item) => (
                         <button
@@ -308,7 +321,7 @@ export default function DocumentationPage() {
                     <button className="w-full text-left px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-md transition-colors">
                       GitHub
                     </button>
-                   
+
                     <button className="w-full text-left px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-md transition-colors">
                       Changelog
                     </button>
@@ -318,12 +331,9 @@ export default function DocumentationPage() {
             </div>
           </div>
 
-          {/* Main Content */}
           <div className="flex-1 min-w-0">
-            {/* Header with Breadcrumb and Navigation */}
             <div className="mb-8 pb-4 border-b border-border">
               <div className="flex items-center justify-between">
-                {/* Breadcrumb */}
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span>Documentation</span>
                   <span>/</span>
@@ -401,82 +411,433 @@ export default function DocumentationPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-8"
               >
-                <div className="space-y-4">
-                  <h1 className="text-4xl font-bold tracking-tight">
-                    Introduction
-                  </h1>
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    A modern React component library built with TypeScript,
-                    Tailwind CSS, and Radix UI primitives. Designed for
-                    performance, accessibility, and developer experience.
-                  </p>
+                {/* Hero Section */}
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/5 via-background to-secondary/5 p-8 lg:p-12 border border-border/50">
+                  <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+                  <div className="relative z-10 space-y-6">
+                    <motion.h1
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent"
+                    >
+                      Biblioteca de Componentes
+                      <span className="block text-primary">
+                        Moderna & Acessível
+                      </span>
+                    </motion.h1>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-3xl"
+                    >
+                      Uma biblioteca React moderna construída com TypeScript,
+                      Tailwind CSS e primitivos Radix UI. Projetada para
+                      performance máxima, acessibilidade completa e uma
+                      experiência de desenvolvimento excepcional.
+                    </motion.p>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="flex flex-col sm:flex-row gap-4 pt-4"
+                    >
+                      <Button
+                        size="lg"
+                        className="group relative overflow-hidden px-8 py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                        onClick={() => setActiveSection("setup")}
+                      >
+                        <Zap className="w-5 h-5 mr-2 transition-transform group-hover:scale-110" />
+                        Começar Agora
+                        <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                      </Button>
+
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="px-8 py-3 font-semibold border-2 hover:bg-muted/50 transition-all duration-300"
+                        onClick={() =>
+                          window.open(
+                            "https://github.com/glatztp/Glacien",
+                            "_blank"
+                          )
+                        }
+                      >
+                        <Github className="w-5 h-5 mr-2" />
+                        Ver no GitHub
+                      </Button>
+                    </motion.div>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <Card className="p-6">
-                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
-                      <Activity className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <h3 className="font-semibold mb-2">High Performance</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Optimized for fast loading and smooth interactions
-                    </p>
-                  </Card>
+                {/* Key Features Grid */}
+                <div className="space-y-6">
+                  <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-2xl sm:text-3xl font-bold text-center"
+                  >
+                    Por que escolher Glacien UI?
+                  </motion.h2>
 
-                  <Card className="p-6">
-                    <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
-                      <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
-                    </div>
-                    <h3 className="font-semibold mb-2">Accessible</h3>
-                    <p className="text-sm text-muted-foreground">
-                      WCAG 2.1 AA compliant with screen reader support
-                    </p>
-                  </Card>
-
-                  <Card className="p-6">
-                    <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
-                      <FileText className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                    </div>
-                    <h3 className="font-semibold mb-2">Type Safe</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Built with TypeScript for better developer experience
-                    </p>
-                  </Card>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[
+                      {
+                        icon: <Zap className="w-6 h-6" />,
+                        title: "Performance Extrema",
+                        description:
+                          "Otimizado para carregamento rápido com tree-shaking automático, lazy loading e bundle size mínimo. Componentes renderizam em menos de 16ms.",
+                        color: "from-yellow-500/20 to-orange-500/20",
+                        iconBg:
+                          "bg-yellow-100 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400",
+                      },
+                      {
+                        icon: <Shield className="w-6 h-6" />,
+                        title: "Acessibilidade Total",
+                        description:
+                          "100% compatível com WCAG 2.1 AA. Suporte completo para leitores de tela, navegação por teclado e foco visual aprimorado.",
+                        color: "from-green-500/20 to-emerald-500/20",
+                        iconBg:
+                          "bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400",
+                      },
+                      {
+                        icon: <Code2 className="w-6 h-6" />,
+                        title: "TypeScript First",
+                        description:
+                          "Desenvolvido 100% em TypeScript com tipos rigorosos, IntelliSense completo e detecção de erros em tempo de desenvolvimento.",
+                        color: "from-blue-500/20 to-cyan-500/20",
+                        iconBg:
+                          "bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400",
+                      },
+                      {
+                        icon: <Palette className="w-6 h-6" />,
+                        title: "Sistema de Temas",
+                        description:
+                          "Sistema robusto de temas com suporte a modo escuro/claro, CSS variables, e customização completa via Tailwind CSS.",
+                        color: "from-purple-500/20 to-pink-500/20",
+                        iconBg:
+                          "bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400",
+                      },
+                      {
+                        icon: <Package className="w-6 h-6" />,
+                        title: "50+ Componentes",
+                        description:
+                          "Biblioteca completa com componentes essenciais, layouts responsivos, formulários avançados e patterns de design modernos.",
+                        color: "from-indigo-500/20 to-blue-500/20",
+                        iconBg:
+                          "bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400",
+                      },
+                      {
+                        icon: <Rocket className="w-6 h-6" />,
+                        title: "DX Excepcional",
+                        description:
+                          "API intuitiva, documentação completa, Storybook integrado e debugging tools para desenvolvimento eficiente.",
+                        color: "from-rose-500/20 to-red-500/20",
+                        iconBg:
+                          "bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400",
+                      },
+                    ].map((feature, index) => (
+                      <motion.div
+                        key={feature.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <Card className="group h-full p-6 border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
+                          <div
+                            className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg`}
+                          />
+                          <div className="relative z-10 space-y-4">
+                            <div
+                              className={`w-12 h-12 rounded-xl ${feature.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                            >
+                              {feature.icon}
+                            </div>
+                            <div className="space-y-2">
+                              <h3 className="font-semibold text-lg group-hover:text-primary transition-colors duration-300">
+                                {feature.title}
+                              </h3>
+                              <p className="text-sm text-muted-foreground leading-relaxed">
+                                {feature.description}
+                              </p>
+                            </div>
+                          </div>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
 
-                <Card>
+                {/* Tech Stack */}
+                <Card className="relative overflow-hidden">
                   <CardHeader>
-                    <CardTitle>Quick Start</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                      <Activity className="w-5 h-5 text-primary" />
+                      Stack Tecnológico
+                    </CardTitle>
                     <CardDescription>
-                      Get up and running in minutes
+                      Construído com as melhores tecnologias do ecossistema
+                      React
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="bg-secondary p-4 rounded-lg">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium">
-                          Install the package
-                        </span>
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() =>
-                            copyToClipboard("npm install @glacien/ui")
-                          }
+                  <CardContent>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                      {[
+                        {
+                          name: "React 18",
+                          desc: "Server Components & Suspense",
+                          icon: <SiReact size={24} />,
+                        },
+                        {
+                          name: "TypeScript",
+                          desc: "Type Safety & IntelliSense",
+                          icon: <SiTypescript size={24} />,
+                        },
+                        {
+                          name: "Tailwind CSS",
+                          desc: "Utility-first Styling",
+                          icon: <SiTailwindcss size={24} />,
+                        },
+                        {
+                          name: "Radix UI",
+                          desc: "Accessible Primitives",
+                          icon: <SiRadixui size={24} />,
+                        },
+                        {
+                          name: "Framer Motion",
+                          desc: "Fluid Animations",
+                          icon: <SiFramer size={24} />,
+                        },
+                        {
+                          name: "Vite",
+                          desc: "Lightning Fast Build",
+                          icon: <SiVite size={24} />,
+                        },
+
+                        {
+                          name: "ESLint + Prettier",
+                          desc: "Code Quality",
+                          icon: <SiEslint size={24} />,
+                        },
+                      ].map((tech, index) => (
+                        <motion.div
+                          key={tech.name}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.05 }}
+                          className="text-center space-y-2 p-4 rounded-lg hover:bg-muted/50 transition-colors duration-200"
                         >
-                          <Copy size={14} />
-                        </Button>
+                          <div className="text-2xl">{tech.icon}</div>
+                          <div className="font-semibold text-sm">
+                            {tech.name}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {tech.desc}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Quick Start Enhanced */}
+                <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-primary">
+                      <Rocket className="w-5 h-5" />
+                      Comece em 2 Minutos
+                    </CardTitle>
+                    <CardDescription>
+                      Instale a biblioteca e comece a construir interfaces
+                      incríveis
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6 relative z-10">
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-sm">1. Instalação</h4>
+                        <div className="bg-muted/50 p-4 rounded-lg border border-border/50">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-medium">
+                              Package Manager
+                            </span>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() =>
+                                copyToClipboard("npm install @glacien/ui")
+                              }
+                              className="h-8 w-8 p-0"
+                            >
+                              <Copy size={14} />
+                            </Button>
+                          </div>
+                          <code className="text-sm font-mono text-primary">
+                            npm install @glacien/ui
+                          </code>
+                        </div>
                       </div>
-                      <code className="text-sm">npm install @glacien/ui</code>
+
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-sm">2. Importação</h4>
+                        <div className="bg-muted/50 p-4 rounded-lg border border-border/50">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-medium">
+                              CSS Import
+                            </span>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() =>
+                                copyToClipboard(
+                                  "import '@glacien/ui/dist/index.css';"
+                                )
+                              }
+                              className="h-8 w-8 p-0"
+                            >
+                              <Copy size={14} />
+                            </Button>
+                          </div>
+                          <code className="text-sm font-mono text-secondary">
+                            import '@glacien/ui/dist/index.css';
+                          </code>
+                        </div>
+                      </div>
                     </div>
 
-                    <Button
-                      className="w-full"
-                      onClick={() => setActiveSection("setup")}
-                    >
-                      View Installation Guide
-                      <ArrowRight size={16} className="ml-2" />
-                    </Button>
+                    <div className="bg-muted/30 p-6 rounded-lg border border-border/50">
+                      <h4 className="font-semibold text-sm mb-3">
+                        3. Primeiro Componente
+                      </h4>
+                      <div className="bg-background/80 p-4 rounded-lg border border-border/30 font-mono text-sm space-y-1">
+                        <div>
+                          <span className="text-blue-600 dark:text-blue-400">
+                            import
+                          </span>{" "}
+                          <span className="text-green-600 dark:text-green-400">
+                            {"{ Button, Card }"}
+                          </span>{" "}
+                          <span className="text-blue-600 dark:text-blue-400">
+                            from
+                          </span>{" "}
+                          <span className="text-yellow-600 dark:text-yellow-400">
+                            '@glacien/ui'
+                          </span>
+                          ;
+                        </div>
+                        <div className="mt-2">
+                          <span className="text-purple-600 dark:text-purple-400">
+                            {"<Card>"}
+                          </span>
+                        </div>
+                        <div className="ml-4">
+                          <span className="text-purple-600 dark:text-purple-400">
+                            {"<Button"}
+                          </span>{" "}
+                          <span className="text-orange-600 dark:text-orange-400">
+                            variant
+                          </span>
+                          =
+                          <span className="text-green-600 dark:text-green-400">
+                            "primary"
+                          </span>
+                          <span className="text-purple-600 dark:text-purple-400">
+                            {">"}
+                          </span>
+                        </div>
+                        <div className="ml-8 text-foreground">
+                          Meu primeiro botão!
+                        </div>
+                        <div className="ml-4">
+                          <span className="text-purple-600 dark:text-purple-400">
+                            {"</Button>"}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-purple-600 dark:text-purple-400">
+                            {"</Card>"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Button
+                        className="flex-1 group"
+                        onClick={() => setActiveSection("setup")}
+                      >
+                        <BookOpen className="w-4 h-4 mr-2" />
+                        Guia Completo de Instalação
+                        <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                      </Button>
+
+                      <Button
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() =>
+                          window.open(
+                            "https://storybook.glacien.online",
+                            "_blank"
+                          )
+                        }
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Ver Storybook
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Community & Support */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Users className="w-5 h-5 text-primary" />
+                      Comunidade & Suporte
+                    </CardTitle>
+                    <CardDescription>
+                      Junte-se à nossa comunidade crescente de desenvolvedores
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="text-center space-y-3 p-4 rounded-lg hover:bg-muted/50 transition-colors">
+                        <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center mx-auto">
+                          <Github className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                        </div>
+                        <h4 className="font-semibold">GitHub</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Contribua, reporte bugs e solicite features
+                        </p>
+                      </div>
+
+                      <div className="text-center space-y-3 p-4 rounded-lg hover:bg-muted/50 transition-colors">
+                        <div className="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mx-auto">
+                          <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
+                        </div>
+                        <h4 className="font-semibold">Documentação</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Guias completos e exemplos práticos
+                        </p>
+                      </div>
+
+                      <div className="text-center space-y-3 p-4 rounded-lg hover:bg-muted/50 transition-colors">
+                        <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 rounded-full flex items-center justify-center mx-auto">
+                          <HelpCircle className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                        </div>
+                        <h4 className="font-semibold">Suporte</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Ajuda rápida via GitHub Issues
+                        </p>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
 
@@ -490,207 +851,435 @@ export default function DocumentationPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-8"
               >
-                <div>
-                  <h1 className="text-4xl font-bold tracking-tight mb-4">
-                    Prerequisites
-                  </h1>
-                  <p className="text-xl text-muted-foreground">
-                    Requirements and dependencies needed before installation.
-                  </p>
+                {/* Header */}
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-secondary/5 via-background to-primary/5 p-8 lg:p-12 border border-border/50">
+                  <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+                  <div className="relative z-10 space-y-4">
+                    <motion.h1
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent"
+                    >
+                      Prerequisites
+                    </motion.h1>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-lg text-muted-foreground leading-relaxed max-w-3xl"
+                    >
+                      Verifique se seu ambiente de desenvolvimento atende aos
+                      requisitos mínimos para uma experiência de desenvolvimento
+                      otimizada com Glacien UI.
+                    </motion.p>
+                  </div>
                 </div>
 
-                <Card className="border-primary/30 bg-primary/5 dark:border-primary-800 dark:bg-primary-950/10">
+                {/* System Check Tool */}
+                <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-primary dark:text-primary/70">
-                      <AlertCircle size={20} />
-                      Requisitos & Verificações
+                    <CardTitle className="flex items-center gap-2 text-primary">
+                      <CheckCircle className="w-5 h-5" />
+                      Verificação Rápida do Sistema
                     </CardTitle>
                     <CardDescription>
-                      Dependências mínimas, opções recomendadas e comandos para
-                      verificar seu ambiente de desenvolvimento.
+                      Execute estes comandos para verificar se tudo está
+                      configurado corretamente
                     </CardDescription>
                   </CardHeader>
+                  <CardContent>
+                    <div className="bg-muted/30 p-6 rounded-lg border border-border/50 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-semibold text-sm">
+                          Script de Verificação Automática
+                        </h4>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() =>
+                            copyToClipboard(
+                              `node -v && npm -v && npx react --version && echo "✅ Sistema verificado!"`
+                            )
+                          }
+                          className="h-8 w-8 p-0"
+                        >
+                          <Copy size={14} />
+                        </Button>
+                      </div>
+                      <div className="bg-background/80 p-4 rounded-lg border border-border/30 font-mono text-sm">
+                        <div className="text-green-600 dark:text-green-400">
+                          # Verificação completa do ambiente
+                        </div>
+                        <div className="text-blue-600 dark:text-blue-400">
+                          node -v && npm -v && npx react --version
+                        </div>
+                        <div className="text-gray-600 dark:text-gray-400 mt-2">
+                          # Resultado esperado: versões válidas para cada
+                          comando
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                  <CardContent className="space-y-6">
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div className="space-y-3">
-                        <h4 className="text-sm font-semibold">Obrigatórios</h4>
-                        {[
-                          {
-                            name: "Node.js",
-                            version: "16.14.0+",
-                            description:
-                              "Runtime JavaScript usado pelas ferramentas de build e pelo package manager.",
-                            check: "node -v",
-                          },
-                          {
-                            name: "npm / pnpm / yarn",
-                            version: "8+ / 7+ / 1+",
-                            description:
-                              "Gerenciador de pacotes — use o que preferir (npm é padrão).",
-                            check: "npm -v",
-                          },
-                          {
-                            name: "React",
-                            version: "18.0.0+",
-                            description:
-                              "Biblioteca principal para os componentes.",
-                            check:
-                              "npm ls react --depth=0 || npx react --version",
-                          },
-                        ].map((it, i) => (
-                          <div
-                            key={i}
-                            className="p-4 bg-primary/5  rounded-lg border border-primary/20 flex items-start gap-4"
-                          >
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                              <Monitor size={18} />
+                {/* Requirements Grid */}
+                <div className="grid gap-6 lg:grid-cols-2">
+                  {/* Essential Requirements */}
+                  <Card className="relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-red-500/10 rounded-full blur-2xl" />
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                        <AlertCircle className="w-5 h-5" />
+                        Requisitos Essenciais
+                      </CardTitle>
+                      <CardDescription>
+                        Obrigatórios para o funcionamento da biblioteca
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4 relative z-10">
+                      {[
+                        {
+                          name: "Node.js",
+                          version: "18.0.0+",
+                          icon: (
+                            <SiNodedotjs className="w-6 h-6 text-green-600" />
+                          ),
+                          description:
+                            "Runtime JavaScript moderno com suporte a ESM e APIs atuais",
+                          checkCommand: "node -v",
+                          recommendedVersion: "20.x LTS",
+                          downloadUrl: "https://nodejs.org",
+                        },
+                        {
+                          name: "Package Manager",
+                          version: "npm 9+ | pnpm 8+ | yarn 3+",
+                          icon: <SiNpm className="w-6 h-6 text-red-600" />,
+                          description:
+                            "Gerenciador de pacotes para instalação de dependências",
+                          checkCommand: "npm -v",
+                          recommendedVersion: "npm (incluído com Node.js)",
+                          downloadUrl: null,
+                        },
+                        {
+                          name: "React",
+                          version: "18.0.0+",
+                          icon: <SiReact className="w-6 h-6 text-blue-600" />,
+                          description:
+                            "Biblioteca base para componentes UI com Concurrent Features",
+                          checkCommand: "npm ls react",
+                          recommendedVersion: "18.2.0+",
+                          downloadUrl: "https://react.dev",
+                        },
+                      ].map((req, index) => (
+                        <motion.div
+                          key={req.name}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.1 }}
+                          className="group p-4 rounded-lg border border-border/50 hover:border-red-300/50 hover:bg-red-50/50 dark:hover:bg-red-950/20 transition-all duration-300"
+                        >
+                          <div className="flex items-start gap-4">
+                            <div className="p-2 rounded-lg bg-muted/50">
+                              {req.icon}
                             </div>
-                            <div className="flex-1">
-                              <div className="flex items-center justify-between mb-1">
-                                <div className="font-semibold">{it.name}</div>
-                                <Badge variant="outline">{it.version}</Badge>
+                            <div className="flex-1 space-y-2">
+                              <div className="flex items-center justify-between">
+                                <h4 className="font-semibold text-sm">
+                                  {req.name}
+                                </h4>
+                                <Badge variant="secondary" className="text-xs">
+                                  {req.version}
+                                </Badge>
                               </div>
-                              <div className="text-sm text-muted-foreground mb-2">
-                                {it.description}
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <code className="text-xs font-mono bg-muted/30 px-2 py-1 rounded">
-                                  {it.check}
+                              <p className="text-xs text-muted-foreground leading-relaxed">
+                                {req.description}
+                              </p>
+                              <div className="flex items-center gap-2 mt-2">
+                                <code className="text-xs font-mono bg-muted/50 px-2 py-1 rounded">
+                                  {req.checkCommand}
                                 </code>
                                 <Button
                                   size="sm"
                                   variant="ghost"
                                   onClick={() =>
-                                    navigator.clipboard.writeText(it.check)
+                                    copyToClipboard(req.checkCommand)
                                   }
+                                  className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
                                 >
-                                  <Copy size={14} />
+                                  <Copy size={12} />
                                 </Button>
+                              </div>
+                              <div className="text-xs text-green-600 dark:text-green-400">
+                                💡 Recomendado: {req.recommendedVersion}
                               </div>
                             </div>
                           </div>
+                        </motion.div>
+                      ))}
+                    </CardContent>
+                  </Card>
+
+                  {/* Recommended Tools */}
+                  <Card className="relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/10 rounded-full blur-2xl" />
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                        <Package className="w-5 h-5" />
+                        Ferramentas Recomendadas
+                      </CardTitle>
+                      <CardDescription>
+                        Melhoram significativamente a experiência de
+                        desenvolvimento
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4 relative z-10">
+                      {[
+                        {
+                          name: "TypeScript",
+                          version: "5.0+",
+                          icon: (
+                            <SiTypescript className="w-6 h-6 text-blue-600" />
+                          ),
+                          description:
+                            "Tipagem estática para maior segurança e produtividade",
+                          benefit: "IntelliSense completo",
+                          priority: "Alta",
+                        },
+                        {
+                          name: "Tailwind CSS",
+                          version: "3.4+",
+                          icon: (
+                            <SiTailwindcss className="w-6 h-6 text-cyan-600" />
+                          ),
+                          description:
+                            "Framework CSS utilitário para estilização consistente",
+                          benefit: "Temas personalizados",
+                          priority: "Alta",
+                        },
+                        {
+                          name: "Vite / Next.js",
+                          version: "5.x / 14.x",
+                          icon: <SiVite className="w-6 h-6 text-purple-600" />,
+                          description:
+                            "Build tools modernos com Hot Module Replacement",
+                          benefit: "Dev server rápido",
+                          priority: "Média",
+                        },
+                        {
+                          name: "ESLint + Prettier",
+                          version: "8.x + 3.x",
+                          icon: (
+                            <SiEslint className="w-6 h-6 text-indigo-600" />
+                          ),
+                          description:
+                            "Linting e formatação automática de código",
+                          benefit: "Qualidade de código",
+                          priority: "Média",
+                        },
+                        {
+                          name: "Git",
+                          version: "2.40+",
+                          icon: <SiGit className="w-6 h-6 text-orange-600" />,
+                          description:
+                            "Controle de versão para desenvolvimento colaborativo",
+                          benefit: "Versionamento",
+                          priority: "Essencial",
+                        },
+                      ].map((tool, index) => (
+                        <motion.div
+                          key={tool.name}
+                          initial={{ opacity: 0, x: 20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.1 }}
+                          className="group p-4 rounded-lg border border-border/50 hover:border-blue-300/50 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 transition-all duration-300"
+                        >
+                          <div className="flex items-start gap-4">
+                            <div className="p-2 rounded-lg bg-muted/50">
+                              {tool.icon}
+                            </div>
+                            <div className="flex-1 space-y-2">
+                              <div className="flex items-center justify-between">
+                                <h4 className="font-semibold text-sm">
+                                  {tool.name}
+                                </h4>
+                                <div className="flex items-center gap-2">
+                                  <Badge
+                                    variant={
+                                      tool.priority === "Essencial"
+                                        ? "destructive"
+                                        : tool.priority === "Alta"
+                                          ? "default"
+                                          : "secondary"
+                                    }
+                                    className="text-xs"
+                                  >
+                                    {tool.priority}
+                                  </Badge>
+                                  <Badge variant="outline" className="text-xs">
+                                    {tool.version}
+                                  </Badge>
+                                </div>
+                              </div>
+                              <p className="text-xs text-muted-foreground leading-relaxed">
+                                {tool.description}
+                              </p>
+                              <div className="text-xs text-blue-600 dark:text-blue-400">
+                                <SiEslint className="w-3 h-3 inline mr-1" />{" "}
+                                Benefício: {tool.benefit}
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Environment Setup Guide */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Rocket className="w-5 h-5 text-primary" />
+                      Guia de Configuração do Ambiente
+                    </CardTitle>
+                    <CardDescription>
+                      Passos detalhados para configurar um ambiente de
+                      desenvolvimento ideal
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="grid gap-6 md:grid-cols-2">
+                      {/* Setup Steps */}
+                      <div className="space-y-4">
+                        <h4 className="font-semibold">Configuração Inicial</h4>
+                        {[
+                          {
+                            step: "1",
+                            title: "Instalar Node.js",
+                            description:
+                              "Baixe e instale a versão LTS mais recente",
+                            command: "# Verificar instalação\nnode -v\nnpm -v",
+                          },
+                          {
+                            step: "2",
+                            title: "Configurar Editor",
+                            description:
+                              "VS Code com extensões TypeScript e Tailwind",
+                            command:
+                              "# Extensões recomendadas\n# - TypeScript and JavaScript\n# - Tailwind CSS IntelliSense",
+                          },
+                          {
+                            step: "3",
+                            title: "Criar Projeto",
+                            description:
+                              "Initialize novo projeto React com TypeScript",
+                            command:
+                              "npx create-react-app my-app --template typescript\n# ou\nnpx create-next-app@latest my-app --typescript",
+                          },
+                        ].map((step, index) => (
+                          <motion.div
+                            key={step.step}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.2 }}
+                            className="flex gap-4 p-4 rounded-lg border border-border/50 hover:bg-muted/30 transition-colors"
+                          >
+                            <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
+                              {step.step}
+                            </div>
+                            <div className="flex-1 space-y-2">
+                              <h5 className="font-medium text-sm">
+                                {step.title}
+                              </h5>
+                              <p className="text-xs text-muted-foreground">
+                                {step.description}
+                              </p>
+                              {step.command && (
+                                <div className="bg-muted/50 p-2 rounded text-xs font-mono whitespace-pre-line">
+                                  {step.command}
+                                </div>
+                              )}
+                            </div>
+                          </motion.div>
                         ))}
                       </div>
 
-                      <div className="space-y-3">
-                        <h4 className="text-sm font-semibold">
-                          Opcionais & Ferramentas
-                        </h4>
-                        <div className="p-4 bg-primary/5  rounded-lg border border-primary/20 space-y-3">
-                          <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                              <FileText size={18} />
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-center justify-between">
-                                <div className="font-semibold">
-                                  Tailwind CSS
-                                </div>
-                                <Badge variant="outline">3.x+</Badge>
+                      {/* Troubleshooting */}
+                      <div className="space-y-4">
+                        <h4 className="font-semibold">Solução de Problemas</h4>
+                        <div className="space-y-3">
+                          {[
+                            {
+                              problem: "Node.js muito antigo",
+                              solution:
+                                "Use nvm para gerenciar versões do Node.js",
+                              code: "nvm install 20\nnvm use 20",
+                            },
+                            {
+                              problem: "Erro de permissões npm",
+                              solution:
+                                "Configure npm para usar diretório global do usuário",
+                              code: "npm config set prefix ~/.npm-global\nexport PATH=~/.npm-global/bin:$PATH",
+                            },
+                            {
+                              problem: "Conflitos de dependências",
+                              solution: "Limpe cache e reinstale dependências",
+                              code: "npm cache clean --force\nrm -rf node_modules\nnpm install",
+                            },
+                          ].map((issue, index) => (
+                            <div
+                              key={index}
+                              className="p-3 rounded-lg bg-yellow-50/50 dark:bg-yellow-950/20 border border-yellow-200/50 dark:border-yellow-800/50"
+                            >
+                              <div className="font-medium text-sm text-yellow-800 dark:text-yellow-200 mb-1">
+                                ⚠️ {issue.problem}
                               </div>
-                              <div className="text-sm text-muted-foreground">
-                                Recomendado para estilos utilitários e
-                                consistência.
+                              <div className="text-xs text-yellow-700 dark:text-yellow-300 mb-2">
+                                {issue.solution}
                               </div>
-                            </div>
-                          </div>
-
-                          <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                              <Lightning size={18} className="text-primary" />
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-center justify-between">
-                                <div className="font-semibold">
-                                  Vite / Next / Remix
-                                </div>
-                                <Badge variant="outline">Compatível</Badge>
-                              </div>
-                              <div className="text-sm text-muted-foreground">
-                                Escolha a plataforma que melhor se encaixa ao
-                                seu fluxo de trabalho.
+                              <div className="bg-yellow-100/50 dark:bg-yellow-900/30 p-2 rounded text-xs font-mono">
+                                {issue.code}
                               </div>
                             </div>
-                          </div>
-
-                          <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center text-green-700">
-                              <CheckCircle size={18} />
-                            </div>
-                            <div className="flex-1">
-                              <div className="font-semibold">
-                                Ferramentas de teste
-                              </div>
-                              <div className="text-sm text-muted-foreground">
-                                Jest / Vitest para testes unitários e integração
-                                (opcional).
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="mt-2 p-4 rounded-lg bg-primary/5 border border-primary/20">
-                          <div className="flex items-start gap-3">
-                            <div className="flex-1">
-                              <div className="font-semibold">
-                                Verifique seu ambiente
-                              </div>
-                              <div className="text-sm text-muted-foreground mt-1">
-                                Execute os comandos abaixo para garantir que
-                                tudo esteja pronto.
-                              </div>
-                              <pre className="mt-3 text-sm font-mono bg-background/50 p-3 rounded">
-                                node -v npm -v npx -v
-                              </pre>
-                              <div className="mt-3 flex gap-2">
-                                <Button
-                                  size="sm"
-                                  onClick={() =>
-                                    navigator.clipboard.writeText(
-                                      "node -v\nnpm -v\nnpx -v"
-                                    )
-                                  }
-                                >
-                                  Copiar comandos
-                                </Button>
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={() =>
-                                    setTimeout(
-                                      () =>
-                                        window.scrollTo({
-                                          top: 0,
-                                          behavior: "smooth",
-                                        }),
-                                      10
-                                    )
-                                  }
-                                >
-                                  Ajuda
-                                </Button>
-                              </div>
-                            </div>
-                          </div>
+                          ))}
                         </div>
                       </div>
                     </div>
 
-                    <div className="rounded-lg p-4 bg-primary/10 border border-primary/30">
-                      <div className="flex items-start gap-3">
-                        <div className="mt-0.5">
-                          <CheckCircle className="text-primary" />
-                        </div>
-                        <div>
-                          <div className="font-semibold">Dica</div>
-                          <div className="text-sm text-muted-foreground">
-                            Usar um gerenciador de versões do Node (nvm ou
-                            volta) facilita manter a compatibilidade entre
-                            projetos.
-                          </div>
-                        </div>
-                      </div>
+                    {/* Quick Actions */}
+                    <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-border">
+                      <Button
+                        className="flex-1 group"
+                        onClick={() => setActiveSection("setup")}
+                      >
+                        <ArrowRight className="w-4 h-4 mr-2 transition-transform group-hover:translate-x-1" />
+                        Continuar para Instalação
+                      </Button>
+
+                      <Button
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() =>
+                          window.open("https://nodejs.org", "_blank")
+                        }
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Download Node.js
+                      </Button>
+
+                      <Button
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() => setActiveSection("compatibility")}
+                      >
+                        <Monitor className="w-4 h-4 mr-2" />
+                        Ver Compatibilidade
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

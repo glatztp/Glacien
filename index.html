@@ -3,79 +3,165 @@
   <head>
     <meta charset="UTF-8" />
     <!-- Primary favicon and touch icons (use high-res logo.png) -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/logo.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/logo.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/logo.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/logo.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/logo.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/logo.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/logo.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/logo.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/logo.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/logo.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/logo.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/logo.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
     <meta name="msapplication-TileImage" content="/logo.png" />
+    <meta name="msapplication-TileColor" content="#18181b" />
+    <meta name="msapplication-square70x70logo" content="/logo.png" />
+    <meta name="msapplication-square150x150logo" content="/logo.png" />
+    <meta name="msapplication-wide310x150logo" content="/logo.png" />
+    <meta name="msapplication-square310x310logo" content="/logo.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Glacien — Biblioteca de componentes React/TypeScript</title>
+
+    <!-- Title and Primary Meta -->
+    <title>
+      Glacien — A Maior Biblioteca de Componentes React/TypeScript do Brasil
+    </title>
     <meta
       name="description"
-      content="Biblioteca de componentes React/TypeScript inspirada no shadcn/ui. Moderna, acessível e altamente customizável — usada por equipes que querem produtividade e design profissional."
+      content="Glacien é a maior e mais completa biblioteca de componentes React/TypeScript do Brasil. Inspirada no shadcn/ui, oferece componentes modernos, acessíveis e altamente customizáveis para equipes que buscam produtividade e design profissional. Mais de 50 componentes prontos, dark mode, animações e integração com Tailwind CSS."
     />
+
+    <!-- Enhanced Meta Tags -->
+    <meta name="author" content="Glacien Team" />
+    <meta name="creator" content="Glacien" />
+    <meta name="publisher" content="Glacien" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Glacien" />
+
+    <!-- Robots and Indexing -->
     <meta
       name="robots"
       content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
     />
+    <meta
+      name="googlebot"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <meta
+      name="bingbot"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+
+    <!-- Language and Regional -->
     <link rel="alternate" href="https://glacien.online/" hreflang="pt-br" />
+    <link rel="alternate" href="https://glacien.online/" hreflang="pt" />
     <link rel="alternate" href="https://glacien.online/" hreflang="x-default" />
+    <meta http-equiv="content-language" content="pt-BR" />
+
+    <!-- Enhanced Keywords -->
     <meta
       name="keywords"
-      content="react, componentes, ui, biblioteca, design system, typescript, acessibilidade, dark mode, animação, radix, tailwind, glacien, shadcn, enterprise, profissional"
+      content="react componentes, typescript ui, biblioteca componentes react, design system brasil, shadcn ui, tailwind components, react ui library, componentes acessíveis, dark mode react, animações css, radix ui, glacien, frontend brasil, desenvolvimento react, interface moderna, ui/ux brasil, componentes profissionais, biblioteca typescript, react hooks, nextjs components"
     />
-    <!-- Performance & fonts -->
+
+    <!-- Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="/logo.png" as="image" />
-    <link rel="preload" as="image" href="/logo-p.png" />
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel="preload" href="/logo.png" as="image" type="image/png" />
+    <link rel="preload" href="/logo-p.png" as="image" type="image/png" />
+    <link rel="preload" href="/og-home.png" as="image" type="image/png" />
+
+    <!-- Canonical and Theme -->
     <link rel="canonical" href="https://glacien.online/" />
-    <meta name="theme-color" content="#18181b" />
-    <!-- Manifest and app install links removed to avoid automatic install prompts -->
-    <!-- Open Graph -->
+    <meta
+      name="theme-color"
+      content="#18181b"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+
+    <!-- Enhanced Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale:alternate" content="pt" />
     <meta property="og:url" content="https://glacien.online/" />
-    <meta property="og:title" content="Glacien — Componentes React" />
+    <meta
+      property="og:title"
+      content="Glacien — A Maior Biblioteca de Componentes React/TypeScript do Brasil"
+    />
     <meta
       property="og:description"
-      content="A maior biblioteca de componentes React/TypeScript do Brasil. UI moderna, acessível, customizável e pronta para produção."
+      content="Descubra a Glacien, a biblioteca de componentes React/TypeScript mais completa do Brasil. Mais de 50 componentes modernos, acessíveis e customizáveis. Inspirada no shadcn/ui, com dark mode, animações e integração perfeita com Tailwind CSS."
     />
     <meta property="og:image" content="https://glacien.online/og-home.png" />
     <meta
       property="og:image:alt"
-      content="Glacien — Biblioteca de componentes React/TypeScript"
+      content="Glacien - A maior biblioteca de componentes React/TypeScript do Brasil com interface moderna"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
-    <!-- Twitter Card -->
+    <meta property="og:site_name" content="Glacien" />
+
+    <!-- Enhanced Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Glacien UI — Componentes React" />
+    <meta
+      name="twitter:title"
+      content="Glacien — Biblioteca de Componentes React/TypeScript"
+    />
     <meta
       name="twitter:description"
-      content="A maior biblioteca de componentes React/TypeScript do Brasil. UI moderna, acessível, customizável e pronta para produção."
+      content="A maior biblioteca de componentes React/TypeScript do Brasil. Mais de 50 componentes modernos, acessíveis e customizáveis com dark mode e animações."
     />
-    <meta name="twitter:image" content="https://glacien.online/logo-p.png" />
+    <meta name="twitter:image" content="https://glacien.online/og-home.png" />
     <meta
       name="twitter:image:alt"
-      content="Glacien — Biblioteca de componentes React/TypeScript"
+      content="Glacien - Biblioteca de componentes React/TypeScript moderna e acessível"
     />
-    <!-- Removed twitter:site (no Twitter account) -->
-    <meta property="og:site_name" content="Glacien" />
-    <!-- JSON-LD Organization -->
+
+    <!-- Structured Data - Organization -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Glacien",
+        "alternateName": "Glacien UI",
         "url": "https://glacien.online/",
-        "logo": "https://glacien.online/logo.png",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://glacien.online/logo.png",
+          "width": 192,
+          "height": 192
+        },
         "image": "https://glacien.online/logo.png",
+        "description": "A maior biblioteca de componentes React/TypeScript do Brasil. Moderna, acessível e altamente customizável.",
+        "foundingDate": "2024",
+        "knowsAbout": [
+          "React",
+          "TypeScript",
+          "UI Components",
+          "Design System",
+          "Frontend Development"
+        ],
         "sameAs": [
           "https://github.com/glatztp/glacien",
           "https://www.npmjs.com/package/@glacien/ui"
         ],
-        "description": "A maior biblioteca de componentes React/TypeScript do Brasil. UI moderna, acessível, customizável e pronta para produção.",
         "contactPoint": [
           {
             "@type": "ContactPoint",
@@ -86,17 +172,45 @@
         ]
       }
     </script>
+
+    <!-- Structured Data - WebSite -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "url": "https://glacien.online/",
-        "name": "Glacien UI",
+        "name": "Glacien — Biblioteca de Componentes React/TypeScript",
+        "alternateName": "Glacien UI",
+        "description": "A maior biblioteca de componentes React/TypeScript do Brasil",
+        "inLanguage": "pt-BR",
         "potentialAction": {
           "@type": "SearchAction",
           "target": "https://glacien.online/?s={search_term_string}",
           "query-input": "required name=search_term_string"
         }
+      }
+    </script>
+
+    <!-- Structured Data - SoftwareApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Glacien",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "description": "Biblioteca completa de componentes React/TypeScript para desenvolvimento de interfaces modernas",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Glacien Team"
+        },
+        "programmingLanguage": ["TypeScript", "JavaScript", "React"],
+        "runtimePlatform": "Web Browser"
       }
     </script>
   </head>

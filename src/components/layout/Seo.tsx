@@ -99,12 +99,10 @@ export function getHeadHtml({
       `<link rel="alternate" hreflang="${escapeHtml(lang || "pt-BR")}" href="${escapeHtml(canonical)}" />`
     );
 
-  // Keywords (small set, optional)
+  // Keywords (enhanced with more relevant terms)
   parts.push(
-    `<meta name="keywords" content="react, components, ui, typescript, design system, acessibilidade, tailwind, glacien" />`
-  );
-
-  // JSON-LD: Organization + WebSite + optional SearchAction
+    `<meta name="keywords" content="react componentes, typescript ui, biblioteca componentes react, design system brasil, shadcn ui, tailwind components, react ui library, componentes acessíveis, dark mode react, animações css, radix ui, glacien, frontend brasil, desenvolvimento react, interface moderna, ui/ux brasil, componentes profissionais, biblioteca typescript, react hooks, nextjs components" />`
+  ); // JSON-LD: Organization + WebSite + optional SearchAction
   const org = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -185,9 +183,9 @@ export function getHeadHtml({
 
 // Default site-wide metadata (used by index.html and as fallback)
 export const DEFAULT_SITE_TITLE =
-  "Glacien — Biblioteca de componentes React/TypeScript";
+  "Glacien — A Maior Biblioteca de Componentes React/TypeScript do Brasil";
 export const DEFAULT_SITE_DESCRIPTION =
-  "Biblioteca de componentes React/TypeScript inspirada no shadcn/ui. Moderna, acessível e altamente customizável — usada por equipes que querem produtividade e design profissional.";
+  "Glacien é a biblioteca de componentes React/TypeScript mais completa do Brasil. Mais de 50 componentes modernos, acessíveis e altamente customizáveis, inspirada no shadcn/ui. Dark mode, animações e integração perfeita com Tailwind CSS para equipes que buscam produtividade e design profissional.";
 export const DEFAULT_CANONICAL = "https://glacien.online/";
 export const DEFAULT_OG_IMAGE = "https://glacien.online/og-home.png";
 export const DEFAULT_SITE_NAME = "Glacien";
@@ -340,14 +338,14 @@ export default function Seo({
       linkAlt.setAttribute("href", canonical);
     }
 
-    // Keywords (non-intrusive)
+    // Keywords (enhanced with more relevant terms)
     let metaKeywords = document.querySelector('meta[name="keywords"]');
     if (!metaKeywords) {
       metaKeywords = document.createElement("meta");
       metaKeywords.setAttribute("name", "keywords");
       metaKeywords.setAttribute(
         "content",
-        "react, components, ui, typescript, design system, acessibilidade, tailwind, glacien"
+        "react componentes, typescript ui, biblioteca componentes react, design system brasil, shadcn ui, tailwind components, react ui library, componentes acessíveis, dark mode react, animações css, radix ui, glacien, frontend brasil, desenvolvimento react, interface moderna, ui/ux brasil, componentes profissionais, biblioteca typescript, react hooks, nextjs components"
       );
       document.head.appendChild(metaKeywords);
     }

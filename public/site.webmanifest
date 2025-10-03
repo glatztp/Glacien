@@ -1,20 +1,33 @@
 {
-  "name": "Glacien UI",
+  "name": "Glacien — Biblioteca de Componentes React/TypeScript",
   "short_name": "Glacien",
+  "description": "A maior biblioteca de componentes React/TypeScript do Brasil. UI moderna, acessível e customizável.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#0f172a",
   "theme_color": "#18181b",
+  "categories": ["productivity", "developer", "utilities"],
+  "lang": "pt-BR",
   "icons": [
     {
       "src": "/logo.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/logo-p.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-nobg.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }

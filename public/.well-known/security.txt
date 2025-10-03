@@ -1,0 +1,5 @@
+Contact: https://github.com/glatztp/glacien/security
+Expires: 2025-12-31T23:59:59.000Z
+Acknowledgments: https://github.com/glatztp/glacien/security/advisories
+Preferred-Languages: pt-BR, en
+Canonical: https://glacien.online/.well-known/security.txt

@@ -1,6 +1,33 @@
 User-agent: *
-User-agent: *
 Allow: /
-Crawl-delay: 5
+
+# Otimizações para motores de busca brasileiros
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Yandexbot
+Allow: /
+Crawl-delay: 3
+
+# Bloquear arquivos desnecessários
 Disallow: /dist/
+Disallow: /*.git
+Disallow: /node_modules/
+Disallow: /.vscode/
+Disallow: /src/
+Disallow: /scripts/
+
+# Permitir acesso aos recursos importantes
+Allow: /public/
+Allow: /logo.png
+Allow: /logo-p.png
+Allow: /og-home.png
+Allow: /site.webmanifest
+
+# Sitemaps
 Sitemap: https://glacien.online/sitemap.xml

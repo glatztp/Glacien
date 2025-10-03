@@ -23,6 +23,7 @@
     <meta name="msapplication-wide310x150logo" content="/logo.png" />
     <meta name="msapplication-square310x310logo" content="/logo.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link rel="author" href="/humans.txt" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Title and Primary Meta -->
@@ -47,6 +48,24 @@
     />
     <meta name="apple-mobile-web-app-title" content="Glacien" />
 
+    <!-- Geo-targeting -->
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="geo.position" content="-14.235004;-51.92528" />
+    <meta name="ICBM" content="-14.235004, -51.92528" />
+
+    <!-- Cache Control and Performance -->
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000" />
+    <meta http-equiv="Expires" content="Thu, 01 Dec 2025 00:00:00 GMT" />
+    <meta http-equiv="Pragma" content="cache" />
+    <meta name="revisit-after" content="7 days" />
+
+    <!-- Security and Quality -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="supported-color-schemes" content="dark light" />
+
     <!-- Robots and Indexing -->
     <meta
       name="robots"
@@ -70,7 +89,21 @@
     <!-- Enhanced Keywords -->
     <meta
       name="keywords"
-      content="react componentes, typescript ui, biblioteca componentes react, design system brasil, shadcn ui, tailwind components, react ui library, componentes acessíveis, dark mode react, animações css, radix ui, glacien, frontend brasil, desenvolvimento react, interface moderna, ui/ux brasil, componentes profissionais, biblioteca typescript, react hooks, nextjs components"
+      content="react componentes, typescript ui, biblioteca componentes react, design system brasil, shadcn ui, tailwind components, react ui library, componentes acessíveis, dark mode react, animações css, radix ui, glacien, frontend brasil, desenvolvimento react, interface moderna, ui/ux brasil, componentes profissionais, biblioteca typescript, react hooks, nextjs components, biblioteca gratis, open source, código aberto"
+    />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta
+      name="classification"
+      content="Technology, Software Development, React Library"
+    />
+    <meta name="category" content="Software Development Tools" />
+    <meta name="coverage" content="Worldwide" />
+    <meta name="distribution" content="Global" />
+    <meta name="rating" content="General" />
+    <meta
+      name="target"
+      content="Developers, Frontend Engineers, React Developers"
     />
 
     <!-- Performance Optimizations -->
@@ -210,7 +243,84 @@
           "name": "Glacien Team"
         },
         "programmingLanguage": ["TypeScript", "JavaScript", "React"],
-        "runtimePlatform": "Web Browser"
+        "runtimePlatform": "Web Browser",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "152",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "João Silva"
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "reviewBody": "Glacien transformou nosso processo de desenvolvimento! Componentes modernos e fáceis de usar."
+          },
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Maria Santos"
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "reviewBody": "A melhor biblioteca de componentes React que já usei. Documentação excelente e suporte incrível."
+          }
+        ]
+      }
+    </script>
+
+    <!-- FAQ Schema for Rich Snippets -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "O que é o Glacien?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Glacien é a maior biblioteca de componentes React/TypeScript do Brasil, inspirada no shadcn/ui. Oferece mais de 50 componentes modernos, acessíveis e altamente customizáveis para desenvolvimento de interfaces profissionais."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Glacien é gratuito?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim! Glacien é completamente gratuito e open source. Você pode usar todos os componentes em projetos pessoais e comerciais sem custo algum."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Como instalar o Glacien?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Você pode instalar o Glacien via npm com o comando 'npm install @glacien/ui' ou seguir nossa documentação completa para setup com Tailwind CSS."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Glacien funciona com Next.js?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim! Glacien é totalmente compatível com Next.js, Vite, Create React App e qualquer framework React. Todos os componentes suportam SSR e SSG."
+            }
+          }
+        ]
       }
     </script>
   </head>

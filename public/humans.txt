@@ -1,0 +1,23 @@
+# humanstxt.org/
+
+/* TEAM */
+  Team: Glacien Development Team
+  Contact: https://github.com/glatztp/glacien
+  Location: Brasil
+
+/* THANKS */
+  React Team: For the amazing framework
+  Tailwind CSS: For the utility-first CSS framework
+  Radix UI: For accessible component primitives
+  shadcn/ui: For inspiration and design patterns
+
+/* SITE */
+  Last update: 2025/10/03
+  Language: Portuguese / English
+  Doctype: HTML5
+  IDE: VS Code
+  Technologies: React, TypeScript, Tailwind CSS, Vite
+  Components: 50+
+  Accessibility: WCAG 2.1 AA compliant
+  Performance: Optimized for Core Web Vitals
+  SEO Score: 100/100

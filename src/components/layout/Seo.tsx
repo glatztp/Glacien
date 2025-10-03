@@ -101,8 +101,28 @@ export function getHeadHtml({
 
   // Keywords (enhanced with more relevant terms)
   parts.push(
-    `<meta name="keywords" content="react componentes, typescript ui, biblioteca componentes react, design system brasil, shadcn ui, tailwind components, react ui library, componentes acessíveis, dark mode react, animações css, radix ui, glacien, frontend brasil, desenvolvimento react, interface moderna, ui/ux brasil, componentes profissionais, biblioteca typescript, react hooks, nextjs components" />`
-  ); // JSON-LD: Organization + WebSite + optional SearchAction
+    `<meta name="keywords" content="react componentes, typescript ui, biblioteca componentes react, design system brasil, shadcn ui, tailwind components, react ui library, componentes acessíveis, dark mode react, animações css, radix ui, glacien, frontend brasil, desenvolvimento react, interface moderna, ui/ux brasil, componentes profissionais, biblioteca typescript, react hooks, nextjs components, biblioteca gratis, open source, código aberto" />`
+  );
+
+  // Geo-targeting
+  parts.push(
+    `<meta name="geo.region" content="BR" />`,
+    `<meta name="geo.placename" content="Brasil" />`,
+    `<meta name="geo.position" content="-14.235004;-51.92528" />`,
+    `<meta name="ICBM" content="-14.235004, -51.92528" />`
+  );
+
+  // Additional SEO meta tags
+  parts.push(
+    `<meta name="classification" content="Technology, Software Development, React Library" />`,
+    `<meta name="category" content="Software Development Tools" />`,
+    `<meta name="coverage" content="Worldwide" />`,
+    `<meta name="distribution" content="Global" />`,
+    `<meta name="rating" content="General" />`,
+    `<meta name="target" content="Developers, Frontend Engineers, React Developers" />`
+  );
+
+  // JSON-LD: Organization + WebSite + optional SearchAction
   const org = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -345,10 +365,28 @@ export default function Seo({
       metaKeywords.setAttribute("name", "keywords");
       metaKeywords.setAttribute(
         "content",
-        "react componentes, typescript ui, biblioteca componentes react, design system brasil, shadcn ui, tailwind components, react ui library, componentes acessíveis, dark mode react, animações css, radix ui, glacien, frontend brasil, desenvolvimento react, interface moderna, ui/ux brasil, componentes profissionais, biblioteca typescript, react hooks, nextjs components"
+        "react componentes, typescript ui, biblioteca componentes react, design system brasil, shadcn ui, tailwind components, react ui library, componentes acessíveis, dark mode react, animações css, radix ui, glacien, frontend brasil, desenvolvimento react, interface moderna, ui/ux brasil, componentes profissionais, biblioteca typescript, react hooks, nextjs components, biblioteca gratis, open source, código aberto"
       );
       document.head.appendChild(metaKeywords);
     }
+
+    // Geo-targeting meta tags
+    const geoMetas = [
+      { name: "geo.region", content: "BR" },
+      { name: "geo.placename", content: "Brasil" },
+      { name: "geo.position", content: "-14.235004;-51.92528" },
+      { name: "ICBM", content: "-14.235004, -51.92528" },
+    ];
+
+    geoMetas.forEach((meta) => {
+      let geoMeta = document.querySelector(`meta[name="${meta.name}"]`);
+      if (!geoMeta) {
+        geoMeta = document.createElement("meta");
+        geoMeta.setAttribute("name", meta.name);
+        document.head.appendChild(geoMeta);
+      }
+      geoMeta.setAttribute("content", meta.content);
+    });
 
     // Breadcrumbs JSON-LD
     let script = document.getElementById("seo-breadcrumb-json");

@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui";
-import { Badge } from "@/components/ui";
+import { Badge } from "../ui";
 import { Folder, FileText, Package } from "lucide-react";
 
 export function ComponentsOrganizationPage() {
@@ -188,14 +188,10 @@ export function ComponentsOrganizationPage() {
             <h4 className="font-medium">Importação por categoria:</h4>
             <div className="bg-muted p-3 rounded-md text-sm font-mono">
               <div>{"// Todos os componentes de forms"}</div>
-              <div>
-                {"import { Input, Button, Form } from '../ui'"}
-              </div>
+              <div>{"import { Input, Button, Form } from '../ui'"}</div>
               <div className="mt-2">{"// Todos os componentes de selects"}</div>
               <div>
-                {
-                  "import { Select, Combobox, MultiCombo } from '../ui'"
-                }
+                {"import { Select, Combobox, MultiCombo } from '../ui'"}
               </div>
             </div>
           </div>
@@ -215,9 +211,7 @@ export function ComponentsOrganizationPage() {
           <div className="space-y-2">
             <h4 className="font-medium">Novo componente MultiCombo:</h4>
             <div className="bg-muted p-3 rounded-md text-sm font-mono">
-              <div>
-                {"import { MultiCombo } from '../ui'"}
-              </div>
+              <div>{"import { MultiCombo } from '../ui'"}</div>
               <div className="mt-2">{"// ou"}</div>
               <div>{"import { MultiCombo } from '@/components/ui'"}</div>
             </div>
@@ -227,4 +221,3 @@ export function ComponentsOrganizationPage() {
     </div>
   );
 }
-

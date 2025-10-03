@@ -11,6 +11,7 @@ import {
   Coffee,
   Planet,
   Check,
+  Circle,
 } from "phosphor-react";
 import { Button } from "./button";
 import { useTheme } from "../providers/theme-provider";
@@ -34,6 +35,12 @@ const THEME_CONFIG = {
     label: "Sistema",
     bgClass: "bg-muted/50",
     iconClass: "text-muted-foreground",
+  },
+  simple: {
+    icon: Circle,
+    label: "Simple",
+    bgClass: "bg-white",
+    iconClass: "text-black",
   },
   neon: {
     icon: Lightning,
@@ -98,6 +105,15 @@ export function ThemeToggle() {
   const AnimatedIcon = () => {
     const isDarkMode =
       theme === "dark" || theme === "neon" || theme === "galaxy";
+    const isSimple = theme === "simple";
+
+    if (isSimple) {
+      return (
+        <div className="relative w-4 h-4">
+          <Circle className="w-full h-full text-foreground" />
+        </div>
+      );
+    }
 
     return (
       <div className="relative w-4 h-4">
@@ -181,57 +197,59 @@ export function ThemeToggle() {
                 Temas Básicos
               </h3>
               <div className="space-y-0.5">
-                {(["light", "dark", "system"] as const).map((themeKey) => {
-                  const config = THEME_CONFIG[themeKey];
-                  const isSelected = theme === themeKey;
-                  const IconComponent = config.icon;
+                {(["light", "dark", "simple", "system"] as const).map(
+                  (themeKey) => {
+                    const config = THEME_CONFIG[themeKey];
+                    const isSelected = theme === themeKey;
+                    const IconComponent = config.icon;
 
-                  return (
-                    <motion.button
-                      key={themeKey}
-                      whileHover={{ scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
-                      onClick={() => handleThemeChange(themeKey)}
-                      className={cn(
-                        "w-full flex items-center gap-2 px-2 py-1.5 rounded-lg",
-                        "transition-all duration-200 text-left",
-                        "hover:bg-accent/10 active:bg-accent/15",
-                        isSelected && "bg-accent/15 ring-1 ring-primary/20"
-                      )}
-                    >
-                      <div
+                    return (
+                      <motion.button
+                        key={themeKey}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        onClick={() => handleThemeChange(themeKey)}
                         className={cn(
-                          "flex items-center justify-center w-6 h-6 rounded-md transition-all",
-                          "group-hover:shadow-sm",
-                          config.bgClass,
-                          config.iconClass
+                          "w-full flex items-center gap-2 px-2 py-1.5 rounded-lg",
+                          "transition-all duration-200 text-left",
+                          "hover:bg-accent/10 active:bg-accent/15",
+                          isSelected && "bg-accent/15 ring-1 ring-primary/20"
                         )}
                       >
-                        <IconComponent className="w-3 h-3" />
-                      </div>
-                      <span
-                        className={cn(
-                          "flex-1 font-medium transition-colors text-xs",
-                          isSelected && "text-primary"
-                        )}
-                      >
-                        {config.label}
-                      </span>
-                      <AnimatePresence>
-                        {isSelected && (
-                          <motion.div
-                            initial={{ scale: 0, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0, opacity: 0 }}
-                            className="text-primary"
-                          >
-                            <Check className="w-3 h-3" />
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.button>
-                  );
-                })}
+                        <div
+                          className={cn(
+                            "flex items-center justify-center w-6 h-6 rounded-md transition-all",
+                            "group-hover:shadow-sm",
+                            config.bgClass,
+                            config.iconClass
+                          )}
+                        >
+                          <IconComponent className="w-3 h-3" />
+                        </div>
+                        <span
+                          className={cn(
+                            "flex-1 font-medium transition-colors text-xs",
+                            isSelected && "text-primary"
+                          )}
+                        >
+                          {config.label}
+                        </span>
+                        <AnimatePresence>
+                          {isSelected && (
+                            <motion.div
+                              initial={{ scale: 0, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              exit={{ scale: 0, opacity: 0 }}
+                              className="text-primary"
+                            >
+                              <Check className="w-3 h-3" />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.button>
+                    );
+                  }
+                )}
               </div>
             </div>
 

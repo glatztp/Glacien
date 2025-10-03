@@ -888,7 +888,7 @@
 .simple .shadow-glow-primary,
 .simple .shadow-rainbow,
 .simple .hover-glow:hover {
-  box-shadow: var(--shadow-md) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
   transform: scale(1) !important;
 }
 
@@ -929,7 +929,7 @@
   background: hsl(var(--background)) !important;
   backdrop-filter: none !important;
   border: 1px solid hsl(var(--border)) !important;
-  box-shadow: var(--shadow-sm) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 .simple .particle-bg::before {
@@ -952,6 +952,240 @@
   animation: none !important;
 }
 
+/* Garante contraste para elementos interativos no tema Simple */
+.simple button[data-state="open"],
+.simple button[aria-expanded="true"],
+.simple [data-state="active"],
+.simple [data-state="on"] {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.simple button:focus-visible,
+.simple [data-focus-visible] {
+  outline: 2px solid hsl(var(--foreground)) !important;
+  outline-offset: 2px !important;
+}
+
+/* Melhora a visibilidade de texto em todos os estados */
+.simple .text-muted-foreground {
+  color: hsl(0 0% 35%) !important;
+}
+
+.simple .text-primary {
+  color: hsl(var(--foreground)) !important;
+}
+
+.simple .bg-primary {
+  background-color: hsl(var(--foreground)) !important;
+  color: hsl(var(--background)) !important;
+}
+
+.simple .bg-secondary {
+  background-color: hsl(var(--muted)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Garante que links sejam visíveis */
+.simple a,
+.simple .link {
+  color: hsl(var(--foreground)) !important;
+  text-decoration: underline !important;
+}
+
+.simple a:hover,
+.simple .link:hover {
+  color: hsl(0 0% 20%) !important;
+}
+
+/* Melhora a visibilidade de placeholders */
+.simple input::placeholder,
+.simple textarea::placeholder {
+  color: hsl(0 0% 50%) !important;
+}
+
+/* Garante que todos os ícones sejam visíveis */
+.simple svg,
+.simple .icon {
+  color: currentColor !important;
+  fill: currentColor !important;
+}
+
+/* Remove animações de brilho e gradiente */
+.simple *[class*="animate-"],
+.simple *[class*="shimmer"],
+.simple *[class*="glow"] {
+  animation: none !important;
+}
+
+/* Força bordas visíveis */
+.simple .border,
+.simple [class*="border-"] {
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Melhora dropdowns e popovers */
+.simple .popover,
+.simple .dropdown,
+.simple [data-popover],
+.simple [data-dropdown] {
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Força todos os textos com bg-clip-text a serem visíveis */
+.simple .bg-clip-text,
+.simple [class*="bg-clip-text"] {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Corrige textos com gradiente específicos */
+.simple .text-transparent {
+  color: hsl(var(--foreground)) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Força visibilidade de spans com gradiente */
+.simple span.bg-gradient-to-r,
+.simple span[class*="bg-gradient"],
+.simple span.text-transparent {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Corrige elementos específicos da home page */
+.simple .from-foreground,
+.simple .to-primary,
+.simple .from-primary,
+.simple .to-secondary,
+.simple .from-emerald-500,
+.simple .to-emerald-600 {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Remove todos os bg-gradient de textos */
+.simple *[class*="bg-gradient"] {
+  background: none !important;
+  background-image: none !important;
+}
+
+/* Força cor do texto em todos os elementos com texto transparente */
+.simple *[class*="text-transparent"] {
+  color: hsl(var(--foreground)) !important;
+  -webkit-text-fill-color: hsl(var(--foreground)) !important;
+}
+
+/* Garante que todos os headings sejam visíveis */
+.simple h1,
+.simple h2,
+.simple h3,
+.simple h4,
+.simple h5,
+.simple h6 {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Garante que todos os parágrafos sejam visíveis */
+.simple p {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Força estilos específicos para elementos com classes de gradiente */
+.simple .bg-gradient-to-r.from-white\/0,
+.simple .bg-gradient-to-r.from-white\/3,
+.simple .bg-gradient-to-r.from-white\/6 {
+  background: hsl(var(--muted)) !important;
+  background-image: none !important;
+}
+
+/* Corrige textos em badges e badges especiais */
+.simple .inline-flex.items-center.gap-2.px-3.py-2.rounded-md span,
+.simple .inline-flex.items-center.gap-4.px-4.py-2.rounded-full span {
+  color: hsl(var(--foreground)) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Corrige especificamente spans filhos de elementos com bg-clip-text */
+.simple [class*="bg-clip-text"] span,
+.simple [class*="text-transparent"] span {
+  color: inherit !important;
+  background: none !important;
+  -webkit-text-fill-color: inherit !important;
+}
+
+/* Força todos os elementos inline com mx-2 (espaçamentos) a serem visíveis */
+.simple .mx-2,
+.simple .ml-1,
+.simple .ml-2,
+.simple .mr-2 {
+  color: hsl(var(--foreground)) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Garante que elementos font-semibold e font-bold sejam visíveis */
+.simple .font-semibold,
+.simple .font-bold,
+.simple .font-black {
+  color: hsl(var(--foreground)) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Força visibilidade de todos os elementos com classes específicas de cor */
+.simple .text-emerald-700,
+.simple .text-rose-600,
+.simple .text-primary,
+.simple .text-secondary {
+  color: hsl(var(--foreground)) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Remove webkit-text-fill-color de todos os elementos */
+.simple * {
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Garante que motion.div e outros elementos do framer-motion sejam visíveis */
+.simple [class*="motion-"],
+.simple div[style*="background"],
+.simple div[style*="gradient"] {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Força visibilidade específica para elementos críticos */
+.simple .max-w-4xl,
+.simple .max-w-3xl,
+.simple .max-w-xl {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Garante que elementos com leading-relaxed sejam visíveis */
+.simple .leading-relaxed {
+  color: hsl(var(--foreground)) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+}
+
 /* Estilos para modo reduzido */
 .reduced-motion *,
 .reduced-motion *::before,
@@ -972,7 +1206,6 @@
   transition-delay: 0s !important;
   scroll-behavior: auto !important;
 }
-
 
 /* Classes de posição específicas para Sonner */
 .bottom-4 {

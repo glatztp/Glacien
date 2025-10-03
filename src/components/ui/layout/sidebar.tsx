@@ -23,7 +23,7 @@ import { Separator } from "@radix-ui/react-separator";
 import { Button } from "../button";
 import { Skeleton } from "../feedback";
 import { Input } from "../forms";
-import { useIsMobile } from "@/hooks/useMobile";
+import { useIsMobile } from "../../../hooks/useMobile";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;

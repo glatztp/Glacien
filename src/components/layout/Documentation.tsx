@@ -1463,7 +1463,6 @@ export default function DocumentationPage() {
                     </Card>
                   </div>
                 ) : (
-                  // Framework-specific installation
                   <div className="space-y-6">
                     <Button
                       variant="outline"
@@ -1582,147 +1581,454 @@ export default function DocumentationPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-8"
               >
-                <div>
-                  <h1 className="text-4xl font-bold tracking-tight mb-4">
-                    Compatibility
-                  </h1>
-                  <p className="text-xl text-muted-foreground">
-                    Suporte completo a frameworks modernos e navegadores.
-                  </p>
+                {/* Header */}
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500/5 via-background to-purple-500/5 p-8 lg:p-12 border border-border/50">
+                  <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+                  <div className="relative z-10 space-y-4">
+                    <motion.h1
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent"
+                    >
+                      Compatibility
+                    </motion.h1>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-lg text-muted-foreground leading-relaxed max-w-3xl"
+                    >
+                      Suporte completo a frameworks modernos, navegadores evergreen e ambientes de runtime.
+                      Construído para máxima compatibilidade sem comprometer performance.
+                    </motion.p>
+                  </div>
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-2">
-                  <Card>
+                {/* Compatibility Matrix */}
+                <div className="grid gap-6 lg:grid-cols-2">
+                  {/* Frameworks Support */}
+                  <Card className="relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
                     <CardHeader>
-                      <CardTitle>Frameworks Suportados</CardTitle>
-                      <CardDescription className="mt-1">
-                        Suporte e notas rápidas por plataforma — use a que
-                        melhor se adequa ao seu fluxo (SSR, SPA, Edge).
+                      <CardTitle className="flex items-center gap-2">
+                        <Code2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        Frameworks Suportados
+                      </CardTitle>
+                      <CardDescription>
+                        Compatibilidade total com os principais frameworks React do mercado
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-3">
+                    <CardContent className="space-y-3 relative z-10">
                       {[
                         {
                           name: "Next.js",
                           version: "13.x - 15.x",
-                          icon: <SiNextdotjs className="h-6 w-6" aria-hidden />,
-                          note: "SSR & Edge-ready",
+                          icon: <SiNextdotjs className="w-6 h-6" />,
+                          note: "App Router & Pages Router",
+                          features: ["SSR", "Edge Runtime", "Server Components"],
+                          status: "full",
                         },
                         {
-                          name: "Vite + React",
-                          version: "4.x, 5.x",
-                          icon: <SiVite className="h-6 w-6" aria-hidden />,
-                          note: "Fast dev server, ideal para SPAs",
+                          name: "Vite",
+                          version: "4.x - 5.x",
+                          icon: <SiVite className="w-6 h-6" />,
+                          note: "Build tool extremamente rápido",
+                          features: ["HMR", "Tree-shaking", "TypeScript"],
+                          status: "full",
                         },
                         {
                           name: "Create React App",
                           version: "5.x",
-                          icon: <SiReact className="h-6 w-6" aria-hidden />,
-                          note: "Compatível com projetos legados",
+                          icon: <SiReact className="w-6 h-6" />,
+                          note: "Setup tradicional React",
+                          features: ["Webpack", "Jest", "Babel"],
+                          status: "full",
                         },
                         {
                           name: "Remix",
                           version: "1.x - 2.x",
-                          icon: <SiRemix className="h-6 w-6" aria-hidden />,
-                          note: "Boa integração com rotas e loaders",
+                          icon: <SiRemix className="w-6 h-6" />,
+                          note: "Full-stack web framework",
+                          features: ["Nested Routes", "Loaders", "Actions"],
+                          status: "full",
                         },
                         {
                           name: "Gatsby",
-                          version: "4.x, 5.x",
-                          icon: <SiGatsby className="h-6 w-6" aria-hidden />,
+                          version: "4.x - 5.x",
+                          icon: <SiGatsby className="w-6 h-6" />,
                           note: "Static site generation",
+                          features: ["GraphQL", "SSG", "Plugins"],
+                          status: "full",
                         },
                       ].map((framework, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
+                        <motion.div
+                          key={framework.name}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="group relative overflow-hidden rounded-xl border border-border bg-background p-4 hover:border-primary/50 hover:shadow-md transition-all duration-300"
                         >
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                          <div className="flex items-start gap-4">
+                            <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center text-foreground group-hover:scale-110 transition-transform">
                               {framework.icon}
                             </div>
-                            <div>
-                              <div className="font-medium">
-                                {framework.name}
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2">
+                                <div>
+                                  <h4 className="font-semibold text-foreground">
+                                    {framework.name}
+                                  </h4>
+                                  <p className="text-xs text-muted-foreground mt-0.5">
+                                    {framework.note}
+                                  </p>
+                                </div>
+                                <Badge
+                                  variant="outline"
+                                  className="shrink-0 bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20"
+                                >
+                                  {framework.version}
+                                </Badge>
                               </div>
-                              <div className="text-sm text-muted-foreground">
-                                {framework.note}
+                              <div className="flex flex-wrap gap-1.5 mt-3">
+                                {framework.features.map((feature) => (
+                                  <span
+                                    key={feature}
+                                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted/50 text-xs text-muted-foreground"
+                                  >
+                                    <CheckCircle className="w-3 h-3 text-green-600" />
+                                    {feature}
+                                  </span>
+                                ))}
                               </div>
                             </div>
                           </div>
-                          <Badge className="bg-green-600 text-white">
-                            {framework.version}
-                          </Badge>
-                        </div>
+                        </motion.div>
                       ))}
                     </CardContent>
                   </Card>
 
-                  <Card>
+                  {/* Browser Support */}
+                  <Card className="relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl" />
                     <CardHeader>
-                      <CardTitle>Navegadores</CardTitle>
-                      <CardDescription className="mt-1">
-                        Suporte recomendado — recomendamos foco em navegadores
-                        evergreen para melhor experiência.
+                      <CardTitle className="flex items-center gap-2">
+                        <Monitor className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                        Navegadores Suportados
+                      </CardTitle>
+                      <CardDescription>
+                        Compatibilidade com navegadores evergreen modernos
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-3">
+                    <CardContent className="space-y-3 relative z-10">
                       {[
                         {
                           name: "Chrome",
                           version: "90+",
-                          note: "Full support",
+                          support: "full",
+                          icon: "🟢",
+                          features: ["CSS Grid", "ES2020", "WebGL"],
                         },
                         {
                           name: "Firefox",
                           version: "88+",
-                          note: "Full support",
+                          support: "full",
+                          icon: "🟢",
+                          features: ["CSS Grid", "ES2020", "WebGL"],
                         },
                         {
                           name: "Safari",
                           version: "14+",
-                          note: "Partial: CSS features",
+                          support: "partial",
+                          icon: "🟡",
+                          features: ["CSS Grid", "ES2020", "WebGL*"],
                         },
-                        { name: "Edge", version: "90+", note: "Full support" },
+                        {
+                          name: "Edge",
+                          version: "90+",
+                          support: "full",
+                          icon: "🟢",
+                          features: ["CSS Grid", "ES2020", "WebGL"],
+                        },
                       ].map((browser, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
+                        <motion.div
+                          key={browser.name}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="group relative overflow-hidden rounded-xl border border-border bg-background p-4 hover:border-primary/50 hover:shadow-md transition-all duration-300"
                         >
-                          <div>
-                            <div className="font-medium">{browser.name}</div>
-                            <div className="text-sm text-muted-foreground">
-                              {browser.version} · {browser.note}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="text-2xl">{browser.icon}</div>
+                              <div>
+                                <div className="font-semibold text-foreground">
+                                  {browser.name}
+                                </div>
+                                <div className="text-xs text-muted-foreground mt-0.5">
+                                  Versão {browser.version}
+                                </div>
+                              </div>
                             </div>
+                            <Badge
+                              className={
+                                browser.support === "full"
+                                  ? "bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20"
+                                  : "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20"
+                              }
+                            >
+                              {browser.support === "full" ? "Full Support" : "Partial Support"}
+                            </Badge>
                           </div>
-                          <Badge className="bg-green-600 text-white">
-                            Suportado
-                          </Badge>
-                        </div>
+                          <div className="flex flex-wrap gap-1.5 mt-3">
+                            {browser.features.map((feature) => (
+                              <span
+                                key={feature}
+                                className="px-2 py-0.5 rounded-md bg-muted/50 text-xs text-muted-foreground"
+                              >
+                                {feature}
+                              </span>
+                            ))}
+                          </div>
+                        </motion.div>
                       ))}
                     </CardContent>
                   </Card>
                 </div>
 
-                <Card>
+                {/* Runtime & Environment Support */}
+                <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
                   <CardHeader>
-                    <CardTitle>Notas de Compatibilidade</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                      <Rocket className="w-5 h-5 text-primary" />
+                      Runtime & Ambientes
+                    </CardTitle>
+                    <CardDescription>
+                      Suporte a diferentes ambientes de execução e plataformas de deployment
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">
-                      Recomendamos dar suporte a navegadores modernos
-                      (evergreen). Para compatibilidade com navegadores antigos
-                      configure um pipeline de polyfills (ex.: core-js) e revise
-                      seu
-                      <code className="mx-1 font-mono text-xs">
-                        browserslist
-                      </code>
-                      .
-                    </p>
-                    <div className="mt-3 text-sm flex gap-2">
-                      <Badge variant="outline">ES Modules</Badge>
-                      <Badge variant="outline">HTTP/2 / Brotli</Badge>
-                      <Badge variant="outline">Service Worker</Badge>
+                    <div className="grid gap-6 md:grid-cols-3">
+                      {[
+                        {
+                          title: "Node.js",
+                          version: "18.x+",
+                          icon: <SiNodedotjs className="w-8 h-8 text-green-600" />,
+                          features: [
+                            "SSR/SSG support",
+                            "ES Modules",
+                            "CommonJS",
+                          ],
+                        },
+                        {
+                          title: "Edge Runtime",
+                          version: "Latest",
+                          icon: <Zap className="w-8 h-8 text-yellow-600" />,
+                          features: [
+                            "Vercel Edge",
+                            "Cloudflare Workers",
+                            "Deno Deploy",
+                          ],
+                        },
+                        {
+                          title: "Browser",
+                          version: "Modern",
+                          icon: <Monitor className="w-8 h-8 text-blue-600" />,
+                          features: [
+                            "Client-side rendering",
+                            "Progressive enhancement",
+                            "Service Workers",
+                          ],
+                        },
+                      ].map((runtime, index) => (
+                        <motion.div
+                          key={runtime.title}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.1 }}
+                          className="p-6 rounded-xl bg-background border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300"
+                        >
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="p-2 rounded-lg bg-muted/50">
+                              {runtime.icon}
+                            </div>
+                            <div>
+                              <h4 className="font-semibold text-foreground">
+                                {runtime.title}
+                              </h4>
+                              <p className="text-xs text-muted-foreground">
+                                {runtime.version}
+                              </p>
+                            </div>
+                          </div>
+                          <ul className="space-y-2">
+                            {runtime.features.map((feature) => (
+                              <li
+                                key={feature}
+                                className="flex items-center gap-2 text-sm"
+                              >
+                                <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                                <span className="text-muted-foreground">{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Technical Requirements */}
+                <div className="grid gap-6 md:grid-cols-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Package className="w-5 h-5 text-primary" />
+                        Requisitos Técnicos
+                      </CardTitle>
+                      <CardDescription>
+                        Especificações mínimas para funcionamento ideal
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                          <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <h5 className="font-medium text-sm mb-1">React 18+</h5>
+                            <p className="text-xs text-muted-foreground">
+                              Suporte a Concurrent Features, Suspense e Server Components
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                          <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <h5 className="font-medium text-sm mb-1">TypeScript 5+</h5>
+                            <p className="text-xs text-muted-foreground">
+                              Type safety completa com strict mode suportado
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                          <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <h5 className="font-medium text-sm mb-1">Tailwind CSS 3+</h5>
+                            <p className="text-xs text-muted-foreground">
+                              Sistema de design baseado em utility-first CSS
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                          <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <h5 className="font-medium text-sm mb-1">ES2020+</h5>
+                            <p className="text-xs text-muted-foreground">
+                              Sintaxe moderna JavaScript com módulos ESM
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <AlertCircle className="w-5 h-5 text-yellow-600" />
+                        Notas Importantes
+                      </CardTitle>
+                      <CardDescription>
+                        Considerações e limitações conhecidas
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-3">
+                        <div className="p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+                          <h5 className="font-medium text-sm text-yellow-700 dark:text-yellow-400 mb-1">
+                            Safari 14-15
+                          </h5>
+                          <p className="text-xs text-yellow-600 dark:text-yellow-300">
+                            Algumas animações CSS podem ter performance reduzida. Recomendamos Safari 16+ para melhor experiência.
+                          </p>
+                        </div>
+
+                        <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                          <h5 className="font-medium text-sm text-blue-700 dark:text-blue-400 mb-1">
+                            Internet Explorer
+                          </h5>
+                          <p className="text-xs text-blue-600 dark:text-blue-300">
+                            Não suportado. Para IE11, considere usar polyfills e downgrade de sintaxe.
+                          </p>
+                        </div>
+
+                        <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20">
+                          <h5 className="font-medium text-sm text-green-700 dark:text-green-400 mb-1">
+                            Progressive Enhancement
+                          </h5>
+                          <p className="text-xs text-green-600 dark:text-green-300">
+                            Componentes funcionam sem JavaScript quando possível, garantindo acessibilidade básica.
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Feature Support Matrix */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Shield className="w-5 h-5 text-primary" />
+                      Matriz de Features
+                    </CardTitle>
+                    <CardDescription>
+                      Suporte a features modernas da web por navegador
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b border-border">
+                            <th className="text-left py-3 px-4 font-semibold">Feature</th>
+                            <th className="text-center py-3 px-4 font-semibold">Chrome</th>
+                            <th className="text-center py-3 px-4 font-semibold">Firefox</th>
+                            <th className="text-center py-3 px-4 font-semibold">Safari</th>
+                            <th className="text-center py-3 px-4 font-semibold">Edge</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {[
+                            { feature: "CSS Grid", support: ["✅", "✅", "✅", "✅"] },
+                            { feature: "CSS Variables", support: ["✅", "✅", "✅", "✅"] },
+                            { feature: "Container Queries", support: ["✅", "✅", "⚠️", "✅"] },
+                            { feature: "Dynamic Import", support: ["✅", "✅", "✅", "✅"] },
+                            { feature: "ES Modules", support: ["✅", "✅", "✅", "✅"] },
+                            { feature: "WebGL 2.0", support: ["✅", "✅", "⚠️", "✅"] },
+                            { feature: "Service Workers", support: ["✅", "✅", "✅", "✅"] },
+                          ].map((row, index) => (
+                            <tr key={index} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                              <td className="py-3 px-4 font-medium">{row.feature}</td>
+                              {row.support.map((status, idx) => (
+                                <td key={idx} className="text-center py-3 px-4 text-lg">
+                                  {status}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="mt-4 flex gap-4 text-xs text-muted-foreground">
+                      <span>✅ = Full Support</span>
+                      <span>⚠️ = Partial Support</span>
+                      <span>❌ = Not Supported</span>
                     </div>
                   </CardContent>
                 </Card>

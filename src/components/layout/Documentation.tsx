@@ -34,7 +34,6 @@ import {
   Users,
   HelpCircle,
 } from "lucide-react";
-import { Lightning } from "phosphor-react";
 import {
   SiNextdotjs,
   SiVite,
@@ -1294,194 +1293,285 @@ export default function DocumentationPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-8"
               >
-                <div>
-                  <h1 className="text-4xl font-bold tracking-tight mb-4">
-                    Instalação
-                  </h1>
-                  <p className="text-xl text-muted-foreground">
-                    Como instalar as dependências e estruturar seu app.
-                  </p>
-                </div>
-                {(() => {
-                  const frameworks = [
-                    {
-                      name: "Next.js",
-                      icon: <SiNextdotjs className="h-10 w-10" aria-hidden />,
-                      steps: [
-                        "   npm install @glacien/ui",
-                        "   import '@glacien/ui/dist/index.css';",
-                        `   import { Button, Card } from '@glacien/ui';\n\n   export default function Page() {\n     return (\n       <Card><Button>Olá Next.js</Button></Card>\n     );\n   }`,
-                        "   content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/@glacien/ui/dist/**/*.js']",
-                      ],
-                    },
-                    {
-                      name: "Vite",
-                      icon: <SiVite className="h-10 w-10" aria-hidden />,
-                      steps: [
-                        "   npm install @glacien/ui",
-                        "   import '@glacien/ui/dist/index.css';",
-                        `   import { Button, Card } from '@glacien/ui';\n\n   function App() {\n     return (\n       <Card><Button>Olá Vite</Button></Card>\n     );\n   }`,
-                        "   content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/@glacien/ui/dist/**/*.js']",
-                      ],
-                    },
-                    {
-                      name: "Create React App",
-                      icon: <SiReact className="h-10 w-10" aria-hidden />,
-                      steps: [
-                        "   npm install @glacien/ui",
-                        "   import '@glacien/ui/dist/index.css';",
-                        `   import { Button, Card } from '@glacien/ui';\n\n   function App() {\n     return (\n       <Card><Button>Olá CRA</Button></Card>\n     );\n   }`,
-                        "   content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/@glacien/ui/dist/**/*.js']",
-                      ],
-                    },
-                    {
-                      name: "Remix",
-                      icon: <SiRemix className="h-10 w-10" aria-hidden />,
-                      steps: [
-                        "   npm install @glacien/ui",
-                        "   import '@glacien/ui/dist/index.css';",
-                        `   import { Button, Card } from '@glacien/ui';\n\n   export default function Index() {\n     return (\n       <Card><Button>Olá Remix</Button></Card>\n     );\n   }`,
-                        "   content: ['./app/**/*.{js,ts,jsx,tsx}', './node_modules/@glacien/ui/dist/**/*.js']",
-                      ],
-                    },
-                    {
-                      name: "Gatsby",
-                      icon: <SiGatsby className="h-10 w-10" aria-hidden />,
-                      steps: [
-                        "   npm install @glacien/ui",
-                        "   import '@glacien/ui/dist/index.css';",
-                        `   import { Button, Card } from '@glacien/ui';\n\n   export default function Home() {\n     return (\n       <Card><Button>Olá Gatsby</Button></Card>\n     );\n   }`,
-                        "   content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/@glacien/ui/dist/**/*.js']",
-                      ],
-                    },
-                    {
-                      name: "Manual",
-                      icon: <SiFiles className="h-10 w-10" aria-hidden />,
-                      steps: [
-                        "   npm install @glacien/ui",
-                        "   import '@glacien/ui/dist/index.css';",
-                        `   import { Button, Card } from '@glacien/ui';\n\n   // Exemplo:\n   <Card><Button>Olá Manual</Button></Card>`,
-                        "   content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/@glacien/ui/dist/**/*.js']",
-                      ],
-                    },
-                  ];
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/5 via-background to-secondary/5 p-8 lg:p-12 border border-border/50">
+                  <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+                  <div className="relative z-10 space-y-4">
+                    <motion.h1
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent"
+                    >
+                      Installation
+                    </motion.h1>
 
-                  if (!selectedFramework) {
-                    return (
-                      <div className="grid gap-4 grid-cols-3 grid-rows-2">
-                        {frameworks.map((fw) => (
-                          <Card
-                            key={fw.name}
-                            className="group cursor-pointer transition-all hover:shadow-md hover:scale-[1.02] border-2 hover:border-primary/20"
-                            onClick={() => setSelectedFramework(fw.name)}
-                          >
-                            <CardContent className="flex flex-col items-center justify-center p-6 text-center min-h-[140px]">
-                              <div className="mb-4 text-muted-foreground group-hover:text-primary transition-colors">
-                                {fw.icon}
-                              </div>
-                              <p className="font-medium group-hover:text-primary transition-colors">
-                                {fw.name}
-                              </p>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    );
-                  } else {
-                    // Passo a passo detalhado estilizado
-                    const fw = frameworks.find(
-                      (f) => f.name === selectedFramework
-                    );
-                    const stepIcons = [
-                      <Copy key="copy" className="text-blue-500" size={18} />,
-                      <Monitor
-                        key="monitor"
-                        className="text-green-500"
-                        size={18}
-                      />,
-                      <Lightning
-                        key="lightning"
-                        className="text-purple-500"
-                        size={18}
-                      />,
-                      <FileText
-                        key="file"
-                        className="text-orange-500"
-                        size={18}
-                      />,
-                    ];
-                    return (
-                      <div className="space-y-6">
-                        <Button
-                          variant="outline"
-                          onClick={() => setSelectedFramework(null)}
-                        >
-                          Voltar
-                        </Button>
-                        <h2 className="text-2xl font-bold tracking-tight mb-4">
-                          Instalação: {fw?.name}
-                        </h2>
-                        <ol className="space-y-4">
-                          {fw?.steps.map((step, i) => (
-                            <motion.li
-                              key={i}
-                              initial={{ opacity: 0, y: 30 }}
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-lg text-muted-foreground leading-relaxed max-w-3xl"
+                    >
+                      Guia completo de instalação para diferentes frameworks e configurações. 
+                      Escolha seu framework favorito e siga os passos detalhados.
+                    </motion.p>
+                  </div>
+                </div>
+
+                {/* Framework Selection or Detailed Steps */}
+                {!selectedFramework ? (
+                  <div className="space-y-6">
+                    {/* Framework Cards */}
+                    <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2 text-primary">
+                          <Package className="w-5 h-5" />
+                          Escolha seu Framework
+                        </CardTitle>
+                        <CardDescription>
+                          Selecione o framework que você está usando para ver instruções específicas de instalação
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                          {[
+                            {
+                              name: "Next.js",
+                              icon: <SiNextdotjs className="w-8 h-8" />,
+                              description: "O framework React para produção",
+                              color: "hover:border-gray-900 dark:hover:border-white",
+                            },
+                            {
+                              name: "Vite",
+                              icon: <SiVite className="w-8 h-8" />,
+                              description: "Build tool extremamente rápido",
+                              color: "hover:border-purple-500",
+                            },
+                            {
+                              name: "Create React App",
+                              icon: <SiReact className="w-8 h-8" />,
+                              description: "Setup React clássico e confiável",
+                              color: "hover:border-blue-500",
+                            },
+                            {
+                              name: "Remix",
+                              icon: <SiRemix className="w-8 h-8" />,
+                              description: "Full stack web framework",
+                              color: "hover:border-blue-400",
+                            },
+                            {
+                              name: "Gatsby",
+                              icon: <SiGatsby className="w-8 h-8" />,
+                              description: "Framework para sites estáticos",
+                              color: "hover:border-purple-600",
+                            },
+                            {
+                              name: "Manual",
+                              icon: <SiFiles className="w-8 h-8" />,
+                              description: "Configuração personalizada",
+                              color: "hover:border-orange-500",
+                            },
+                          ].map((framework, index) => (
+                            <motion.button
+                              key={framework.name}
+                              initial={{ opacity: 0, y: 20 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{
-                                delay: 0.2 + i * 0.35,
-                                duration: 0.6,
-                                ease: "easeOut",
-                              }}
-                              className="relative flex items-start gap-4 bg-gradient-to-br from-secondary/60 to-background/80 dark:from-secondary/80 dark:to-background/60 border border-border p-4 rounded-xl shadow-sm"
+                              transition={{ delay: index * 0.1 }}
+                              onClick={() => setSelectedFramework(framework.name)}
+                              className={`group relative overflow-hidden rounded-xl border-2 border-border bg-background p-6 text-left transition-all duration-300 hover:shadow-lg hover:scale-105 ${framework.color}`}
                             >
-                              <div className="flex flex-col items-center justify-center">
-                                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mb-1">
-                                  {stepIcons[i] || (
-                                    <FileText
-                                      className="text-primary"
-                                      size={18}
-                                    />
-                                  )}
+                              <div className="flex flex-col items-center gap-3 text-center">
+                                <div className="text-foreground transition-transform group-hover:scale-110">
+                                  {framework.icon}
                                 </div>
-                                <span className="text-xs text-muted-foreground font-bold">
-                                  {i + 1}
-                                </span>
+                                <div>
+                                  <h3 className="font-semibold text-foreground">
+                                    {framework.name}
+                                  </h3>
+                                  <p className="mt-1 text-xs text-muted-foreground">
+                                    {framework.description}
+                                  </p>
+                                </div>
                               </div>
-                              <div className="flex-1">
-                                <pre className="text-sm font-mono whitespace-pre-wrap leading-relaxed">
-                                  {step}
-                                </pre>
+                              <ArrowRight className="absolute bottom-4 right-4 w-4 h-4 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" />
+                            </motion.button>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Quick Install Section */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Zap className="w-5 h-5 text-primary" />
+                          Instalação Rápida (Universal)
+                        </CardTitle>
+                        <CardDescription>
+                          Comandos básicos que funcionam em qualquer setup React
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="space-y-3">
+                          <h4 className="font-semibold text-sm flex items-center gap-2">
+                            <CheckCircle className="w-4 h-4 text-green-500" />
+                            1. Instale o pacote
+                          </h4>
+                          <div className="flex items-center gap-2">
+                            <div className="flex-1 bg-muted/30 p-4 rounded-lg border border-border/50 font-mono text-sm">
+                              npm install @glacien/ui
+                            </div>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => copyToClipboard("npm install @glacien/ui")}
+                            >
+                              <Copy className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <h4 className="font-semibold text-sm flex items-center gap-2">
+                            <CheckCircle className="w-4 h-4 text-green-500" />
+                            2. Importe os estilos
+                          </h4>
+                          <div className="bg-muted/30 p-4 rounded-lg border border-border/50 font-mono text-sm">
+                            <span className="text-blue-600 dark:text-blue-400">import</span>{" "}
+                            <span className="text-green-600 dark:text-green-400">'@glacien/ui/dist/index.css'</span>
+                            <span className="text-muted-foreground">;</span>
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <h4 className="font-semibold text-sm flex items-center gap-2">
+                            <CheckCircle className="w-4 h-4 text-green-500" />
+                            3. Use os componentes
+                          </h4>
+                          <div className="bg-muted/30 p-4 rounded-lg border border-border/50 font-mono text-sm space-y-1">
+                            <div>
+                              <span className="text-blue-600 dark:text-blue-400">import</span>{" "}
+                              <span className="text-yellow-600 dark:text-yellow-400">{"{"}</span>{" "}
+                              Button, Card{" "}
+                              <span className="text-yellow-600 dark:text-yellow-400">{"}"}</span>{" "}
+                              <span className="text-blue-600 dark:text-blue-400">from</span>{" "}
+                              <span className="text-green-600 dark:text-green-400">'@glacien/ui'</span>
+                              <span className="text-muted-foreground">;</span>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ) : (
+                  // Framework-specific installation
+                  <div className="space-y-6">
+                    <Button
+                      variant="outline"
+                      onClick={() => setSelectedFramework(null)}
+                      className="mb-4"
+                    >
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Voltar para seleção de frameworks
+                    </Button>
+
+                    <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-3">
+                          {selectedFramework === "Next.js" && <SiNextdotjs className="w-6 h-6" />}
+                          {selectedFramework === "Vite" && <SiVite className="w-6 h-6" />}
+                          {selectedFramework === "Create React App" && <SiReact className="w-6 h-6" />}
+                          {selectedFramework === "Remix" && <SiRemix className="w-6 h-6" />}
+                          {selectedFramework === "Gatsby" && <SiGatsby className="w-6 h-6" />}
+                          {selectedFramework === "Manual" && <SiFiles className="w-6 h-6" />}
+                          Instalação para {selectedFramework}
+                        </CardTitle>
+                        <CardDescription>
+                          Guia passo a passo otimizado para {selectedFramework}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-6">
+                        {/* Installation steps */}
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-sm">
+                              1
+                            </div>
+                            <h4 className="font-semibold">Instale o pacote</h4>
+                          </div>
+                          <div className="ml-10 space-y-2">
+                            <p className="text-sm text-muted-foreground">
+                              Adicione @glacien/ui ao seu projeto:
+                            </p>
+                            <div className="flex items-center gap-2">
+                              <div className="flex-1 bg-background/80 p-4 rounded-lg border border-border/30 font-mono text-sm">
+                                npm install @glacien/ui
                               </div>
                               <Button
                                 size="sm"
-                                variant="ghost"
-                                className="absolute top-2 right-2"
-                                onClick={() =>
-                                  navigator.clipboard.writeText(step)
-                                }
-                                title="Copiar passo"
+                                variant="outline"
+                                onClick={() => copyToClipboard("npm install @glacien/ui")}
                               >
-                                <Copy size={14} />
+                                <Copy className="w-4 h-4" />
                               </Button>
-                            </motion.li>
-                          ))}
-                        </ol>
-                        <motion.p
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: 0.2 + (fw?.steps.length || 0) * 0.35,
-                            duration: 0.6,
-                          }}
-                          className="text-sm text-muted-foreground"
-                        >
-                          Siga os passos acima para instalar e usar a biblioteca
-                          no seu projeto {fw?.name}.
-                        </motion.p>
-                      </div>
-                    );
-                  }
-                })()}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-sm">
+                              2
+                            </div>
+                            <h4 className="font-semibold">Importe os estilos globais</h4>
+                          </div>
+                          <div className="ml-10 space-y-2">
+                            <p className="text-sm text-muted-foreground">
+                              {selectedFramework === "Next.js" && "No seu arquivo _app.tsx ou layout.tsx (App Router):"}
+                              {selectedFramework === "Vite" && "No seu arquivo main.tsx ou App.tsx:"}
+                              {selectedFramework === "Create React App" && "No seu arquivo index.tsx ou App.tsx:"}
+                              {selectedFramework === "Remix" && "No seu arquivo root.tsx:"}
+                              {selectedFramework === "Gatsby" && "No seu arquivo gatsby-browser.js:"}
+                              {selectedFramework === "Manual" && "No ponto de entrada da sua aplicação:"}
+                            </p>
+                            <div className="bg-background/80 p-4 rounded-lg border border-border/30 font-mono text-sm">
+                              <span className="text-blue-600 dark:text-blue-400">import</span>{" "}
+                              <span className="text-green-600 dark:text-green-400">'@glacien/ui/dist/index.css'</span>;
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-sm">
+                              3
+                            </div>
+                            <h4 className="font-semibold">Comece a usar os componentes</h4>
+                          </div>
+                          <div className="ml-10 space-y-2">
+                            <p className="text-sm text-muted-foreground">
+                              Importe e use qualquer componente:
+                            </p>
+                            <div className="bg-background/80 p-4 rounded-lg border border-border/30 font-mono text-sm">
+                              <div><span className="text-blue-600 dark:text-blue-400">import</span> {"{"} Button {"}"} <span className="text-blue-600 dark:text-blue-400">from</span> <span className="text-green-600 dark:text-green-400">'@glacien/ui'</span>;</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 flex items-start gap-3">
+                          <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <h5 className="font-semibold text-green-700 dark:text-green-400 mb-1">
+                              Pronto! 🎉
+                            </h5>
+                            <p className="text-sm text-green-600 dark:text-green-300">
+                              Você configurou com sucesso o Glacien UI com {selectedFramework}!
+                            </p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                )}
 
                 <SectionNavigation currentSectionId="setup" />
               </motion.div>

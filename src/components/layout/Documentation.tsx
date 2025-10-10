@@ -1311,8 +1311,9 @@ export default function DocumentationPage() {
                       transition={{ delay: 0.3 }}
                       className="text-lg text-muted-foreground leading-relaxed max-w-3xl"
                     >
-                      Guia completo de instalação para diferentes frameworks e configurações. 
-                      Escolha seu framework favorito e siga os passos detalhados.
+                      Guia completo de instalação para diferentes frameworks e
+                      configurações. Escolha seu framework favorito e siga os
+                      passos detalhados.
                     </motion.p>
                   </div>
                 </div>
@@ -1328,7 +1329,8 @@ export default function DocumentationPage() {
                           Escolha seu Framework
                         </CardTitle>
                         <CardDescription>
-                          Selecione o framework que você está usando para ver instruções específicas de instalação
+                          Selecione o framework que você está usando para ver
+                          instruções específicas de instalação
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
@@ -1338,7 +1340,8 @@ export default function DocumentationPage() {
                               name: "Next.js",
                               icon: <SiNextdotjs className="w-8 h-8" />,
                               description: "O framework React para produção",
-                              color: "hover:border-gray-900 dark:hover:border-white",
+                              color:
+                                "hover:border-gray-900 dark:hover:border-white",
                             },
                             {
                               name: "Vite",
@@ -1376,7 +1379,9 @@ export default function DocumentationPage() {
                               initial={{ opacity: 0, y: 20 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: index * 0.1 }}
-                              onClick={() => setSelectedFramework(framework.name)}
+                              onClick={() =>
+                                setSelectedFramework(framework.name)
+                              }
                               className={`group relative overflow-hidden rounded-xl border-2 border-border bg-background p-6 text-left transition-all duration-300 hover:shadow-lg hover:scale-105 ${framework.color}`}
                             >
                               <div className="flex flex-col items-center gap-3 text-center">
@@ -1423,7 +1428,9 @@ export default function DocumentationPage() {
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={() => copyToClipboard("npm install @glacien/ui")}
+                              onClick={() =>
+                                copyToClipboard("npm install @glacien/ui")
+                              }
                             >
                               <Copy className="w-4 h-4" />
                             </Button>
@@ -1436,8 +1443,12 @@ export default function DocumentationPage() {
                             2. Importe os estilos
                           </h4>
                           <div className="bg-muted/30 p-4 rounded-lg border border-border/50 font-mono text-sm">
-                            <span className="text-blue-600 dark:text-blue-400">import</span>{" "}
-                            <span className="text-green-600 dark:text-green-400">'@glacien/ui/dist/index.css'</span>
+                            <span className="text-blue-600 dark:text-blue-400">
+                              import
+                            </span>{" "}
+                            <span className="text-green-600 dark:text-green-400">
+                              '@glacien/ui/dist/index.css'
+                            </span>
                             <span className="text-muted-foreground">;</span>
                           </div>
                         </div>
@@ -1449,12 +1460,22 @@ export default function DocumentationPage() {
                           </h4>
                           <div className="bg-muted/30 p-4 rounded-lg border border-border/50 font-mono text-sm space-y-1">
                             <div>
-                              <span className="text-blue-600 dark:text-blue-400">import</span>{" "}
-                              <span className="text-yellow-600 dark:text-yellow-400">{"{"}</span>{" "}
+                              <span className="text-blue-600 dark:text-blue-400">
+                                import
+                              </span>{" "}
+                              <span className="text-yellow-600 dark:text-yellow-400">
+                                {"{"}
+                              </span>{" "}
                               Button, Card{" "}
-                              <span className="text-yellow-600 dark:text-yellow-400">{"}"}</span>{" "}
-                              <span className="text-blue-600 dark:text-blue-400">from</span>{" "}
-                              <span className="text-green-600 dark:text-green-400">'@glacien/ui'</span>
+                              <span className="text-yellow-600 dark:text-yellow-400">
+                                {"}"}
+                              </span>{" "}
+                              <span className="text-blue-600 dark:text-blue-400">
+                                from
+                              </span>{" "}
+                              <span className="text-green-600 dark:text-green-400">
+                                '@glacien/ui'
+                              </span>
                               <span className="text-muted-foreground">;</span>
                             </div>
                           </div>
@@ -1476,12 +1497,24 @@ export default function DocumentationPage() {
                     <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
                       <CardHeader>
                         <CardTitle className="flex items-center gap-3">
-                          {selectedFramework === "Next.js" && <SiNextdotjs className="w-6 h-6" />}
-                          {selectedFramework === "Vite" && <SiVite className="w-6 h-6" />}
-                          {selectedFramework === "Create React App" && <SiReact className="w-6 h-6" />}
-                          {selectedFramework === "Remix" && <SiRemix className="w-6 h-6" />}
-                          {selectedFramework === "Gatsby" && <SiGatsby className="w-6 h-6" />}
-                          {selectedFramework === "Manual" && <SiFiles className="w-6 h-6" />}
+                          {selectedFramework === "Next.js" && (
+                            <SiNextdotjs className="w-6 h-6" />
+                          )}
+                          {selectedFramework === "Vite" && (
+                            <SiVite className="w-6 h-6" />
+                          )}
+                          {selectedFramework === "Create React App" && (
+                            <SiReact className="w-6 h-6" />
+                          )}
+                          {selectedFramework === "Remix" && (
+                            <SiRemix className="w-6 h-6" />
+                          )}
+                          {selectedFramework === "Gatsby" && (
+                            <SiGatsby className="w-6 h-6" />
+                          )}
+                          {selectedFramework === "Manual" && (
+                            <SiFiles className="w-6 h-6" />
+                          )}
                           Instalação para {selectedFramework}
                         </CardTitle>
                         <CardDescription>
@@ -1508,7 +1541,9 @@ export default function DocumentationPage() {
                               <Button
                                 size="sm"
                                 variant="outline"
-                                onClick={() => copyToClipboard("npm install @glacien/ui")}
+                                onClick={() =>
+                                  copyToClipboard("npm install @glacien/ui")
+                                }
                               >
                                 <Copy className="w-4 h-4" />
                               </Button>
@@ -1521,20 +1556,33 @@ export default function DocumentationPage() {
                             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-sm">
                               2
                             </div>
-                            <h4 className="font-semibold">Importe os estilos globais</h4>
+                            <h4 className="font-semibold">
+                              Importe os estilos globais
+                            </h4>
                           </div>
                           <div className="ml-10 space-y-2">
                             <p className="text-sm text-muted-foreground">
-                              {selectedFramework === "Next.js" && "No seu arquivo _app.tsx ou layout.tsx (App Router):"}
-                              {selectedFramework === "Vite" && "No seu arquivo main.tsx ou App.tsx:"}
-                              {selectedFramework === "Create React App" && "No seu arquivo index.tsx ou App.tsx:"}
-                              {selectedFramework === "Remix" && "No seu arquivo root.tsx:"}
-                              {selectedFramework === "Gatsby" && "No seu arquivo gatsby-browser.js:"}
-                              {selectedFramework === "Manual" && "No ponto de entrada da sua aplicação:"}
+                              {selectedFramework === "Next.js" &&
+                                "No seu arquivo _app.tsx ou layout.tsx (App Router):"}
+                              {selectedFramework === "Vite" &&
+                                "No seu arquivo main.tsx ou App.tsx:"}
+                              {selectedFramework === "Create React App" &&
+                                "No seu arquivo index.tsx ou App.tsx:"}
+                              {selectedFramework === "Remix" &&
+                                "No seu arquivo root.tsx:"}
+                              {selectedFramework === "Gatsby" &&
+                                "No seu arquivo gatsby-browser.js:"}
+                              {selectedFramework === "Manual" &&
+                                "No ponto de entrada da sua aplicação:"}
                             </p>
                             <div className="bg-background/80 p-4 rounded-lg border border-border/30 font-mono text-sm">
-                              <span className="text-blue-600 dark:text-blue-400">import</span>{" "}
-                              <span className="text-green-600 dark:text-green-400">'@glacien/ui/dist/index.css'</span>;
+                              <span className="text-blue-600 dark:text-blue-400">
+                                import
+                              </span>{" "}
+                              <span className="text-green-600 dark:text-green-400">
+                                '@glacien/ui/dist/index.css'
+                              </span>
+                              ;
                             </div>
                           </div>
                         </div>
@@ -1544,14 +1592,28 @@ export default function DocumentationPage() {
                             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-sm">
                               3
                             </div>
-                            <h4 className="font-semibold">Comece a usar os componentes</h4>
+                            <h4 className="font-semibold">
+                              Comece a usar os componentes
+                            </h4>
                           </div>
                           <div className="ml-10 space-y-2">
                             <p className="text-sm text-muted-foreground">
                               Importe e use qualquer componente:
                             </p>
                             <div className="bg-background/80 p-4 rounded-lg border border-border/30 font-mono text-sm">
-                              <div><span className="text-blue-600 dark:text-blue-400">import</span> {"{"} Button {"}"} <span className="text-blue-600 dark:text-blue-400">from</span> <span className="text-green-600 dark:text-green-400">'@glacien/ui'</span>;</div>
+                              <div>
+                                <span className="text-blue-600 dark:text-blue-400">
+                                  import
+                                </span>{" "}
+                                {"{"} Button {"}"}{" "}
+                                <span className="text-blue-600 dark:text-blue-400">
+                                  from
+                                </span>{" "}
+                                <span className="text-green-600 dark:text-green-400">
+                                  '@glacien/ui'
+                                </span>
+                                ;
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1563,7 +1625,8 @@ export default function DocumentationPage() {
                               Pronto! 🎉
                             </h5>
                             <p className="text-sm text-green-600 dark:text-green-300">
-                              Você configurou com sucesso o Glacien UI com {selectedFramework}!
+                              Você configurou com sucesso o Glacien UI com{" "}
+                              {selectedFramework}!
                             </p>
                           </div>
                         </div>
@@ -1600,8 +1663,9 @@ export default function DocumentationPage() {
                       transition={{ delay: 0.3 }}
                       className="text-lg text-muted-foreground leading-relaxed max-w-3xl"
                     >
-                      Suporte completo a frameworks modernos, navegadores evergreen e ambientes de runtime.
-                      Construído para máxima compatibilidade sem comprometer performance.
+                      Suporte completo a frameworks modernos, navegadores
+                      evergreen e ambientes de runtime. Construído para máxima
+                      compatibilidade sem comprometer performance.
                     </motion.p>
                   </div>
                 </div>
@@ -1617,7 +1681,8 @@ export default function DocumentationPage() {
                         Frameworks Suportados
                       </CardTitle>
                       <CardDescription>
-                        Compatibilidade total com os principais frameworks React do mercado
+                        Compatibilidade total com os principais frameworks React
+                        do mercado
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3 relative z-10">
@@ -1627,7 +1692,11 @@ export default function DocumentationPage() {
                           version: "13.x - 15.x",
                           icon: <SiNextdotjs className="w-6 h-6" />,
                           note: "App Router & Pages Router",
-                          features: ["SSR", "Edge Runtime", "Server Components"],
+                          features: [
+                            "SSR",
+                            "Edge Runtime",
+                            "Server Components",
+                          ],
                           status: "full",
                         },
                         {
@@ -1778,7 +1847,9 @@ export default function DocumentationPage() {
                                   : "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20"
                               }
                             >
-                              {browser.support === "full" ? "Full Support" : "Partial Support"}
+                              {browser.support === "full"
+                                ? "Full Support"
+                                : "Partial Support"}
                             </Badge>
                           </div>
                           <div className="flex flex-wrap gap-1.5 mt-3">
@@ -1805,7 +1876,8 @@ export default function DocumentationPage() {
                       Runtime & Ambientes
                     </CardTitle>
                     <CardDescription>
-                      Suporte a diferentes ambientes de execução e plataformas de deployment
+                      Suporte a diferentes ambientes de execução e plataformas
+                      de deployment
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -1814,7 +1886,9 @@ export default function DocumentationPage() {
                         {
                           title: "Node.js",
                           version: "18.x+",
-                          icon: <SiNodedotjs className="w-8 h-8 text-green-600" />,
+                          icon: (
+                            <SiNodedotjs className="w-8 h-8 text-green-600" />
+                          ),
                           features: [
                             "SSR/SSG support",
                             "ES Modules",
@@ -1870,7 +1944,9 @@ export default function DocumentationPage() {
                                 className="flex items-center gap-2 text-sm"
                               >
                                 <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                                <span className="text-muted-foreground">{feature}</span>
+                                <span className="text-muted-foreground">
+                                  {feature}
+                                </span>
                               </li>
                             ))}
                           </ul>
@@ -1897,9 +1973,12 @@ export default function DocumentationPage() {
                         <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
                           <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                           <div className="flex-1">
-                            <h5 className="font-medium text-sm mb-1">React 18+</h5>
+                            <h5 className="font-medium text-sm mb-1">
+                              React 18+
+                            </h5>
                             <p className="text-xs text-muted-foreground">
-                              Suporte a Concurrent Features, Suspense e Server Components
+                              Suporte a Concurrent Features, Suspense e Server
+                              Components
                             </p>
                           </div>
                         </div>
@@ -1907,7 +1986,9 @@ export default function DocumentationPage() {
                         <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
                           <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                           <div className="flex-1">
-                            <h5 className="font-medium text-sm mb-1">TypeScript 5+</h5>
+                            <h5 className="font-medium text-sm mb-1">
+                              TypeScript 5+
+                            </h5>
                             <p className="text-xs text-muted-foreground">
                               Type safety completa com strict mode suportado
                             </p>
@@ -1917,7 +1998,9 @@ export default function DocumentationPage() {
                         <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
                           <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                           <div className="flex-1">
-                            <h5 className="font-medium text-sm mb-1">Tailwind CSS 3+</h5>
+                            <h5 className="font-medium text-sm mb-1">
+                              Tailwind CSS 3+
+                            </h5>
                             <p className="text-xs text-muted-foreground">
                               Sistema de design baseado em utility-first CSS
                             </p>
@@ -1927,7 +2010,9 @@ export default function DocumentationPage() {
                         <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
                           <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                           <div className="flex-1">
-                            <h5 className="font-medium text-sm mb-1">ES2020+</h5>
+                            <h5 className="font-medium text-sm mb-1">
+                              ES2020+
+                            </h5>
                             <p className="text-xs text-muted-foreground">
                               Sintaxe moderna JavaScript com módulos ESM
                             </p>
@@ -1954,7 +2039,9 @@ export default function DocumentationPage() {
                             Safari 14-15
                           </h5>
                           <p className="text-xs text-yellow-600 dark:text-yellow-300">
-                            Algumas animações CSS podem ter performance reduzida. Recomendamos Safari 16+ para melhor experiência.
+                            Algumas animações CSS podem ter performance
+                            reduzida. Recomendamos Safari 16+ para melhor
+                            experiência.
                           </p>
                         </div>
 
@@ -1963,7 +2050,8 @@ export default function DocumentationPage() {
                             Internet Explorer
                           </h5>
                           <p className="text-xs text-blue-600 dark:text-blue-300">
-                            Não suportado. Para IE11, considere usar polyfills e downgrade de sintaxe.
+                            Não suportado. Para IE11, considere usar polyfills e
+                            downgrade de sintaxe.
                           </p>
                         </div>
 
@@ -1972,7 +2060,8 @@ export default function DocumentationPage() {
                             Progressive Enhancement
                           </h5>
                           <p className="text-xs text-green-600 dark:text-green-300">
-                            Componentes funcionam sem JavaScript quando possível, garantindo acessibilidade básica.
+                            Componentes funcionam sem JavaScript quando
+                            possível, garantindo acessibilidade básica.
                           </p>
                         </div>
                       </div>
@@ -1996,27 +2085,66 @@ export default function DocumentationPage() {
                       <table className="w-full text-sm">
                         <thead>
                           <tr className="border-b border-border">
-                            <th className="text-left py-3 px-4 font-semibold">Feature</th>
-                            <th className="text-center py-3 px-4 font-semibold">Chrome</th>
-                            <th className="text-center py-3 px-4 font-semibold">Firefox</th>
-                            <th className="text-center py-3 px-4 font-semibold">Safari</th>
-                            <th className="text-center py-3 px-4 font-semibold">Edge</th>
+                            <th className="text-left py-3 px-4 font-semibold">
+                              Feature
+                            </th>
+                            <th className="text-center py-3 px-4 font-semibold">
+                              Chrome
+                            </th>
+                            <th className="text-center py-3 px-4 font-semibold">
+                              Firefox
+                            </th>
+                            <th className="text-center py-3 px-4 font-semibold">
+                              Safari
+                            </th>
+                            <th className="text-center py-3 px-4 font-semibold">
+                              Edge
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
                           {[
-                            { feature: "CSS Grid", support: ["✅", "✅", "✅", "✅"] },
-                            { feature: "CSS Variables", support: ["✅", "✅", "✅", "✅"] },
-                            { feature: "Container Queries", support: ["✅", "✅", "⚠️", "✅"] },
-                            { feature: "Dynamic Import", support: ["✅", "✅", "✅", "✅"] },
-                            { feature: "ES Modules", support: ["✅", "✅", "✅", "✅"] },
-                            { feature: "WebGL 2.0", support: ["✅", "✅", "⚠️", "✅"] },
-                            { feature: "Service Workers", support: ["✅", "✅", "✅", "✅"] },
+                            {
+                              feature: "CSS Grid",
+                              support: ["✅", "✅", "✅", "✅"],
+                            },
+                            {
+                              feature: "CSS Variables",
+                              support: ["✅", "✅", "✅", "✅"],
+                            },
+                            {
+                              feature: "Container Queries",
+                              support: ["✅", "✅", "⚠️", "✅"],
+                            },
+                            {
+                              feature: "Dynamic Import",
+                              support: ["✅", "✅", "✅", "✅"],
+                            },
+                            {
+                              feature: "ES Modules",
+                              support: ["✅", "✅", "✅", "✅"],
+                            },
+                            {
+                              feature: "WebGL 2.0",
+                              support: ["✅", "✅", "⚠️", "✅"],
+                            },
+                            {
+                              feature: "Service Workers",
+                              support: ["✅", "✅", "✅", "✅"],
+                            },
                           ].map((row, index) => (
-                            <tr key={index} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
-                              <td className="py-3 px-4 font-medium">{row.feature}</td>
+                            <tr
+                              key={index}
+                              className="border-b border-border/50 hover:bg-muted/30 transition-colors"
+                            >
+                              <td className="py-3 px-4 font-medium">
+                                {row.feature}
+                              </td>
                               {row.support.map((status, idx) => (
-                                <td key={idx} className="text-center py-3 px-4 text-lg">
+                                <td
+                                  key={idx}
+                                  className="text-center py-3 px-4 text-lg"
+                                >
                                   {status}
                                 </td>
                               ))}

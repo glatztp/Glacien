@@ -2171,126 +2171,518 @@ export default function DocumentationPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-8"
               >
-                <div>
-                  <h1 className="text-4xl font-bold tracking-tight mb-4">
-                    Architecture
-                  </h1>
-                  <p className="text-xl text-muted-foreground">
-                    Compreenda a estrutura interna e padrões de design da
-                    biblioteca.
-                  </p>
+                {/* Header */}
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-500/5 via-background to-violet-500/5 p-8 lg:p-12 border border-border/50">
+                  <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+                  <div className="relative z-10 space-y-4">
+                    <motion.h1
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent"
+                    >
+                      Architecture
+                    </motion.h1>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-lg text-muted-foreground leading-relaxed max-w-3xl"
+                    >
+                      Arquitetura modular, escalável e extensível. Entenda a
+                      estrutura em camadas, padrões de design e como os
+                      componentes são organizados para máxima reutilização.
+                    </motion.p>
+                  </div>
                 </div>
 
-                <Card>
+                {/* Architecture Overview */}
+                <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
                   <CardHeader>
-                    <CardTitle>Estrutura de Camadas</CardTitle>
+                    <CardTitle className="flex items-center gap-2 text-primary">
+                      <Activity className="w-5 h-5" />
+                      Visão Geral da Arquitetura
+                    </CardTitle>
                     <CardDescription>
-                      Visão resumida das camadas da biblioteca,
-                      responsabilidades e tecnologias recomendadas.
+                      Sistema em camadas que separa apresentação, lógica e
+                      estilização
                     </CardDescription>
                   </CardHeader>
-
-                  <CardContent className="space-y-6">
-                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                  <CardContent>
+                    <div className="grid gap-6 md:grid-cols-3">
                       {[
                         {
-                          title: "Apresentação",
-                          desc: "Componentes compostos com foco em UX, consistência e acessibilidade.",
-                          tags: ["React 18", "TypeScript", "Framer Motion"],
+                          layer: "Apresentação",
+                          icon: <Code2 className="w-8 h-8 text-blue-600" />,
+                          description:
+                            "Componentes React compostos focados em UX e consistência visual",
+                          technologies: [
+                            "React 18",
+                            "TypeScript",
+                            "Framer Motion",
+                          ],
+                          color: "from-blue-500/10 to-blue-500/5",
                         },
                         {
-                          title: "Estilização",
-                          desc: "Tokens de design, sistema de temas e utilitários responsivos.",
-                          tags: ["Tailwind CSS", "CSS Vars", "PostCSS"],
+                          layer: "Estilização",
+                          icon: <Palette className="w-8 h-8 text-purple-600" />,
+                          description:
+                            "Sistema de design tokens, temas e utilitários CSS responsivos",
+                          technologies: [
+                            "Tailwind CSS",
+                            "CSS Variables",
+                            "PostCSS",
+                          ],
+                          color: "from-purple-500/10 to-purple-500/5",
                         },
                         {
-                          title: "Primitives",
-                          desc: "Elementos acessíveis e desacoplados (Radix/Headless) para composição.",
-                          tags: ["Radix UI", "ARIA", "Headless"],
+                          layer: "Primitives",
+                          icon: <Package className="w-8 h-8 text-green-600" />,
+                          description:
+                            "Componentes headless acessíveis como base de composição",
+                          technologies: ["Radix UI", "ARIA", "Headless UI"],
+                          color: "from-green-500/10 to-green-500/5",
                         },
-                      ].map((col, i) => (
-                        <div
-                          key={i}
-                          className="p-6 rounded-xl bg-background/50 border border-border shadow-sm hover:shadow-md transition-shadow"
+                      ].map((layer, index) => (
+                        <motion.div
+                          key={layer.layer}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className={`relative overflow-hidden rounded-xl border border-border bg-gradient-to-br ${layer.color} p-6 hover:shadow-lg transition-all duration-300`}
                         >
-                          <div className="flex items-start gap-4">
+                          <div className="flex items-start gap-4 mb-4">
+                            <div className="p-3 rounded-lg bg-background/80 shadow-sm">
+                              {layer.icon}
+                            </div>
                             <div className="flex-1">
-                              <div className="font-semibold">{col.title}</div>
-                              <div className="text-sm text-muted-foreground mt-1">
-                                {col.desc}
-                              </div>
-                              <div className="mt-3 flex flex-wrap gap-2">
-                                {col.tags.map((t) => (
-                                  <Badge
-                                    key={t}
-                                    variant="outline"
-                                    className="text-xs px-2 py-0.5"
-                                  >
-                                    {t}
-                                  </Badge>
-                                ))}
-                              </div>
+                              <h3 className="font-bold text-lg text-foreground mb-1">
+                                {layer.layer}
+                              </h3>
+                              <p className="text-sm text-muted-foreground leading-relaxed">
+                                {layer.description}
+                              </p>
                             </div>
                           </div>
-                        </div>
+                          <div className="flex flex-wrap gap-2">
+                            {layer.technologies.map((tech) => (
+                              <Badge
+                                key={tech}
+                                variant="outline"
+                                className="text-xs bg-background/50"
+                              >
+                                {tech}
+                              </Badge>
+                            ))}
+                          </div>
+                        </motion.div>
                       ))}
                     </div>
+                  </CardContent>
+                </Card>
 
-                    <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-                      <div className="rounded-xl p-6 bg-background/40 border border-border">
-                        <div className="font-semibold mb-2">
-                          Práticas recomendadas
-                        </div>
-                        <ul className="text-sm list-disc pl-5 space-y-2 text-muted-foreground">
-                          <li>
-                            Prefira composição em vez de herança de estilos.
-                          </li>
-                          <li>
-                            Exponha props pequenas e previsíveis (variant, size,
-                            disabled).
-                          </li>
-                          <li>
-                            Mantenha os tokens de cor e espaçamento
-                            centralizados.
-                          </li>
-                          <li>
-                            Escreva testes de snapshot e acessibilidade para
-                            componentes críticos.
-                          </li>
-                        </ul>
+                {/* Design Patterns */}
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Zap className="w-5 h-5 text-yellow-600" />
+                        Padrões de Design
+                      </CardTitle>
+                      <CardDescription>
+                        Patterns e práticas que guiam o desenvolvimento
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {[
+                        {
+                          pattern: "Composição sobre Herança",
+                          description:
+                            "Componentes compostos de primitives menores e reutilizáveis",
+                          example:
+                            "<Dialog> = <DialogTrigger> + <DialogContent> + <DialogHeader>",
+                        },
+                        {
+                          pattern: "Controlled vs Uncontrolled",
+                          description:
+                            "Suporte para ambos os modos em componentes de formulário",
+                          example:
+                            "<Input value={...} /> ou <Input defaultValue={...} />",
+                        },
+                        {
+                          pattern: "Render Props & Slots",
+                          description:
+                            "Flexibilidade para customizar partes específicas",
+                          example: "<Select renderValue={(item) => ...} />",
+                        },
+                        {
+                          pattern: "Polymorphic Components",
+                          description:
+                            "Componentes que podem renderizar como diferentes elementos",
+                          example: "<Button asChild><Link /></Button>",
+                        },
+                      ].map((pattern, index) => (
+                        <motion.div
+                          key={pattern.pattern}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.1 }}
+                          className="p-4 rounded-lg border border-border bg-muted/30 hover:bg-muted/50 transition-colors"
+                        >
+                          <div className="flex items-start gap-3">
+                            <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-sm mb-1">
+                                {pattern.pattern}
+                              </h4>
+                              <p className="text-xs text-muted-foreground mb-2">
+                                {pattern.description}
+                              </p>
+                              <code className="text-xs bg-background/80 px-2 py-1 rounded border border-border/50 block overflow-x-auto">
+                                {pattern.example}
+                              </code>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Shield className="w-5 h-5 text-green-600" />
+                        Princípios de Acessibilidade
+                      </CardTitle>
+                      <CardDescription>
+                        Conformidade WCAG 2.1 AA em todos os componentes
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {[
+                        {
+                          principle: "Semântica HTML Correta",
+                          description:
+                            "Uso de elementos nativos (button, input, etc.) quando possível",
+                          icon: "🏷️",
+                        },
+                        {
+                          principle: "Navegação por Teclado",
+                          description:
+                            "Todos os componentes interativos acessíveis via Tab, Enter, Space",
+                          icon: "⌨️",
+                        },
+                        {
+                          principle: "Estados ARIA",
+                          description:
+                            "aria-expanded, aria-selected, aria-disabled aplicados corretamente",
+                          icon: "🔊",
+                        },
+                        {
+                          principle: "Contraste de Cores",
+                          description:
+                            "Mínimo 4.5:1 para texto normal, 3:1 para texto grande (WCAG AA)",
+                          icon: "🎨",
+                        },
+                        {
+                          principle: "Focus Visible",
+                          description:
+                            "Indicadores visuais claros para elementos focados",
+                          icon: "🎯",
+                        },
+                        {
+                          principle: "Screen Reader Support",
+                          description:
+                            "Labels descritivos e landmarks para navegação eficiente",
+                          icon: "👁️",
+                        },
+                      ].map((principle, index) => (
+                        <motion.div
+                          key={principle.principle}
+                          initial={{ opacity: 0, x: 20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.1 }}
+                          className="flex items-start gap-3 p-3 rounded-lg bg-green-500/5 border border-green-500/20 hover:bg-green-500/10 transition-colors"
+                        >
+                          <span className="text-2xl">{principle.icon}</span>
+                          <div className="flex-1">
+                            <h4 className="font-semibold text-sm mb-1 text-green-700 dark:text-green-400">
+                              {principle.principle}
+                            </h4>
+                            <p className="text-xs text-green-600 dark:text-green-300">
+                              {principle.description}
+                            </p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Component Lifecycle */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Activity className="w-5 h-5 text-primary" />
+                      Ciclo de Vida dos Componentes
+                    </CardTitle>
+                    <CardDescription>
+                      Como os componentes são criados, renderizados e otimizados
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        {[
+                          {
+                            stage: "1. Composição",
+                            description: "Primitives + Styling + Logic",
+                            icon: <Package className="w-6 h-6 text-blue-600" />,
+                            color: "bg-blue-500/10 border-blue-500/20",
+                          },
+                          {
+                            stage: "2. Type Safety",
+                            description: "TypeScript interfaces & validation",
+                            icon: <Code2 className="w-6 h-6 text-purple-600" />,
+                            color: "bg-purple-500/10 border-purple-500/20",
+                          },
+                          {
+                            stage: "3. Rendering",
+                            description: "React 18 Concurrent Features",
+                            icon: <Rocket className="w-6 h-6 text-green-600" />,
+                            color: "bg-green-500/10 border-green-500/20",
+                          },
+                          {
+                            stage: "4. Optimization",
+                            description: "Tree-shaking & code splitting",
+                            icon: <Zap className="w-6 h-6 text-yellow-600" />,
+                            color: "bg-yellow-500/10 border-yellow-500/20",
+                          },
+                        ].map((stage, index) => (
+                          <motion.div
+                            key={stage.stage}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                            className={`p-4 rounded-xl border ${stage.color} text-center hover:shadow-md transition-all duration-300`}
+                          >
+                            <div className="flex justify-center mb-3">
+                              {stage.icon}
+                            </div>
+                            <h4 className="font-semibold text-sm mb-2">
+                              {stage.stage}
+                            </h4>
+                            <p className="text-xs text-muted-foreground">
+                              {stage.description}
+                            </p>
+                          </motion.div>
+                        ))}
                       </div>
 
-                      <div className="rounded-xl p-6 bg-background/40 border border-border">
-                        <div className="font-semibold mb-2">
-                          Checklist de Acessibilidade
-                        </div>
-                        <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-                          <div className="flex items-start gap-3">
-                            <CheckCircle className="text-green-600 min-w-[20px] mt-1" />
-                            <div className="leading-snug">
-                              Semântica correta (buttons, labels)
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-3">
-                            <CheckCircle className="text-green-600 min-w-[20px] mt-1" />
-                            <div className="leading-snug">
-                              Contraste mínimo WCAG AA
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-3">
-                            <CheckCircle className="text-green-600 min-w-[20px] mt-1" />
-                            <div className="leading-snug">
-                              Navegação por teclado completa
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-3">
-                            <CheckCircle className="text-green-600 min-w-[20px] mt-1" />
-                            <div className="leading-snug">
-                              Estados ARIA para componentes interativos
-                            </div>
-                          </div>
+                      <div className="p-6 rounded-xl bg-muted/30 border border-border">
+                        <h4 className="font-semibold mb-4 flex items-center gap-2">
+                          <Code2 className="w-5 h-5 text-primary" />
+                          Exemplo de Estrutura de Componente
+                        </h4>
+                        <div className="bg-background/80 p-4 rounded-lg border border-border/50 font-mono text-xs overflow-x-auto">
+                          <pre className="text-muted-foreground">
+                            {`// 1. Imports e tipos
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cn } from "@/lib/utils"
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "default" | "outline" | "ghost"
+  size?: "sm" | "md" | "lg"
+  asChild?: boolean
+}
+
+// 2. Componente com forwardRef
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant = "default", size = "md", asChild, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
+    
+    return (
+      <Comp
+        ref={ref}
+        className={cn(buttonVariants({ variant, size }), className)}
+        {...props}
+      />
+    )
+  }
+)
+
+Button.displayName = "Button"
+
+export { Button }`}
+                          </pre>
                         </div>
                       </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Best Practices */}
+                <div className="grid gap-6 md:grid-cols-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-600" />
+                        Práticas Recomendadas
+                      </CardTitle>
+                      <CardDescription>
+                        Guidelines para uso eficiente da biblioteca
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-3">
+                        {[
+                          "Prefira composição em vez de props complexas",
+                          "Use variants para mudanças visuais predefinidas",
+                          "Mantenha tokens de design centralizados",
+                          "Escreva testes de acessibilidade (axe-core)",
+                          "Documente customizações com Storybook",
+                          "Use TypeScript strict mode para type safety",
+                          "Implemente error boundaries para componentes críticos",
+                        ].map((practice, index) => (
+                          <motion.li
+                            key={index}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.05 }}
+                            className="flex items-start gap-3 text-sm"
+                          >
+                            <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-muted-foreground">
+                              {practice}
+                            </span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <AlertCircle className="w-5 h-5 text-yellow-600" />
+                        Anti-Patterns a Evitar
+                      </CardTitle>
+                      <CardDescription>
+                        Erros comuns e como evitá-los
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-3">
+                        {[
+                          "Sobrescrever estilos inline sem usar className",
+                          "Criar wrappers desnecessários ao redor de componentes",
+                          "Ignorar warnings de acessibilidade no console",
+                          "Usar !important para resolver conflitos de CSS",
+                          "Modificar diretamente arquivos da biblioteca",
+                          "Não testar em diferentes breakpoints",
+                          "Esquecer de memoizar callbacks pesados",
+                        ].map((antipattern, index) => (
+                          <motion.li
+                            key={index}
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.05 }}
+                            className="flex items-start gap-3 text-sm"
+                          >
+                            <AlertCircle className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-muted-foreground">
+                              {antipattern}
+                            </span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Performance Optimizations */}
+                <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-primary">
+                      <Zap className="w-5 h-5" />
+                      Otimizações de Performance
+                    </CardTitle>
+                    <CardDescription>
+                      Técnicas implementadas para máxima eficiência
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      {[
+                        {
+                          optimization: "Tree-shaking",
+                          description:
+                            "Apenas código usado é incluído no bundle final",
+                          impact: "↓ 40-60% bundle size",
+                        },
+                        {
+                          optimization: "Code Splitting",
+                          description:
+                            "Componentes carregados sob demanda via dynamic imports",
+                          impact: "↓ Initial load time",
+                        },
+                        {
+                          optimization: "Memoization",
+                          description:
+                            "React.memo e useMemo em componentes pesados",
+                          impact: "↓ Re-renders",
+                        },
+                        {
+                          optimization: "CSS-in-JS Minification",
+                          description:
+                            "Tailwind purge remove classes não utilizadas",
+                          impact: "↓ 90% CSS size",
+                        },
+                        {
+                          optimization: "Lazy Loading",
+                          description:
+                            "Componentes não-críticos carregados após montagem",
+                          impact: "↑ Time to Interactive",
+                        },
+                        {
+                          optimization: "Virtual Scrolling",
+                          description:
+                            "Listas longas renderizam apenas itens visíveis",
+                          impact: "↑ 10x performance",
+                        },
+                      ].map((opt, index) => (
+                        <motion.div
+                          key={opt.optimization}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.1 }}
+                          className="p-4 rounded-lg bg-background border border-border hover:border-primary/50 hover:shadow-md transition-all duration-300"
+                        >
+                          <div className="flex items-start gap-2 mb-2">
+                            <Zap className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                            <h4 className="font-semibold text-sm">
+                              {opt.optimization}
+                            </h4>
+                          </div>
+                          <p className="text-xs text-muted-foreground mb-3">
+                            {opt.description}
+                          </p>
+                          <Badge
+                            variant="outline"
+                            className="text-xs bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20"
+                          >
+                            {opt.impact}
+                          </Badge>
+                        </motion.div>
+                      ))}
                     </div>
                   </CardContent>
                 </Card>

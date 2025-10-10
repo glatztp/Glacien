@@ -3406,36 +3406,146 @@ export { Button }`}
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-8"
               >
-                <div>
-                  <h1 className="text-4xl font-bold tracking-tight mb-4">
-                    Integration
-                  </h1>
-                  <p className="text-xl text-muted-foreground">
-                    Como integrar a biblioteca em projetos existentes sem
-                    breaking changes — estratégias, exemplos práticos e comandos
-                    prontos para copiar.
-                  </p>
+                {/* Header */}
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500/5 via-background to-green-500/5 p-8 lg:p-12 border border-border/50">
+                  <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+                  <div className="relative z-10 space-y-4">
+                    <motion.h1
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent"
+                    >
+                      Integration
+                    </motion.h1>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-lg text-muted-foreground leading-relaxed max-w-3xl"
+                    >
+                      Guia completo para integrar Glacien UI em projetos
+                      existentes sem breaking changes. Estratégias, exemplos
+                      práticos e soluções para problemas comuns.
+                    </motion.p>
+                  </div>
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-2">
+                {/* Migration Strategy */}
+                <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-primary">
+                      <Rocket className="w-5 h-5" />
+                      Estratégia de Migração
+                    </CardTitle>
+                    <CardDescription>
+                      Abordagem gradual e segura para integração em projetos
+                      legados
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid gap-6 md:grid-cols-3">
+                      {[
+                        {
+                          phase: "Fase 1: Preparação",
+                          duration: "1-2 dias",
+                          icon: <Package className="w-6 h-6 text-blue-600" />,
+                          tasks: [
+                            "Instalar dependências",
+                            "Configurar Tailwind CSS",
+                            "Importar estilos globais",
+                            "Testar componente simples",
+                          ],
+                          color: "bg-blue-500/10 border-blue-500/20",
+                        },
+                        {
+                          phase: "Fase 2: Implementação",
+                          duration: "1-2 semanas",
+                          icon: <Code2 className="w-6 h-6 text-purple-600" />,
+                          tasks: [
+                            "Migrar componentes não-críticos",
+                            "Validar UI/UX",
+                            "Testes de acessibilidade",
+                            "Code review",
+                          ],
+                          color: "bg-purple-500/10 border-purple-500/20",
+                        },
+                        {
+                          phase: "Fase 3: Rollout",
+                          duration: "Contínuo",
+                          icon: (
+                            <CheckCircle className="w-6 h-6 text-green-600" />
+                          ),
+                          tasks: [
+                            "Deploy gradual",
+                            "Monitorar métricas",
+                            "Coletar feedback",
+                            "Otimizar performance",
+                          ],
+                          color: "bg-green-500/10 border-green-500/20",
+                        },
+                      ].map((phase, index) => (
+                        <motion.div
+                          key={phase.phase}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className={`p-6 rounded-xl border ${phase.color} hover:shadow-md transition-all duration-300`}
+                        >
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="p-2 rounded-lg bg-background/80">
+                              {phase.icon}
+                            </div>
+                            <div>
+                              <h3 className="font-semibold text-sm">
+                                {phase.phase}
+                              </h3>
+                              <p className="text-xs text-muted-foreground">
+                                {phase.duration}
+                              </p>
+                            </div>
+                          </div>
+                          <ul className="space-y-2">
+                            {phase.tasks.map((task) => (
+                              <li
+                                key={task}
+                                className="flex items-start gap-2 text-xs"
+                              >
+                                <CheckCircle className="w-3 h-3 text-green-600 mt-0.5 flex-shrink-0" />
+                                <span className="text-muted-foreground">
+                                  {task}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Installation & Setup */}
+                <div className="grid gap-6 lg:grid-cols-2">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Migração Gradual</CardTitle>
+                      <CardTitle className="flex items-center gap-2">
+                        <Package className="w-5 h-5 text-primary" />
+                        Instalação Básica
+                      </CardTitle>
                       <CardDescription>
-                        Integre componentes progressivamente, valide visual e
-                        comportamento por etapas.
+                        Primeiros passos para adicionar a biblioteca ao projeto
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <p className="text-sm text-muted-foreground">
-                        Comece importando componentes não críticos (Botões,
-                        Badges), execute testes visuais e de acessibilidade e
-                        então avance para layouts e padrões globais.
-                      </p>
-
-                      <div className="rounded-lg p-3 bg-muted/50 border border-border">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="font-medium">Instalar</div>
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-sm">
+                          1. Instalar pacote
+                        </h4>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 bg-muted/30 p-3 rounded-lg border border-border/50 font-mono text-sm">
+                            npm install @glacien/ui
+                          </div>
                           <Button
                             size="sm"
                             variant="outline"
@@ -3443,27 +3553,72 @@ export { Button }`}
                               copyToClipboard("npm install @glacien/ui")
                             }
                           >
-                            <Copy size={12} />
+                            <Copy className="w-4 h-4" />
                           </Button>
                         </div>
-
-                        <div className="text-sm font-mono bg-background/50 p-3 rounded whitespace-pre-wrap">
-                          npm install @glacien/ui
+                        <div className="flex gap-2">
+                          <code className="text-xs bg-muted px-2 py-1 rounded">
+                            yarn add @glacien/ui
+                          </code>
+                          <code className="text-xs bg-muted px-2 py-1 rounded">
+                            pnpm add @glacien/ui
+                          </code>
                         </div>
                       </div>
 
-                      <div>
-                        <div className="font-medium mb-1">Exemplo mínimo</div>
-                        <div className="text-sm font-mono bg-background/50 p-3 rounded whitespace-pre-wrap">
-                          {`import { Button } from '@glacien/ui';
-
-export default function Example() {
-  return <Button>Olá Glacien</Button>;
-}`}
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-sm">
+                          2. Importar estilos
+                        </h4>
+                        <div className="bg-muted/30 p-3 rounded-lg border border-border/50 font-mono text-sm">
+                          <span className="text-blue-600 dark:text-blue-400">
+                            import
+                          </span>{" "}
+                          <span className="text-green-600 dark:text-green-400">
+                            '@glacien/ui/dist/index.css'
+                          </span>
+                          ;
                         </div>
-                        <div className="mt-2 text-xs text-muted-foreground">
-                          Importe apenas os componentes que utilizar para manter
-                          bundle enxuto.
+                        <p className="text-xs text-muted-foreground">
+                          Adicione no seu ponto de entrada (index.tsx, _app.tsx,
+                          main.tsx, etc.)
+                        </p>
+                      </div>
+
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-sm">
+                          3. Usar componentes
+                        </h4>
+                        <div className="bg-muted/30 p-3 rounded-lg border border-border/50 font-mono text-xs space-y-1">
+                          <div>
+                            <span className="text-blue-600 dark:text-blue-400">
+                              import
+                            </span>{" "}
+                            {"{"} Button {"}"}{" "}
+                            <span className="text-blue-600 dark:text-blue-400">
+                              from
+                            </span>{" "}
+                            <span className="text-green-600 dark:text-green-400">
+                              '@glacien/ui'
+                            </span>
+                            ;
+                          </div>
+                          <div className="mt-2">
+                            <span className="text-blue-600 dark:text-blue-400">
+                              export default function
+                            </span>{" "}
+                            <span className="text-yellow-600 dark:text-yellow-400">
+                              App
+                            </span>
+                            () {"{"}
+                          </div>
+                          <div className="ml-4">
+                            <span className="text-blue-600 dark:text-blue-400">
+                              return
+                            </span>{" "}
+                            {"<Button>Clique aqui</Button>"};
+                          </div>
+                          <div>{"}"}</div>
                         </div>
                       </div>
                     </CardContent>
@@ -3471,225 +3626,358 @@ export default function Example() {
 
                   <Card>
                     <CardHeader>
-                      <CardTitle>CSS / Tailwind</CardTitle>
+                      <CardTitle className="flex items-center gap-2">
+                        <Palette className="w-5 h-5 text-primary" />
+                        Configurar Tailwind CSS
+                      </CardTitle>
                       <CardDescription>
-                        Como evitar conflitos e garantir que o Tailwind capture
-                        classes usadas pela biblioteca.
+                        Garantir que classes da biblioteca sejam incluídas
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <p className="text-sm text-muted-foreground">
-                        Adicione o diretório da distribuição da biblioteca em
-                        <code className="mx-1 font-mono">content</code> do
-                        tailwind.config.js para evitar perda de classes.
+                        Adicione o caminho da biblioteca no{" "}
+                        <code className="bg-muted px-1 py-0.5 rounded text-xs">
+                          content
+                        </code>{" "}
+                        do seu{" "}
+                        <code className="bg-muted px-1 py-0.5 rounded text-xs">
+                          tailwind.config.js
+                        </code>
+                        :
                       </p>
 
-                      <div className="p-3 bg-muted/50 rounded">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="font-medium">
-                            Exemplo tailwind.config.js
-                          </div>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium">
+                            tailwind.config.js
+                          </span>
                           <Button
                             size="sm"
                             variant="outline"
                             onClick={() =>
-                              copyToClipboard(
-                                `module.exports = {
-              content: [
-                './src/**/*.{js,ts,jsx,tsx}',
-                './node_modules/@glacien/ui/dist/**/*.js'
-              ],
-            };`
-                              )
-                            }
-                          >
-                            <Copy size={12} />
-                          </Button>
-                        </div>
-
-                        <div className="text-sm font-mono bg-background/50 p-3 rounded whitespace-pre-wrap">
-                          {`module.exports = {
+                              copyToClipboard(`module.exports = {
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
     './node_modules/@glacien/ui/dist/**/*.js'
   ],
-};`}
+}`)
+                            }
+                          >
+                            <Copy className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        <div className="bg-muted/30 p-3 rounded-lg border border-border/50 font-mono text-xs overflow-x-auto">
+                          <pre className="text-muted-foreground">
+                            {`module.exports = {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',`}
+                            <span className="bg-yellow-500/20 px-1">{`
+    './node_modules/@glacien/ui/dist/**/*.js'`}</span>
+                            {`
+  ],
+  // ... resto da config
+}`}
+                          </pre>
                         </div>
                       </div>
 
-                      <div className="text-sm text-muted-foreground">
-                        Em casos de conflito de tokens prefira:
-                        <ul className="list-disc pl-5 mt-2">
-                          <li>Override via CSS variables do tema</li>
-                          <li>Usar prefix em Tailwind (se necessário)</li>
-                        </ul>
+                      <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                        <p className="text-xs text-blue-700 dark:text-blue-300">
+                          <strong>Importante:</strong> Isso garante que o
+                          Tailwind não remova classes usadas pelos componentes
+                          da biblioteca durante o build.
+                        </p>
                       </div>
                     </CardContent>
                   </Card>
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-2">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Import & Tree-shaking</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      <p className="text-sm text-muted-foreground">
-                        Use named imports do pacote principal para garantir
-                        tree-shaking e evitar bundles desnecessários.
-                      </p>
-
-                      <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="p-3 bg-background/50 rounded border border-border">
-                          <div className="flex items-start justify-between mb-2">
-                            <div className="font-semibold text-sm text-muted-foreground">
-                              Recomendado
-                            </div>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() =>
-                                navigator.clipboard.writeText(
-                                  "import { Button } from '@glacien/ui';"
-                                )
-                              }
-                            >
-                              <Copy size={14} />
-                            </Button>
-                          </div>
-                          <div className="text-sm font-mono whitespace-pre-wrap">
-                            {"import { Button } from '@glacien/ui;"}
-                          </div>
-                        </div>
-
-                        <div className="p-3 bg-background/50 rounded border border-border">
-                          <div className="flex items-start justify-between mb-2">
-                            <div className="font-semibold text-sm text-muted-foreground">
-                              Evitar
-                            </div>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() =>
-                                navigator.clipboard.writeText(
-                                  "import Glacien from '@glacien/ui/dist/full-bundle';"
-                                )
-                              }
-                            >
-                              <Copy size={14} />
-                            </Button>
-                          </div>
-                          <div className="text-sm font-mono whitespace-pre-wrap">
-                            import Glacien from '@glacien/ui/dist/full-bundle';
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Theming & Provider</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      <p className="text-sm text-muted-foreground">
-                        Passe tokens via provider para centralizar tema e evitar
-                        mutações diretas nos componentes.
-                      </p>
-
-                      <div className="text-sm font-mono bg-background/50 p-3 rounded whitespace-pre-wrap">
-                        {`<GlacienProvider theme={{ colors: { primary: '#1e3a8a' } }}>
-  <App />
-</GlacienProvider>`}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-
+                {/* Import Strategies */}
                 <Card>
                   <CardHeader>
-                    <CardTitle>Exemplos & Troubleshooting</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                      <Code2 className="w-5 h-5 text-primary" />
+                      Estratégias de Import
+                    </CardTitle>
                     <CardDescription>
-                      Trechos prontos para copiar e problemas comuns com
-                      soluções
+                      Como importar componentes para otimizar bundle size
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-3 text-sm text-muted-foreground">
-                      <div>
-                        <div className="font-medium">Import errado</div>
-                        <div>
-                          Se você importar todo o pacote e notar aumento de
-                          bundle, verifique se está usando named imports.
+                  <CardContent>
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="p-4 rounded-xl bg-green-500/5 border border-green-500/20">
+                        <div className="flex items-center gap-2 mb-3">
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          <h4 className="font-semibold text-sm text-green-700 dark:text-green-400">
+                            ✅ Recomendado: Named Imports
+                          </h4>
                         </div>
-                        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <div className="p-3 bg-background/50 rounded border border-border">
-                            <div className="flex items-start justify-between mb-2">
-                              <div className="font-semibold text-sm text-muted-foreground">
-                                Evitar
-                              </div>
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() =>
-                                  navigator.clipboard.writeText(
-                                    "import Glacien from '@glacien/ui/dist/full-bundle';"
-                                  )
-                                }
-                              >
-                                <Copy size={14} />
-                              </Button>
-                            </div>
-                            <div className="text-sm font-mono whitespace-pre-wrap">
-                              import Glacien from
-                              '@glacien/ui/dist/full-bundle';
+                        <div className="bg-background/80 p-3 rounded-lg border border-border/50 font-mono text-xs mb-3">
+                          <div className="text-blue-600 dark:text-blue-400">
+                            import
+                          </div>{" "}
+                          <span className="text-yellow-600 dark:text-yellow-400">
+                            {"{"}
+                          </span>{" "}
+                          Button, Card, Input{" "}
+                          <span className="text-yellow-600 dark:text-yellow-400">
+                            {"}"}
+                          </span>{" "}
+                          <div className="text-blue-600 dark:text-blue-400">
+                            from
+                          </div>{" "}
+                          <span className="text-green-600 dark:text-green-400">
+                            '@glacien/ui'
+                          </span>
+                          ;
+                        </div>
+                        <ul className="space-y-1 text-xs text-green-600 dark:text-green-300">
+                          <li className="flex items-center gap-2">
+                            <Zap className="w-3 h-3" />
+                            Tree-shaking automático
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <Zap className="w-3 h-3" />
+                            Bundle size mínimo
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <Zap className="w-3 h-3" />
+                            Melhor performance
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="p-4 rounded-xl bg-red-500/5 border border-red-500/20">
+                        <div className="flex items-center gap-2 mb-3">
+                          <AlertCircle className="w-5 h-5 text-red-600" />
+                          <h4 className="font-semibold text-sm text-red-700 dark:text-red-400">
+                            ❌ Evitar: Default Import
+                          </h4>
+                        </div>
+                        <div className="bg-background/80 p-3 rounded-lg border border-border/50 font-mono text-xs mb-3">
+                          <div className="text-blue-600 dark:text-blue-400">
+                            import
+                          </div>{" "}
+                          Glacien{" "}
+                          <div className="text-blue-600 dark:text-blue-400">
+                            from
+                          </div>{" "}
+                          <span className="text-green-600 dark:text-green-400">
+                            '@glacien/ui'
+                          </span>
+                          ;
+                        </div>
+                        <ul className="space-y-1 text-xs text-red-600 dark:text-red-300">
+                          <li className="flex items-center gap-2">
+                            <AlertCircle className="w-3 h-3" />
+                            Importa toda biblioteca
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <AlertCircle className="w-3 h-3" />
+                            Bundle size aumenta ~200KB
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <AlertCircle className="w-3 h-3" />
+                            Performance degradada
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Common Issues & Solutions */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <AlertCircle className="w-5 h-5 text-yellow-600" />
+                      Problemas Comuns & Soluções
+                    </CardTitle>
+                    <CardDescription>
+                      Troubleshooting de issues frequentes durante integração
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {[
+                      {
+                        problem: "Componentes sem estilos",
+                        cause: "CSS da biblioteca não foi importado",
+                        solution:
+                          "Adicione import '@glacien/ui/dist/index.css' no ponto de entrada",
+                        code: "import '@glacien/ui/dist/index.css';",
+                        type: "error",
+                      },
+                      {
+                        problem: "Classes Tailwind não aplicadas",
+                        cause:
+                          "Caminho da biblioteca não está no content do Tailwind",
+                        solution:
+                          "Adicione './node_modules/@glacien/ui/dist/**/*.js' ao tailwind.config.js",
+                        code: `content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/@glacien/ui/dist/**/*.js']`,
+                        type: "error",
+                      },
+                      {
+                        problem: "Bundle size muito grande",
+                        cause:
+                          "Usando default import ao invés de named imports",
+                        solution:
+                          "Use import { Button } from '@glacien/ui' ao invés de import Glacien",
+                        code: "import { Button, Card } from '@glacien/ui';",
+                        type: "warning",
+                      },
+                      {
+                        problem: "Erro SSR (window is not defined)",
+                        cause: "Componente usa APIs do browser no servidor",
+                        solution:
+                          "Use dynamic import ou carregue apenas no cliente",
+                        code: `const Component = dynamic(() => import('./Component'), { ssr: false });`,
+                        type: "warning",
+                      },
+                      {
+                        problem: "Conflito de estilos com biblioteca existente",
+                        cause: "CSS global sobrescrevendo estilos",
+                        solution:
+                          "Importe CSS da biblioteca após resets globais ou use CSS Modules",
+                        code: "// 1. Reset/Global CSS\n// 2. import '@glacien/ui/dist/index.css'",
+                        type: "info",
+                      },
+                    ].map((issue, index) => (
+                      <motion.div
+                        key={issue.problem}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                        className={`p-4 rounded-xl border ${
+                          issue.type === "error"
+                            ? "bg-red-500/5 border-red-500/20"
+                            : issue.type === "warning"
+                              ? "bg-yellow-500/5 border-yellow-500/20"
+                              : "bg-blue-500/5 border-blue-500/20"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3 mb-3">
+                          {issue.type === "error" && (
+                            <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
+                          )}
+                          {issue.type === "warning" && (
+                            <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
+                          )}
+                          {issue.type === "info" && (
+                            <HelpCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                          )}
+                          <div className="flex-1">
+                            <h4
+                              className={`font-semibold text-sm mb-1 ${
+                                issue.type === "error"
+                                  ? "text-red-700 dark:text-red-400"
+                                  : issue.type === "warning"
+                                    ? "text-yellow-700 dark:text-yellow-400"
+                                    : "text-blue-700 dark:text-blue-400"
+                              }`}
+                            >
+                              {issue.problem}
+                            </h4>
+                            <p className="text-xs text-muted-foreground mb-2">
+                              <strong>Causa:</strong> {issue.cause}
+                            </p>
+                            <p className="text-xs text-muted-foreground mb-3">
+                              <strong>Solução:</strong> {issue.solution}
+                            </p>
+                            <div className="bg-background/80 p-3 rounded-lg border border-border/50 font-mono text-xs">
+                              {issue.code}
                             </div>
                           </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </CardContent>
+                </Card>
 
-                          <div className="p-3 bg-background/50 rounded border border-border">
-                            <div className="flex items-start justify-between mb-2">
-                              <div className="font-semibold text-sm text-muted-foreground">
-                                Recomendado
-                              </div>
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() =>
-                                  navigator.clipboard.writeText(
-                                    "import { Button } from '@glacien/ui';"
-                                  )
-                                }
-                              >
-                                <Copy size={14} />
-                              </Button>
+                {/* Framework-Specific Integration */}
+                <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-primary">
+                      <Code2 className="w-5 h-5" />
+                      Integração Específica por Framework
+                    </CardTitle>
+                    <CardDescription>
+                      Guias e considerações especiais para cada framework
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {[
+                        {
+                          framework: "Next.js",
+                          icon: <SiNextdotjs className="w-5 h-5" />,
+                          tips: [
+                            "App Router: Importe CSS em layout.tsx",
+                            "Pages Router: Importe CSS em _app.tsx",
+                            "Use 'use client' para componentes interativos",
+                            "Dynamic imports para componentes pesados",
+                          ],
+                          code: `// app/layout.tsx
+import '@glacien/ui/dist/index.css'`,
+                        },
+                        {
+                          framework: "Vite",
+                          icon: <SiVite className="w-5 h-5" />,
+                          tips: [
+                            "Importe CSS em main.tsx",
+                            "Tree-shaking automático",
+                            "HMR funciona out-of-the-box",
+                            "Build otimizado por padrão",
+                          ],
+                          code: `// main.tsx
+import '@glacien/ui/dist/index.css'`,
+                        },
+                        {
+                          framework: "Remix",
+                          icon: <SiRemix className="w-5 h-5" />,
+                          tips: [
+                            "Importe CSS em root.tsx",
+                            "Componentes funcionam com progressive enhancement",
+                            "Use links export para CSS",
+                            "Compatible com Remix Vite",
+                          ],
+                          code: `// app/root.tsx
+import styles from '@glacien/ui/dist/index.css'`,
+                        },
+                      ].map((fw, index) => (
+                        <motion.div
+                          key={fw.framework}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.1 }}
+                          className="p-4 rounded-xl bg-background border border-border hover:border-primary/50 hover:shadow-md transition-all duration-300"
+                        >
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="p-2 rounded-lg bg-primary/10">
+                              {fw.icon}
                             </div>
-                            <div className="text-sm font-mono whitespace-pre-wrap">
-                              {"import { Button } from '@glacien/ui;"}
-                            </div>
+                            <h4 className="font-semibold">{fw.framework}</h4>
                           </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <div className="font-medium">SSR issues</div>
-                        <div>
-                          Para componentes que usam window/DOM, carregue no
-                          cliente: dynamic import / React.lazy / useEffect.
-                        </div>
-                        <div className="mt-2 text-sm font-mono bg-background/50 p-3 rounded whitespace-pre-wrap">
-                          {`// Next.js dynamic import
-import dynamic from 'next/dynamic';
-const ClientOnlyComponent = dynamic(() => import('./Heavy'), { ssr: false });`}
-                        </div>
-                      </div>
-
-                      <div>
-                        <div className="font-medium">Conflitos de estilos</div>
-                        <div>
-                          Importe o CSS da biblioteca após o reset global ou use
-                          escopo local (CSS Modules).
-                        </div>
-                      </div>
+                          <ul className="space-y-2 mb-3">
+                            {fw.tips.map((tip) => (
+                              <li
+                                key={tip}
+                                className="flex items-start gap-2 text-sm"
+                              >
+                                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                                <span className="text-muted-foreground">
+                                  {tip}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="bg-muted/30 p-3 rounded-lg border border-border/50 font-mono text-xs">
+                            {fw.code}
+                          </div>
+                        </motion.div>
+                      ))}
                     </div>
                   </CardContent>
                 </Card>

@@ -9357,28 +9357,13 @@
           }
           randomChar() {
             return this.chars[Math.floor(Math.random() * this.chars.length)];
-          }
-          startLoop(interval = 3500) {
-            if (this.looping) return;
-            this.looping = true;
-            const run = () => {
-              if (!this.looping) return;
-              // use the element's data-text as the target
-              const target = this.el.getAttribute("data-text") || this.el.innerText;
-              this.setText(target).then(() => {
-                if (this.looping) this._loopTimeout = setTimeout(run, interval);
-              });
-            };
-            run();
-          }
-
+          }       
           stopLoop() {
             this.looping = false;
             if (this._loopTimeout) {
               clearTimeout(this._loopTimeout);
               this._loopTimeout = null;
             }
-            // also cancel any in-flight animationFrame
             if (this.frameRequest) cancelAnimationFrame(this.frameRequest);
           }
         }

@@ -1,0 +1,413 @@
+/* Extracted CSS from index.html */
+
+/* --- CORE STYLES --- */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #030303;
+  color: white;
+  overflow-x: hidden;
+  cursor: none;
+}
+::selection {
+  background: #0ea5e9;
+  color: white;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #030303;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f1f1f;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0ea5e9;
+}
+
+/* --- UTILITIES --- */
+.noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* --- CUSTOM CURSOR --- */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+.cursor-circle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s;
+  mix-blend-mode: difference;
+}
+body.hovering .cursor-circle {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: transparent;
+  backdrop-filter: blur(2px);
+}
+
+/* --- ANIMATIONS --- */
+.reveal-mask {
+  overflow: hidden;
+  display: block;
+  position: relative;
+}
+.reveal-text {
+  display: block;
+  transform: translateY(120%) skewY(3deg);
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: top left;
+  will-change: transform, opacity;
+}
+.reveal-text.visible {
+  transform: translateY(0) skewY(0deg);
+  opacity: 1;
+}
+
+/* --- SPOTLIGHT EFFECT --- */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.06),
+    transparent 40%
+  );
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* --- LAYOUT --- */
+.main-content {
+  position: relative;
+  z-index: 10;
+  background-color: #030303;
+  margin-bottom: 90vh;
+  box-shadow: 0 100px 200px rgba(0, 0, 0, 1);
+}
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90vh;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #050505;
+}
+
+/* PARALLAX & SCROLL */
+.parallax-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.parallax-img {
+  width: 100%;
+  height: 130%;
+  position: relative;
+  top: -15%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.h-section {
+  position: relative;
+  height: 500vh;
+}
+.h-sticky-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: #030303;
+}
+.h-track {
+  display: flex;
+  gap: 4rem;
+  padding-left: 10vw;
+  width: max-content;
+  will-change: transform;
+}
+
+/* 3D TILT */
+.tilt-card {
+  transition: transform 0.1s;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+.tilt-content {
+  transform: translateZ(20px);
+}
+
+/* --- TAILWIND EXTRACTED (truncated/complete dump) --- */
+/* The following block is the Tailwind-generated CSS included in the page. */
+
+*,
+::before,
+::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x: ;
+  --tw-pan-y: ;
+  --tw-pinch-zoom: ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position: ;
+  --tw-gradient-via-position: ;
+  --tw-gradient-to-position: ;
+  --tw-ordinal: ;
+  --tw-slashed-zero: ;
+  --tw-numeric-figure: ;
+  --tw-numeric-spacing: ;
+  --tw-numeric-fraction: ;
+  --tw-ring-inset: ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur: ;
+  --tw-brightness: ;
+  --tw-contrast: ;
+  --tw-grayscale: ;
+  --tw-hue-rotate: ;
+  --tw-invert: ;
+  --tw-saturate: ;
+  --tw-sepia: ;
+  --tw-drop-shadow: ;
+  --tw-backdrop-blur: ;
+  --tw-backdrop-brightness: ;
+  --tw-backdrop-contrast: ;
+  --tw-backdrop-grayscale: ;
+  --tw-backdrop-hue-rotate: ;
+  --tw-backdrop-invert: ;
+  --tw-backdrop-opacity: ;
+  --tw-backdrop-saturate: ;
+  --tw-backdrop-sepia: ;
+  --tw-contain-size: ;
+  --tw-contain-layout: ;
+  --tw-contain-paint: ;
+  --tw-contain-style: ;
+}
+::backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x: ;
+  --tw-pan-y: ;
+  --tw-pinch-zoom: ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position: ;
+  --tw-gradient-via-position: ;
+  --tw-gradient-to-position: ;
+  --tw-ordinal: ;
+  --tw-slashed-zero: ;
+  --tw-numeric-figure: ;
+  --tw-numeric-spacing: ;
+  --tw-numeric-fraction: ;
+  --tw-ring-inset: ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur: ;
+  --tw-brightness: ;
+  --tw-contrast: ;
+  --tw-grayscale: ;
+  --tw-hue-rotate: ;
+  --tw-invert: ;
+  --tw-saturate: ;
+  --tw-sepia: ;
+  --tw-drop-shadow: ;
+  --tw-backdrop-blur: ;
+  --tw-backdrop-brightness: ;
+  --tw-backdrop-contrast: ;
+  --tw-backdrop-grayscale: ;
+  --tw-backdrop-hue-rotate: ;
+  --tw-backdrop-invert: ;
+  --tw-backdrop-opacity: ;
+  --tw-backdrop-saturate: ;
+  --tw-backdrop-sepia: ;
+  --tw-contain-size: ;
+  --tw-contain-layout: ;
+  --tw-contain-paint: ;
+  --tw-contain-style: ;
+}
+
+/* (Tailwind rules continue...) */
+
+/* --- DYN IMG LINK STYLES --- */
+.dyn-img-link-wrapper-di-script {
+  anchor-scope: all;
+  display: contents;
+  position: relative;
+  z-index: 1;
+}
+.dyn-img-link-wrapper-di-script img {
+  anchor-name: --photo;
+  display: block;
+  max-width: 100%;
+}
+.dyn-img-link-di-script {
+  z-index: 999999;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: white;
+  height: clamp(
+    13px,
+    calc(max(anchor-size(width), anchor-size(height)) * 0.3),
+    21px
+  );
+  width: clamp(
+    13px,
+    calc(max(anchor-size(width), anchor-size(height)) * 0.3),
+    21px
+  );
+  padding: 4px;
+  position: absolute;
+  bottom: anchor(bottom);
+  left: anchor(left);
+  margin-left: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+.dyn-img-link-di-script:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.dyn-img-link-di-script span {
+  font-size: 14px;
+  vertical-align: top;
+}
+.dyn-img-attribution-button-di-script {
+  z-index: 999999;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: white;
+  width: clamp(
+    13px,
+    calc(max(anchor-size(width), anchor-size(height)) * 0.3),
+    21px
+  );
+  height: clamp(
+    13px,
+    calc(max(anchor-size(width), anchor-size(height)) * 0.3),
+    21px
+  );
+  padding: 4px;
+  position: absolute;
+  position-anchor: --photo;
+  top: anchor(top);
+  right: anchor(right);
+  margin-top: 10px;
+  margin-right: 10px;
+  transition: background-color 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dyn-img-attribution-button-di-script:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.dyn-img-attribution-button-di-script span {
+  font-size: 14px;
+  vertical-align: top;
+}
+.dyn-img-inline-attribution-di-script {
+  z-index: 999999;
+  font-size: 12px;
+  padding: 4px;
+  display: none;
+  position: absolute;
+  position-anchor: --photo;
+  bottom: anchor(bottom);
+  right: anchor(right);
+  margin-bottom: 8px;
+  margin-right: 8px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+  white-space: nowrap;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: white;
+}
